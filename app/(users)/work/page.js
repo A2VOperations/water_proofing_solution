@@ -1,165 +1,220 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { getAllWorksAction } from "@/app/actions/admin";
 
-const ROW_1_IMAGES = [
-  "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1541888087854-4712850a9dcc?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?auto=format&fit=crop&w=800&q=80"
-];
+const WorkCard = ({ work, index }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef(null);
 
-const ROW_2_IMAGES = [
-  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1541888087854-4712850a9dcc?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80"
-];
+  useEffect(() => {
+    if (work.images && work.images.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % work.images.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [work.images]);
 
-const STACK_IMAGES = [
-  "https://images.unsplash.com/photo-1541888087854-4712850a9dcc?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80"
-];
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`group relative aspect-[4/5] rounded-[32px] overflow-hidden bg-gray-100 shadow-sm transition-all duration-700 transform ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+      }`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      {work.images.map((src, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            i === currentImageIndex ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Image
+            src={src}
+            alt={work.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      ))}
+      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8 sm:p-10 text-white">
+        <div className="transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+          <div className="w-12 h-1 bg-[#0088ff] mb-6 rounded-full"></div>
+          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-3">
+            {work.title}
+          </h3>
+          <p className="text-sm sm:text-base text-gray-200 font-medium leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+            {work.description}
+          </p>
+        </div>
+      </div>
+      <div className="absolute top-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest opacity-80">
+        Project #{index + 1}
+      </div>
+    </div>
+  );
+};
 
 export default function Work() {
+  const [works, setWorks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const row1Ref = useRef(null);
   const row2Ref = useRef(null);
   const stackRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    async function fetchWorks() {
+      const result = await getAllWorksAction();
+      if (result.success) {
+        setWorks(result.works);
+      }
+      setLoading(false);
+    }
+    fetchWorks();
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      
-      // Dual Carousel Logic
       if (row1Ref.current && row2Ref.current) {
         row1Ref.current.style.transform = `translateX(calc(-100px - ${scrollY * 0.45}px))`;
         row2Ref.current.style.transform = `translateX(calc(-1500px + ${scrollY * 0.45}px))`;
       }
-
-      // Card Stash Logic
       if (stackRef.current) {
         const rect = stackRef.current.getBoundingClientRect();
         const scrollableDistance = rect.height - window.innerHeight;
-        
         if (scrollableDistance > 0) {
           const scrolled = -rect.top;
           if (scrolled >= 0 && scrolled <= scrollableDistance) {
             const progress = scrolled / scrollableDistance;
-            // Determine active index based on progress
-            const index = Math.min(STACK_IMAGES.length - 1, Math.floor(progress * STACK_IMAGES.length));
+            const index = Math.min(3, Math.floor(progress * 4));
             setActiveIndex(index);
-          } else if (scrolled > scrollableDistance) {
-            setActiveIndex(STACK_IMAGES.length - 1);
-          } else if (scrolled < 0) {
-            setActiveIndex(0);
           }
         }
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); 
-    
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Collect all project images for the carousel
+  const allProjectImages = works.flatMap(w => w.images);
+  const row1Images = allProjectImages.filter((_, i) => i % 2 === 0);
+  const row2Images = allProjectImages.filter((_, i) => i % 2 !== 0);
+
   return (
     <main className="min-h-screen bg-white font-sans text-gray-900 pt-32 pb-24">
-      
       {/* ── HEADER ── */}
-      <section className="max-w-4xl mx-auto px-6 text-center mb-16 mt-10">
-        <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
-          OUR PORTFOLIO
-        </p>
-        <h1 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
-          DISCOVER OUR<br/>RECENT PROJECTS.
+      <section className="max-w-5xl mx-auto px-6 text-center mb-24 mt-10">
+        <div className="inline-block border border-gray-200 rounded-full px-4 py-1.5 text-[10px] font-black tracking-[0.2em] text-[#0088ff] mb-6 uppercase bg-gray-50/50">
+          Portfolio
+        </div>
+        <h1 className="text-[45px] md:text-[72px] font-black uppercase tracking-tight leading-[0.95] mb-8 text-[#111]">
+          DISCOVER OUR<br />
+          <span className="text-[#0088ff]">RECENT PROJECTS.</span>
         </h1>
-        <p className="text-gray-600 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10">
-          Explore the quality and craftsmanship we bring to every job. Scroll down to view the magic in action.
+        <p className="text-gray-500 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+          Excellence in every detail. Explore our latest waterproofing solutions and specialized repairs across the region.
         </p>
       </section>
 
-      {/* ── DUAL CAROUSEL SECTION ── */}
-      <section className="relative w-full py-10 flex flex-col gap-4 sm:gap-6 bg-[#f9f9f9] border-y border-gray-100 overflow-hidden">
-        
-        {/* Top Row - Moves Left */}
-        <div className="w-full">
-          <div 
-            ref={row1Ref} 
-            className="flex gap-4 sm:gap-6 w-max will-change-transform"
-          >
-            {[...ROW_1_IMAGES, ...ROW_1_IMAGES, ...ROW_1_IMAGES].map((src, i) => (
-              <div key={i} className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white">
-                <Image src={src} alt={`Project ${i}`} fill className="object-cover" priority={i === 0} />
-              </div>
+      {/* ── PROJECTS GRID ── */}
+      <section className="max-w-7xl mx-auto px-6 mb-32">
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="aspect-[4/5] rounded-[32px] bg-gray-50 animate-pulse"></div>
             ))}
           </div>
-        </div>
-
-        {/* Center Badge Overlapping */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-          <div className="bg-[#0088ff] text-white w-[140px] h-[140px] sm:w-[200px] sm:h-[200px] rounded-full flex flex-col items-center justify-center text-center p-4 shadow-2xl border-[6px] border-white">
-            <span className="font-bold text-xs sm:text-[17px] leading-tight tracking-wide">
-              Showcasing our<br/>recent projects
-            </span>
+        ) : works.length === 0 ? (
+          <div className="text-center py-32 bg-gray-50 rounded-[40px] border border-dashed border-gray-200">
+            <p className="text-gray-400 font-black uppercase tracking-widest text-sm">No projects added yet.</p>
           </div>
-        </div>
-
-        {/* Bottom Row - Moves Right */}
-        <div className="w-full">
-          <div 
-            ref={row2Ref} 
-            className="flex gap-4 sm:gap-6 w-max will-change-transform"
-          >
-            {[...ROW_2_IMAGES, ...ROW_2_IMAGES, ...ROW_2_IMAGES].map((src, i) => (
-              <div key={i} className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white">
-                <Image src={src} alt={`Project ${i}`} fill className="object-cover" />
-              </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            {works.map((work, i) => (
+              <WorkCard key={work._id} work={work} index={i} />
             ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* ── STICKY CARD STASH SECTION ── */}
-      <section ref={stackRef} className="relative w-full h-[400vh]">
-        {/* Sticky Container */}
-        <div className="sticky top-0 h-screen w-full flex items-center bg-white overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center w-full">
-            
-            {/* Left Content */}
-            <div className="flex flex-col gap-6 relative z-10">
-              <div className="border border-gray-300 rounded-full px-4 py-1.5 w-fit text-xs font-bold tracking-widest text-[#0088ff] mb-2 uppercase">
+      {/* ── RESTORED DUAL CAROUSEL SECTION ── */}
+      {works.length > 0 && (
+        <section className="relative w-full py-16 sm:py-20 flex flex-col gap-6 sm:gap-8 bg-[#f9f9f9] border-y border-gray-100 overflow-hidden mb-20 sm:mb-32">
+          <div className="w-full">
+            <div ref={row1Ref} className="flex gap-4 sm:gap-6 w-max will-change-transform">
+              {[...row1Images, ...row1Images, ...row1Images].map((src, i) => (
+                <div key={i} className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white">
+                  <Image src={src} alt={`Project ${i}`} fill className="object-cover" />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+            <div className="bg-[#0088ff] text-white w-[120px] h-[120px] sm:w-[200px] sm:h-[200px] rounded-full flex flex-col items-center justify-center text-center p-4 shadow-2xl border-[4px] sm:border-[6px] border-white">
+              <span className="font-bold text-[10px] sm:text-[17px] leading-tight tracking-wide uppercase">
+                Showcasing our<br/>Gallery
+              </span>
+            </div>
+          </div>
+          <div className="w-full">
+            <div ref={row2Ref} className="flex gap-4 sm:gap-6 w-max will-change-transform">
+              {[...row2Images, ...row2Images, ...row2Images].map((src, i) => (
+                <div key={i} className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white">
+                  <Image src={src} alt={`Project ${i}`} fill className="object-cover" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── RESTORED STICKY CARD STASH SECTION ── */}
+      <section ref={stackRef} className="relative w-full h-[200vh] sm:h-[300vh] mb-20 sm:mb-32">
+        <div className="sticky top-0 h-screen w-full flex items-center bg-white overflow-hidden pt-20 sm:pt-0">
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 sm:gap-16 items-center w-full">
+            <div className="flex flex-col gap-4 sm:gap-6 relative z-10 text-center md:text-left items-center md:items-start">
+              <div className="border border-gray-300 rounded-full px-4 py-1.5 w-fit text-[10px] sm:text-xs font-bold tracking-widest text-[#0088ff] mb-2 uppercase">
                 WHY CHOOSE US
               </div>
-              <h2 className="text-4xl md:text-5xl font-black uppercase text-[#111] leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-[#111] leading-tight">
                 EXCELLENCE IN EVERY DETAIL
               </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-6">
+              <p className="text-gray-600 text-lg leading-relaxed mb-6 font-medium">
                 Our commitment to quality extends beyond the visible surfaces. We pride ourselves on using industry-leading materials and techniques to ensure your projects stand the test of time.
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2 border-l-4 border-[#0088ff] pl-4">
-                  <h3 className="text-3xl font-black text-[#111]">150+</h3>
-                  <p className="text-gray-500 font-medium">Projects Completed</p>
+                  <h3 className="text-3xl font-black text-[#111]">{works.length * 12}+</h3>
+                  <p className="text-gray-500 font-bold text-xs uppercase tracking-widest">Successful Inspections</p>
                 </div>
                 <div className="flex flex-col gap-2 border-l-4 border-[#0088ff] pl-4">
                   <h3 className="text-3xl font-black text-[#111]">100%</h3>
-                  <p className="text-gray-500 font-medium">Client Satisfaction</p>
+                  <p className="text-gray-500 font-bold text-xs uppercase tracking-widest">Satisfaction</p>
                 </div>
               </div>
             </div>
-            
-            {/* Right Stack of Cards */}
-            <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl bg-gray-100 border border-gray-200">
-              {STACK_IMAGES.map((img, i) => (
+            <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[500px] lg:h-[600px] rounded-[40px] overflow-hidden shadow-2xl bg-gray-100 border border-gray-200">
+              {allProjectImages.slice(0, 4).map((img, i) => (
                 <div 
                   key={i} 
                   className="absolute inset-0 transition-all duration-700 ease-out origin-bottom"
@@ -169,15 +224,27 @@ export default function Work() {
                     zIndex: i
                   }}
                 >
-                  <Image src={img} alt={`Excellence ${i}`} fill className="object-cover" priority={i === 0} sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src={img} alt={`Excellence ${i}`} fill className="object-cover" />
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </section>
 
+      {/* ── CALL TO ACTION ── */}
+      <section className="max-w-7xl mx-auto px-6">
+        <div className="bg-[#111] rounded-[48px] p-12 md:p-20 text-center relative overflow-hidden group">
+          <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-8 relative z-10">
+            Have a similar project<br />in mind?
+          </h2>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center relative z-10">
+            <a href="/contact" className="bg-[#0088ff] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#0070d6] hover:-translate-y-1 transition-all shadow-xl shadow-[#0088ff]/20">
+              Get A Quote
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

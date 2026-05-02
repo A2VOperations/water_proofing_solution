@@ -70,7 +70,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto w-full px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-16">
           {/* ── LEFT COLUMN ── */}
-          <div className="lg:w-[25%] flex flex-col justify-between h-full min-h-[250px]">
+          <div className="lg:w-[25%] flex flex-col justify-between h-full min-h-[250px] items-center lg:items-start text-center lg:text-left">
             <div className="mb-12 lg:mb-0 pt-2">
               <Link href="/" className="flex items-center gap-3 decoration-transparent">
                 <div className="relative flex items-center justify-center text-[#1d70b8]">
@@ -82,150 +82,91 @@ export default function Footer() {
                   </svg>
                 </div>
                 <span className="text-white text-[28px] font-bold tracking-wide">
-                  Feexaro
+                  Rooflêt
                 </span>
               </Link>
             </div>
 
-            <div className="flex gap-5 mt-auto">
+            <div className="flex gap-5 mt-8 lg:mt-auto">
               {[
-                {
-                  label: "Facebook",
-                  href: "#",
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                    </svg>
-                  ),
-                },
-                {
-                  label: "Twitter",
-                  href: "#",
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43.36a9 9 0 0 1-2.88 1.1A4.52 4.52 0 0 0 16.11 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03C7.69 5.4 4.07 3.58 1.64.9a4.52 4.52 0 0 0 1.4 6.04 4.48 4.48 0 0 1-2.05-.56v.06a4.52 4.52 0 0 0 3.62 4.43 4.52 4.52 0 0 1-2.04.08 4.52 4.52 0 0 0 4.22 3.14A9.06 9.06 0 0 1 0 19.54a12.77 12.77 0 0 0 6.92 2.03c8.3 0 12.85-6.88 12.85-12.85 0-.2 0-.39-.01-.58A9.17 9.17 0 0 0 23 3z"/>
-                    </svg>
-                  ),
-                },
-                {
-                  label: "Instagram",
-                  href: "#",
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                      <circle cx="12" cy="12" r="4"/>
-                      <circle cx="17.5" cy="6.5" r="0.01" fill="currentColor" strokeWidth="3"/>
-                    </svg>
-                  ),
-                },
-                {
-                  label: "YouTube",
-                  href: "#",
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
-                    </svg>
-                  ),
-                },
+                { label: "Facebook", href: "#", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg> },
+                { label: "Twitter", href: "#", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43.36a9 9 0 0 1-2.88 1.1A4.52 4.52 0 0 0 16.11 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03C7.69 5.4 4.07 3.58 1.64.9a4.52 4.52 0 0 0 1.4 6.04 4.48 4.48 0 0 1-2.05-.56v.06a4.52 4.52 0 0 0 3.62 4.43 4.52 4.52 0 0 1-2.04.08 4.52 4.52 0 0 0 4.22 3.14A9.06 9.06 0 0 1 0 19.54a12.77 12.77 0 0 0 6.92 2.03c8.3 0 12.85-6.88 12.85-12.85 0-.2 0-.39-.01-.58A9.17 9.17 0 0 0 23 3z"/></svg> },
+                { label: "Instagram", href: "#", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" fill="currentColor" strokeWidth="3"/></svg> },
+                { label: "YouTube", href: "#", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg> },
               ].map(({ label, href, icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="text-white hover:text-[#1d70b8] transition-colors"
-                >
-                  {icon}
-                </a>
+                <a key={label} href={href} aria-label={label} className="text-white hover:text-[#0088ff] transition-colors">{icon}</a>
               ))}
             </div>
           </div>
 
           {/* ── RIGHT COLUMN ── */}
-          <div className="lg:w-[75%] flex flex-col">
+          <div className="lg:w-[75%] flex flex-col text-center lg:text-left items-center lg:items-start">
             
             {/* Newsletter Row */}
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-10 border-b border-white/10">
-              <h2 className="text-white text-[32px] md:text-[36px] font-bold w-full md:w-[45%] leading-tight">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 pb-10 border-b border-white/10 w-full">
+              <h2 className="text-white text-[28px] md:text-[36px] font-bold w-full lg:w-[45%] leading-tight">
                 Subscribe to Our<br/>Newsletter
               </h2>
               
-              <div className="w-full md:w-[55%]">
-                <form
-                  onSubmit={handleSubscribe}
-                  className="relative flex items-center w-full"
-                >
+              <div className="w-full lg:w-[55%]">
+                <form onSubmit={handleSubscribe} className="relative flex items-center w-full">
                   <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter Your Email Address"
-                    required
-                    className="w-full bg-transparent border border-white/30 rounded-full py-[14px] pl-6 pr-[170px] text-white placeholder-gray-400 focus:outline-none focus:border-white/60 transition-colors text-sm"
+                    type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter Your Email Address" required
+                    className="w-full bg-transparent border border-white/30 rounded-full py-[14px] pl-6 pr-[50px] sm:pr-[170px] text-white placeholder-gray-400 focus:outline-none focus:border-white/60 transition-colors text-sm"
                   />
-                  <button
-                    type="submit"
-                    className="absolute right-[4px] top-[4px] bottom-[4px] bg-white text-[#031b33] rounded-full px-6 font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors whitespace-nowrap text-sm"
-                  >
-                    {subscribed ? "Subscribed ✓" : "Subscribe Now"}
-                    {!subscribed && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                      </svg>
-                    )}
+                  <button type="submit" className="absolute right-[4px] top-[4px] bottom-[4px] bg-white text-[#031b33] rounded-full px-4 sm:px-6 font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors whitespace-nowrap text-xs sm:text-sm">
+                    <span className="hidden sm:inline">{subscribed ? "Subscribed ✓" : "Subscribe Now"}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
                   </button>
                 </form>
               </div>
             </div>
 
             {/* Links Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 pt-10 w-full">
               {/* Useful Link */}
-              <div>
+              <div className="flex flex-col items-center lg:items-start">
                 <h3 className="text-white text-[16px] font-semibold mb-6">Useful Link</h3>
-                <div className="grid grid-cols-2 gap-y-3 gap-x-2">
+                <div className="grid grid-cols-2 gap-y-3 gap-x-8">
                   <div className="flex flex-col gap-3">
                     {USEFUL_LINKS_COL1.map((link) => (
-                      <Link key={link.label} href={link.href} className="text-gray-300 hover:text-white transition-colors text-[14px]">
-                        {link.label}
-                      </Link>
+                      <Link key={link.label} href={link.href} className="text-gray-300 hover:text-white transition-colors text-[14px]">{link.label}</Link>
                     ))}
                   </div>
                   <div className="flex flex-col gap-3">
                     {USEFUL_LINKS_COL2.map((link) => (
-                      <Link key={link.label} href={link.href} className="text-gray-300 hover:text-white transition-colors text-[14px]">
-                        {link.label}
-                      </Link>
+                      <Link key={link.label} href={link.href} className="text-gray-300 hover:text-white transition-colors text-[14px]">{link.label}</Link>
                     ))}
                   </div>
                 </div>
               </div>
 
               {/* Working Time */}
-              <div>
+              <div className="flex flex-col items-center lg:items-start">
                 <h3 className="text-white text-[16px] font-semibold mb-6">Working Time</h3>
                 <div className="flex flex-col gap-3">
                   {WORKING_HOURS.map(({ day, time }) => (
-                    <p key={day} className="text-gray-300 text-[14px] m-0">
-                      {day} {time}
-                    </p>
+                    <p key={day} className="text-gray-300 text-[14px] m-0">{day} {time}</p>
                   ))}
                 </div>
               </div>
 
               {/* Say Hello */}
-              <div>
+              <div className="flex flex-col items-center lg:items-start">
                 <h3 className="text-white text-[16px] font-semibold mb-6">Say Hello</h3>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 items-center lg:items-start">
                   <a href={`mailto:${adminDetails?.email || "contact@pbminfotech.com"}`} className="text-gray-300 hover:text-white transition-colors text-[14px] underline underline-offset-4 decoration-gray-500 hover:decoration-white">
                     {adminDetails?.email || "contact@pbminfotech.com"}
                   </a>
-                  <a href={`tel:${adminDetails?.numbers?.[0] || "+1800123456789"}`} className="text-white text-[20px] font-semibold tracking-wide hover:text-gray-200 transition-colors mt-1">
+                  <a href={`tel:${adminDetails?.numbers?.[0] || "+1800123456789"}`} className="text-white text-[20px] font-semibold tracking-wide hover:text-[#0088ff] transition-colors mt-1">
                     {adminDetails?.numbers?.[0] || "+1 800 123 456 789"}
                   </a>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

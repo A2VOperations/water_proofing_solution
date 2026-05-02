@@ -95,20 +95,44 @@ export default function Hero() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  const [adminDetails, setAdminDetails] = useState(null);
+  const [dynamicServices, setDynamicServices] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { getAdminDetailsAction, getAllServicesAction } = await import("@/app/actions/admin");
+      const [adminResult, servicesResult] = await Promise.all([
+        getAdminDetailsAction(),
+        getAllServicesAction()
+      ]);
+
+      if (adminResult.success) {
+        setAdminDetails(adminResult.admin);
+      }
+      if (servicesResult.success) {
+        setDynamicServices(servicesResult.services.map(s => s.title));
+      }
+    };
+    fetchData();
+  }, []);
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    alert("Quote request submitted!");
+    const number = adminDetails?.numbers?.[0] || "911234567890"; // Fallback
+    const cleanNumber = number.replace(/\D/g, "");
+    const message = `*New Quote Request*\n\n*Name:* ${form.firstName} ${form.lastName}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Zip Code:* ${form.zip}\n*Service:* ${form.service}`;
+    window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
   }
 
   return (
     <div className="min-h-screen font-sans bg-white text-white">
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col justify-center pt-16">
+      <section className="relative min-h-screen flex flex-col justify-center pt-28 md:pt-16">
 
         {/* Background image */}
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -216,7 +240,7 @@ export default function Hero() {
                     <option value="" disabled className="text-white/40">
                       Choose a Service*
                     </option>
-                    {SERVICES.map((s) => (
+                    {(dynamicServices.length > 0 ? dynamicServices : SERVICES).map((s) => (
                       <option key={s} value={s} className="text-white bg-[#2a2a2a]">
                         {s}
                       </option>

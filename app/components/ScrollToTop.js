@@ -87,17 +87,19 @@ export default function ScrollToTop() {
       </svg>
 
       {/* Arrow icon */}
-      <svg
-        className="relative z-10 w-5 h-5 text-[#0088ff]"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <polyline points="18 15 12 9 6 15" />
-      </svg>
+      <div className="relative z-10 flex items-center justify-center w-full h-full">
+        <svg
+          className="w-5 h-5 text-[#0088ff]"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="18 15 12 9 6 15" />
+        </svg>
+      </div>
     </button>
   );
 }

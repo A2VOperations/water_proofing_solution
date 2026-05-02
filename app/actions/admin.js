@@ -141,36 +141,43 @@ export async function createServiceAction(serviceData) {
 export async function createBlogAction(blogData) {
     try {
         await dbConnect();
-        console.log("Creating Blog with data:", { ...blogData, content: blogData.content?.substring(0, 50) + "..." });
         
-        // Generate slug from title
-        if (blogData.title) {
-            let baseSlug = blogData.title
-                .toLowerCase()
-                .replace(/[^\w\s-]/g, '')
-                .replace(/\s+/g, '-')
-                .replace(/-+/g, '-')
-                .trim();
-            
-            // Check for uniqueness
-            let uniqueSlug = baseSlug;
-            let counter = 1;
-            while (await Blog.findOne({ slug: uniqueSlug })) {
-                uniqueSlug = `${baseSlug}-${counter}`;
-                counter++;
-            }
-            blogData.slug = uniqueSlug;
+        // Ensure required fields are present
+        if (!blogData.title || !blogData.image || !blogData.content) {
+            return { error: "Missing required fields (Title, Image, or Content)" };
         }
 
-        // Add default values if missing
-        if (!blogData.author) blogData.author = "Admin";
-        if (!blogData.date) blogData.date = new Date();
+        // Generate slug from title (optional now but still good practice)
+        let generatedSlug = blogData.title
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim() || `post-${Date.now()}`;
 
-        const newBlog = await Blog.create(blogData);
+        const blogToSave = {
+            title: blogData.title,
+            slug: generatedSlug,
+            category: blogData.category || "General",
+            author: blogData.author || "Admin",
+            image: blogData.image,
+            content: blogData.content,
+            readTime: blogData.readTime || "5 min read",
+            description: blogData.description || (blogData.content.length > 160 ? blogData.content.substring(0, 160) + "..." : blogData.content)
+        };
+
+        console.log("Attempting to save blog:", blogToSave.title);
+        const newBlog = await Blog.create(blogToSave);
+        console.log("Blog saved successfully!");
+
         return { success: true, blog: JSON.parse(JSON.stringify(newBlog)) };
     } catch (error) {
-        console.error("Create Blog Error Details:", error);
-        return { error: error.message || "Failed to create blog post" };
+        console.error("CRITICAL Blog Create Error:", error);
+        // Handle potential duplicate key error if slug index still exists
+        if (error.code === 11000) {
+            return { error: "A blog with a similar title already exists. Please try a different title." };
+        }
+        return { error: error.message || "Database connection error" };
     }
 }
 
@@ -313,5 +320,37 @@ export async function deleteBlogAction(blogId) {
     } catch (error) {
         console.error("Delete Blog Error:", error);
         return { error: "Failed to delete blog" };
+    }
+}
+export async function getAllWorksAction() {
+    try {
+        await dbConnect();
+        const works = await Work.find({}).sort({ createdAt: -1 });
+        return { success: true, works: JSON.parse(JSON.stringify(works)) };
+    } catch (error) {
+        console.error("Get All Works Error:", error);
+        return { error: "Failed to fetch works" };
+    }
+}
+
+export async function deleteWorkAction(workId) {
+    try {
+        await dbConnect();
+        const work = await Work.findById(workId);
+        if (!work) return { error: "Work not found" };
+
+        if (work.images && work.images.length > 0) {
+            for (const imageUrl of work.images) {
+                if (imageUrl.includes('cloudinary')) {
+                    try { await deleteImage(imageUrl); } catch (err) {}
+                }
+            }
+        }
+
+        await Work.findByIdAndDelete(workId);
+        return { success: true };
+    } catch (error) {
+        console.error("Delete Work Error:", error);
+        return { error: "Failed to delete work" };
     }
 }
