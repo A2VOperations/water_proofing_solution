@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -82,6 +82,8 @@ const TESTIMONIALS = [
 export default function About() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const [dynamicServices, setDynamicServices] = useState([]);
+  const [adminDetails, setAdminDetails] = useState(null);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -91,14 +93,33 @@ export default function About() {
     message: ""
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const { getAdminDetailsAction, getAllServicesAction } = await import("@/app/actions/admin");
+      const [adminResult, servicesResult] = await Promise.all([
+        getAdminDetailsAction(),
+        getAllServicesAction()
+      ]);
+
+      if (adminResult.success) {
+        setAdminDetails(adminResult.admin);
+      }
+      if (servicesResult.success) {
+        setDynamicServices(servicesResult.services.map(s => s.title));
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleQuoteSubmit = (e) => {
     e.preventDefault();
-    const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "12003456789";
+    const number = adminDetails?.numbers?.[0] || "12003456789";
+    const cleanNumber = number.replace(/\D/g, "");
     const whatsappMessage = `Hello, I would like to request a quote.\n\nName: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nService: ${form.service}\nMessage: ${form.message}`;
     const encodedMessage = encodeURIComponent(whatsappMessage);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, '')}?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/${cleanNumber}?text=${encodedMessage}`, '_blank');
     setIsQuoteOpen(false);
     setForm({ firstName: "", lastName: "", email: "", phone: "", service: "", message: "" });
   };
@@ -187,10 +208,11 @@ export default function About() {
                   style={{ colorScheme: "dark" }}
                 >
                   <option value="" disabled className="text-white/40">Choose a Service*</option>
-                  <option value="Roof Repair" className="text-white bg-[#1a1a1a]">Roof Repair</option>
-                  <option value="Roof Replacement" className="text-white bg-[#1a1a1a]">Roof Replacement</option>
-                  <option value="Inspection" className="text-white bg-[#1a1a1a]">Inspection</option>
-                  <option value="Emergency Services" className="text-white bg-[#1a1a1a]">Emergency Services</option>
+                  {(dynamicServices.length > 0 ? dynamicServices : ["Roof Repair", "Roof Replacement", "Inspection", "Emergency Services"]).map((s) => (
+                    <option key={s} value={s} className="text-white bg-[#1a1a1a]">
+                      {s}
+                    </option>
+                  ))}
                 </select>
                 <svg className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/40" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M6 9l6 6 6-6" />

@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getAdminDetailsAction } from "@/app/actions/admin";
 
 const Section5 = () => {
+  const [adminDetails, setAdminDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      const result = await getAdminDetailsAction();
+      if (result.success) {
+        setAdminDetails(result.admin);
+      }
+    };
+    fetchAdmin();
+  }, []);
+
+  const handleWhatsAppRedirect = (e) => {
+    if (e) e.preventDefault();
+    const number = adminDetails?.numbers?.[0] || "911234567890";
+    const cleanNumber = number.replace(/\D/g, "");
+    const message = "Hello, I'm interested in getting an estimate for your waterproofing services. Please assist me.";
+    window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
+  };
+
   return (
     <>
       <style>
@@ -22,7 +43,7 @@ const Section5 = () => {
         `}
       </style>
       <div
-        className="relative mx-auto px-6 my-6 lg:max-w-[1700px] lg:w-full max-w-4xl min-h-[340px] rounded-2xl overflow-hidden bg-[#0d1117] flex items-stretch"
+        className="relative w-full min-h-[400px] overflow-hidden bg-[#0d1117] flex items-stretch"
         style={{
           backgroundImage: "url('/home/6711000bab0a0289b4b137fd_home2-about2-img.jpg')",
           backgroundSize: 'cover',
@@ -37,7 +58,8 @@ const Section5 = () => {
           }}
         ></div>
 
-        <div className="relative z-20 flex flex-col justify-center gap-6 px-12 py-11 max-w-xl">
+        <div className="relative z-20 flex flex-col justify-center gap-6 px-6 py-16 max-w-7xl mx-auto w-full">
+          <div className="max-w-xl flex flex-col gap-6">
           <div className="flex items-center gap-2 w-fit px-4 py-1.5 rounded-full text-[11px] font-medium tracking-widest uppercase text-[#3fa9f5] bg-[rgba(63,169,245,0.12)] border border-[rgba(63,169,245,0.35)]">
             <span className="badge-dot w-1.5 h-1.5 rounded-full bg-[#3fa9f5]"></span>
             Limited Period Offer
@@ -57,8 +79,8 @@ const Section5 = () => {
           </p>
 
           <div className="flex items-center gap-4 flex-wrap">
-            <a
-              href="#"
+            <button
+              onClick={handleWhatsAppRedirect}
               className="flex items-center gap-2.5 bg-white text-[#0d1117] text-[13px] font-medium tracking-wide uppercase rounded-full px-7 py-3.5 hover:bg-blue-50 transition-all hover:-translate-y-0.5 no-underline"
             >
               <span className="w-[30px] h-[30px] rounded-full bg-[#3fa9f5] flex items-center justify-center flex-shrink-0">
@@ -73,10 +95,10 @@ const Section5 = () => {
                 </svg>
               </span>
               Get Estimate
-            </a>
+            </button>
 
             <a
-              href="#"
+              href="/work"
               className="flex items-center gap-2 text-white/70 text-[13px] hover:text-white transition-colors no-underline"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -95,7 +117,7 @@ const Section5 = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              See how it works
+              See our work
             </a>
           </div>
 
@@ -128,18 +150,22 @@ const Section5 = () => {
             </div>
           </div>
         </div>
+      </div>
 
         <div className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white/95 rounded-l-2xl px-3.5 py-5 flex flex-col items-center gap-2.5 shadow-[-4px_0_20px_rgba(0,0,0,0.2)]">
-          <div className="w-7 h-7 rounded-full bg-[#3fa9f5] flex items-center justify-center">
+          <a 
+            href={`tel:${adminDetails?.numbers?.[0] || "1234567890"}`}
+            className="w-7 h-7 rounded-full bg-[#3fa9f5] flex items-center justify-center no-underline"
+          >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path
                 d="M2 2.5C2 2.5 3 4.5 4.5 6S7.5 8.5 9 9.5l2-2 1.5 1.5s-.5 2-2.5 2.5C7 12 3 10 2 8.5 1 7 1 3.5 2 2.5z"
                 fill="#fff"
               />
             </svg>
-          </div>
+          </a>
           <span className="writing-vertical text-[12px] font-medium text-[#1a1a2e] tracking-wide">
-            +125-8845-5421
+            {adminDetails?.numbers?.[0] || "+1 000-000-0000"}
           </span>
         </div>
       </div>

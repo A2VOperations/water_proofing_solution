@@ -227,19 +227,17 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── MAP SECTION ── */}
-      <section className="max-w-7xl mx-auto px-6 mb-24">
-        <div className="w-full h-[500px] rounded-3xl overflow-hidden shadow-sm border border-gray-100 bg-gray-100 relative">
-          <iframe 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            loading="lazy" 
-            allowFullScreen 
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(adminDetails?.address || MAP_QUERY)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
-          >
-          </iframe>
-        </div>
+      {/* ── MAP SECTION (FULL WIDTH) ── */}
+      <section className="w-full mb-24 overflow-hidden h-[500px] border-y border-gray-100 bg-gray-100 relative">
+        <iframe 
+          width="100%" 
+          height="100%" 
+          style={{ border: 0 }} 
+          loading="lazy" 
+          allowFullScreen 
+          src={`https://maps.google.com/maps?q=${encodeURIComponent(adminDetails?.address || MAP_QUERY)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+        >
+        </iframe>
       </section>
 
       {/* ── FAQ SECTION ── */}

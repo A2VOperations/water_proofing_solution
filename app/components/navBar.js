@@ -524,52 +524,59 @@ export default function Navbar() {
 
                   <div
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      mobileMegaOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+                      mobileMegaOpen ? "max-h-[2000px] opacity-100 mt-2" : "max-h-0 opacity-0"
                     }`}
                   >
                     <div className="pl-1 pt-1 pb-2 flex flex-col gap-3">
-                      {dynamicMegaMenu.map((col, colIdx) => (
-                        <div key={col.category}>
-                          <div className="flex items-center gap-2 px-3 py-1.5">
-                            <span
-                              className="block w-2 h-2 rounded-full"
-                              style={{ background: col.accent }}
-                            />
-                            <p className="font-black tracking-[0.2em] text-gray-400 uppercase" style={{ fontSize: "9px" }}>
-                              {col.category}
-                            </p>
+                      {dynamicMegaMenu.length > 0 ? (
+                        dynamicMegaMenu.map((col, colIdx) => (
+                          <div key={col.category} className="border-l-2 border-gray-50 pl-3">
+                            <div className="flex items-center gap-2 py-1.5">
+                              <span
+                                className="block w-2 h-2 rounded-full"
+                                style={{ background: col.accent }}
+                              />
+                              <p className="font-black tracking-[0.2em] text-gray-400 uppercase" style={{ fontSize: "9px" }}>
+                                {col.category}
+                              </p>
+                            </div>
+                            <div className="grid grid-cols-1 gap-1">
+                              {col.items.length > 0 ? (
+                                  col.items.map((item, itemIdx) => (
+                                  <Link
+                                      key={item.label}
+                                      href={item.href}
+                                      onClick={() => {setMenuOpen(false); setMobileMegaOpen(false);}}
+                                      className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all duration-150"
+                                      style={{
+                                      fontSize: "11px",
+                                      backgroundColor: isActive(item.href) ? "#e8f4ff" : "transparent",
+                                      color: isActive(item.href) ? "#0088ff" : "#4b5563",
+                                      }}
+                                  >
+                                      <span
+                                      className="shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-white"
+                                      style={{ background: col.accent }}
+                                      >
+                                      <span className="w-3.5 h-3.5">
+                                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                                      </span>
+                                      </span>
+                                      <span className="truncate">{item.label}</span>
+                                  </Link>
+                                  ))
+                              ) : (
+                                  <p className="px-3 py-2 text-[10px] text-gray-400 italic">No services in this category</p>
+                              )}
+                            </div>
                           </div>
-                          <div className="grid grid-cols-2 gap-0.5">
-                            {col.items.length > 0 ? (
-                                col.items.map((item, itemIdx) => (
-                                <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    onClick={() => setMenuOpen(false)}
-                                    className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all duration-150"
-                                    style={{
-                                    fontSize: "11px",
-                                    backgroundColor: isActive(item.href) ? "#e8f4ff" : "transparent",
-                                    color: isActive(item.href) ? "#0088ff" : "#4b5563",
-                                    }}
-                                >
-                                    <span
-                                    className="shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-white"
-                                    style={{ background: col.accent }}
-                                    >
-                                    <span className="w-3.5 h-3.5">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                                    </span>
-                                    </span>
-                                    <span className="truncate">{item.label}</span>
-                                </Link>
-                                ))
-                            ) : (
-                                <p className="col-span-2 px-3 py-2 text-[10px] text-gray-400 italic">No services</p>
-                            )}
-                          </div>
+                        ))
+                      ) : (
+                        <div className="px-4 py-8 text-center bg-gray-50 rounded-xl">
+                          <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">No services available</p>
+                          <Link href="/contact" className="text-[#0088ff] text-[10px] font-black uppercase tracking-widest mt-2 inline-block">Contact Us for Info</Link>
                         </div>
-                      ))}
+                      )}
                     </div>
                   </div>
                 </div>

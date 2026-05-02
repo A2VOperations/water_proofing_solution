@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { getAdminDetailsAction } from "@/app/actions/admin";
 
 const Section2 = () => {
+  const [adminDetails, setAdminDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      const result = await getAdminDetailsAction();
+      if (result.success) {
+        setAdminDetails(result.admin);
+      }
+    };
+    fetchAdmin();
+  }, []);
+
+  const handleWhatsAppRedirect = (e) => {
+    if (e) e.preventDefault();
+    const number = adminDetails?.numbers?.[0] || "911234567890";
+    const cleanNumber = number.replace(/\D/g, "");
+    const message = "Hello, I saw the summer offer and I'm interested in booking a service. Please provide more details.";
+    window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
+  };
+
   const checklistItems = [
     { text: "Certified Expert Handyman", iconColor: "bg-blue-600" },
     { text: "55+ Expert Handyman", iconColor: "bg-blue-600" },
@@ -10,7 +31,7 @@ const Section2 = () => {
   ];
 
   return (
-    <section className="max-w-[1400px] py-15 mx-auto overflow-hidden bg-white">
+    <section className="max-w-[1400px] py-15 mx-auto px-6 overflow-hidden bg-white">
       {/* Top Content: Header & Description */}
       <div className="flex flex-col lg:flex-row justify-between gap-12 mb-10">
         <div className="lg:w-1/2">
@@ -192,7 +213,10 @@ const Section2 = () => {
               {/* The "Notch" background - white circle that cuts out the blue */}
               <div className="w-24 h-24 bg-white rounded-tl-[50px] flex items-center justify-center">
                 {/* The Dark Circle Button */}
-                <button className="bg-[#041F38] hover:bg-black w-16 h-16 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-105 group/arrow mt-4 ml-4">
+                <button 
+                  onClick={handleWhatsAppRedirect}
+                  className="bg-[#041F38] hover:bg-black w-16 h-16 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-105 group/arrow mt-4 ml-4"
+                >
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"

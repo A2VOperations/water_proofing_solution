@@ -1,34 +1,71 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { getServiceBySlugAction } from "@/app/actions/admin";
+import { getServiceBySlugAction, getAdminDetailsAction } from "@/app/actions/admin";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ServiceDetail() {
     const { slug } = useParams();
     const [service, setService] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [activeFaq, setActiveFaq] = useState(null);
+    const [adminDetails, setAdminDetails] = useState(null);
 
     useEffect(() => {
-        const fetchService = async () => {
-            const result = await getServiceBySlugAction(slug);
-            if (result.success) {
-                setService(result.service);
+        const fetchData = async () => {
+            const [serviceResult, adminResult] = await Promise.all([
+                getServiceBySlugAction(slug),
+                getAdminDetailsAction()
+            ]);
+
+            if (serviceResult.success) {
+                setService(serviceResult.service);
             } else {
-                setError(result.error);
+                setError(serviceResult.error);
             }
+
+            if (adminResult.success) {
+                setAdminDetails(adminResult.admin);
+            }
+
             setLoading(false);
         };
-        fetchService();
+        fetchData();
     }, [slug]);
+
+    const handleWhatsAppRedirect = (e) => {
+        if (e) e.preventDefault();
+        const number = adminDetails?.numbers?.[0] || "911234567890"; // Fallback
+        const cleanNumber = number.replace(/\D/g, "");
+        const message = `Hello, I'm interested in the "${service?.title}" service. Please provide more details.`;
+        window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    };
+
+    // Helper to turn plain text into beautiful formatted HTML (same as blog)
+    const formatContent = (text) => {
+        if (!text) return "";
+        return text
+            .split(/\n\s*\n/)
+            .map((para, i) => {
+                const trimmed = para.trim();
+                if (!trimmed) return "";
+                if (i === 0) {
+                    return `<p class="first-letter:text-7xl first-letter:font-black first-letter:text-[#0088ff] first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8] mb-8 text-xl leading-relaxed text-gray-800 font-medium">${trimmed}</p>`;
+                }
+                if (trimmed.length < 60 && trimmed === trimmed.toUpperCase()) {
+                    return `<h2 class="text-3xl font-black text-[#111] mt-12 mb-6 uppercase tracking-tight">${trimmed}</h2>`;
+                }
+                return `<p class="mb-6 text-lg leading-[1.8] text-gray-700 font-normal">${trimmed}</p>`;
+            })
+            .join("");
+    };
 
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-white">
             <div className="flex flex-col items-center gap-4">
                 <div className="w-12 h-12 border-4 border-[#0088ff] border-t-transparent rounded-full animate-spin"></div>
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-gray-400">Loading Experience...</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Loading Experience...</p>
             </div>
         </div>
     );
@@ -36,134 +73,145 @@ export default function ServiceDetail() {
     if (error || !service) return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-white px-6 text-center">
             <h1 className="text-6xl font-black text-gray-100 mb-4">404</h1>
-            <p className="text-xl font-bold text-gray-800 mb-8">Service not found or has been moved.</p>
-            <Link href="/services" className="bg-[#0088ff] text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#0070d6] transition-all">
+            <p className="text-xl font-bold text-gray-800 mb-8 font-sans">Service not found or has been moved.</p>
+            <Link href="/services" className="bg-[#0088ff] text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-[#0088ff]/20">
                 View All Services
             </Link>
         </div>
     );
 
     return (
-        <main className="bg-white min-h-screen">
-            {/* Hero Section */}
-            <section className="relative h-[70vh] flex items-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <img 
-                        src={service.photos?.[0] || "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=2070&auto=format&fit=crop"} 
-                        alt={service.title} 
-                        className="w-full h-full object-cover scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
-                </div>
+        <main className="bg-white min-h-screen pb-32">
+            {/* Cinematic Hero Section */}
+            <header className="relative w-full h-[60vh] md:h-[80vh] bg-gray-900 overflow-hidden">
+                <Image 
+                    src={service.photos?.[0] || "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=2070&auto=format&fit=crop"} 
+                    alt={service.title} 
+                    fill 
+                    className="object-cover opacity-60"
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 
-                <div className="container mx-auto px-6 relative z-10 text-white">
-                    <div className="max-w-3xl">
-                        <span className="inline-block px-4 py-1.5 rounded-full bg-[#0088ff] text-[10px] font-black uppercase tracking-[0.2em] mb-6 animate-fade-in-up">
+                <div className="absolute inset-0 flex flex-col justify-end items-center px-6 pb-20 text-center">
+                    <div className="max-w-4xl">
+                        <div className="inline-block bg-[#0088ff] text-white px-4 py-1.5 rounded-full font-black text-[10px] uppercase tracking-widest mb-6 shadow-lg shadow-[#0088ff]/20">
                             {service.category}
-                        </span>
-                        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8 animate-fade-in-up delay-100">
+                        </div>
+                        <h1 className="text-4xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter mb-8 uppercase drop-shadow-2xl">
                             {service.title}
                         </h1>
-                        <p className="text-lg md:text-xl text-gray-300 font-medium leading-relaxed mb-10 max-w-xl animate-fade-in-up delay-200">
-                            {service.description.substring(0, 160)}...
-                        </p>
-                        <div className="flex gap-4 animate-fade-in-up delay-300">
-                            <Link href="/contact" className="bg-white text-black px-8 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-gray-100 transition-all">
+                        <div className="flex items-center justify-center gap-4 text-white/70 font-bold text-xs uppercase tracking-widest mb-10">
+                            <span>Residential</span>
+                            <span>•</span>
+                            <span>Commercial</span>
+                            <span>•</span>
+                            <span>Industrial</span>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <button 
+                                onClick={handleWhatsAppRedirect}
+                                className="bg-[#0088ff] text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#0070d6] hover:-translate-y-1 transition-all shadow-xl shadow-[#0088ff]/20"
+                            >
+                                Inquiry on WhatsApp
+                            </button>
+                            <Link href="/contact" className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white/20 transition-all">
                                 Get Free Quote
                             </Link>
-                            <a href="#details" className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white/20 transition-all">
-                                Learn More
-                            </a>
                         </div>
                     </div>
                 </div>
-            </section>
+            </header>
 
-            {/* Details Section */}
-            <section id="details" className="py-24 container mx-auto px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-                    <div className="space-y-12">
-                        <div>
-                            <h2 className="text-[#0088ff] text-xs font-black tracking-[0.3em] uppercase mb-4">The Solution</h2>
-                            <h3 className="text-4xl font-black text-gray-900 leading-tight">Advanced Engineering For {service.title}</h3>
-                            <p className="text-gray-500 mt-8 text-lg leading-relaxed font-medium">
-                                {service.description}
-                            </p>
-                        </div>
-
-                        {/* Features/Stats */}
-                        <div className="grid grid-cols-2 gap-8 border-t border-gray-100 pt-12">
-                            <div>
-                                <span className="block text-3xl font-black text-gray-900 mb-1">100%</span>
-                                <span className="text-[10px] font-black text-[#0088ff] uppercase tracking-widest">Waterproof Guarantee</span>
-                            </div>
-                            <div>
-                                <span className="block text-3xl font-black text-gray-900 mb-1">10+</span>
-                                <span className="text-[10px] font-black text-[#0088ff] uppercase tracking-widest">Years Warranty</span>
-                            </div>
-                        </div>
+            {/* Article Content */}
+            <article className="max-w-3xl mx-auto px-6 mt-20">
+                <div className="mb-12 flex justify-center">
+                    <div className="inline-block border border-gray-200 rounded-full px-5 py-1.5 text-[10px] font-black tracking-[0.2em] text-[#0088ff] uppercase bg-gray-50/50">
+                        Complete Solutions
                     </div>
+                </div>
 
-                    {/* Gallery Grid */}
-                    <div className="grid grid-cols-2 gap-4">
-                        {service.photos?.slice(0, 4).map((photo, i) => (
-                            <div key={i} className={`rounded-[32px] overflow-hidden bg-gray-100 shadow-2xl shadow-black/5 ${i % 3 === 0 ? 'h-80' : 'h-64'}`}>
-                                <img src={photo} alt={`${service.title} ${i}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+                {/* Formatted Text Content */}
+                <div 
+                    className="service-content select-text"
+                    dangerouslySetInnerHTML={{ __html: formatContent(service.description) }}
+                />
+
+                {/* Service Gallery */}
+                {service.photos?.length > 1 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-20">
+                        {service.photos.slice(1, 5).map((photo, i) => (
+                            <div key={i} className="relative aspect-[4/3] rounded-[32px] overflow-hidden shadow-2xl shadow-black/5 group">
+                                <Image src={photo} alt={`${service.title} ${i}`} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
+                )}
 
-            {/* FAQ Section */}
-            {service.faq?.length > 0 && (
-                <section className="py-24 bg-gray-50">
-                    <div className="container mx-auto px-6 max-w-4xl text-center">
-                        <h2 className="text-[#0088ff] text-xs font-black tracking-[0.3em] uppercase mb-4 text-center">Expert Insights</h2>
-                        <h3 className="text-4xl font-black text-gray-900 mb-16 text-center">Frequently Asked Questions</h3>
-                        
-                        <div className="text-left space-y-4">
+                {/* FAQ Section Integrated into Flow */}
+                {service.faq?.length > 0 && (
+                    <div className="mt-32">
+                        <h3 className="text-3xl font-black text-[#111] mb-12 uppercase tracking-tight border-b-4 border-[#0088ff] w-fit pb-2">
+                            Expert Insights & FAQs
+                        </h3>
+                        <div className="space-y-6">
                             {service.faq.map((item, i) => (
-                                <div key={i} className="bg-white rounded-3xl border border-gray-100 overflow-hidden transition-all">
-                                    <button 
-                                        onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                                        className="w-full flex items-center justify-between p-8 text-left"
-                                    >
-                                        <span className="text-lg font-black text-gray-900 uppercase tracking-tight">{item.question}</span>
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${activeFaq === i ? 'bg-[#0088ff] text-white rotate-45' : 'bg-gray-100 text-gray-500'}`}>
-                                            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
-                                        </div>
-                                    </button>
-                                    <div className={`transition-all duration-500 ease-in-out overflow-hidden ${activeFaq === i ? 'max-h-[500px]' : 'max-h-0'}`}>
-                                        <div className="p-8 pt-0 text-gray-500 font-medium text-lg border-t border-gray-50">
-                                            {item.answer}
-                                        </div>
-                                    </div>
+                                <div key={i} className="bg-gray-50 rounded-[32px] p-8 border border-gray-100 transition-all hover:bg-white hover:shadow-xl hover:shadow-gray-200/50">
+                                    <h4 className="text-lg font-black text-[#111] mb-4 uppercase tracking-tight flex gap-4">
+                                        <span className="text-[#0088ff]">Q.</span> {item.question}
+                                    </h4>
+                                    <p className="text-gray-600 font-medium leading-relaxed">
+                                        {item.answer}
+                                    </p>
                                 </div>
                             ))}
                         </div>
                     </div>
-                </section>
-            )}
+                )}
 
-            {/* CTA Final */}
-            <section className="py-24 container mx-auto px-6 text-center">
-                <div className="bg-[#0088ff] rounded-[64px] p-16 md:p-24 text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-                    <div className="relative z-10 max-w-2xl mx-auto">
-                        <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-tight mb-8">Ready to secure your property?</h3>
-                        <p className="text-white/80 font-medium text-lg mb-12">Don't wait for the leak to become a flood. Our team of specialized engineers is ready to assess your structure today.</p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/contact" className="bg-white text-[#0088ff] px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-gray-50 transition-all shadow-2xl">
+                {/* CTA Final */}
+                <div className="mt-32">
+                    <div className="bg-[#111] rounded-[48px] p-12 md:p-20 text-center relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#0088ff]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-8 relative z-10">
+                            Ready to secure<br />your property?
+                        </h2>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center relative z-10">
+                            <button 
+                                onClick={handleWhatsAppRedirect}
+                                className="bg-[#0088ff] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#0070d6] hover:-translate-y-1 transition-all shadow-xl shadow-[#0088ff]/20"
+                            >
+                                Chat on WhatsApp
+                            </button>
+                            <Link href="/contact" className="bg-white text-[#111] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-gray-100 transition-all">
                                 Request Assessment
                             </Link>
-                            <a href="tel:+1800000000" className="bg-transparent border border-white/30 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all">
-                                Call Experts Now
-                            </a>
                         </div>
                     </div>
                 </div>
-            </section>
+            </article>
+
+            {/* Styled inline-style for formatting fixes */}
+            <style jsx global>{`
+                .service-content p {
+                    margin-bottom: 2rem;
+                }
+                .service-content h2 {
+                    position: relative;
+                    padding-bottom: 0.5rem;
+                }
+                .service-content h2::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 50px;
+                    height: 4px;
+                    background: #0088ff;
+                    border-radius: 2px;
+                }
+            `}</style>
         </main>
     );
 }
