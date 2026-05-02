@@ -1,6 +1,31 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
+
+* {
+  font-family: 'Public Sans', sans-serif;
+}
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke: 1px #cbd5e1;
+    color: transparent;
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}

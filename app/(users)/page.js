@@ -1,9 +1,27 @@
-import Reviews from "../components/Testimonials";
+"use client"
+
+import Hero from "./home/hero";
+import Section2 from "./home/section2";
+import Section3 from "./home/section3";
+import Services from "./home/services";
+import Section5 from "./home/section5";
+import Section6 from "./home/section6";
+import Section7 from "./home/section7";
+import BlogSection from "./home/section8";
+import InfiniteMarquee from "../components/InfiniteMarquee";
 
 export default function Home(){
     return(
         <>
-            <Reviews/>
+           <Hero/>
+           <Section2/>
+           <InfiniteMarquee />
+           <Services />
+           <Section5 />
+           <Section6 />
+           <Section3/>
+           <Section7 />
+           <BlogSection />
         </>
     )
 }
