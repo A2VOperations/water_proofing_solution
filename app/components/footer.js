@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getAdminDetailsAction } from "@/app/actions/admin";
 
 const USEFUL_LINKS_COL1 = [
   { label: "Home", href: "/" },
@@ -27,6 +28,17 @@ const WORKING_HOURS = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [adminDetails, setAdminDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      const result = await getAdminDetailsAction();
+      if (result.success) {
+        setAdminDetails(result.admin);
+      }
+    };
+    fetchAdmin();
+  }, []);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -204,11 +216,11 @@ export default function Footer() {
               <div>
                 <h3 className="text-white text-[16px] font-semibold mb-6">Say Hello</h3>
                 <div className="flex flex-col gap-4">
-                  <a href="mailto:contact@pbminfotech.com" className="text-gray-300 hover:text-white transition-colors text-[14px] underline underline-offset-4 decoration-gray-500 hover:decoration-white">
-                    contact@pbminfotech.com
+                  <a href={`mailto:${adminDetails?.email || "contact@pbminfotech.com"}`} className="text-gray-300 hover:text-white transition-colors text-[14px] underline underline-offset-4 decoration-gray-500 hover:decoration-white">
+                    {adminDetails?.email || "contact@pbminfotech.com"}
                   </a>
-                  <a href="tel:+1800123456789" className="text-white text-[20px] font-semibold tracking-wide hover:text-gray-200 transition-colors mt-1">
-                    +1 800 123 456 789
+                  <a href={`tel:${adminDetails?.numbers?.[0] || "+1800123456789"}`} className="text-white text-[20px] font-semibold tracking-wide hover:text-gray-200 transition-colors mt-1">
+                    {adminDetails?.numbers?.[0] || "+1 800 123 456 789"}
                   </a>
                 </div>
               </div>
@@ -225,7 +237,7 @@ export default function Footer() {
             Terms and conditions
           </Link>
           <p className="m-0 mb-2 sm:mb-0">
-            © 2024 PBM Infotech
+            © 2024 {adminDetails?.companyTitle || "PBM Infotech"}
           </p>
           <Link href="/privacy" className="hover:text-gray-900 transition-colors">
             Privacy policy

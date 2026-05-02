@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAdminDetailsAction } from "@/app/actions/admin";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "12003456789";
 const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "arinistudiobd@gmail.com";
@@ -41,6 +42,17 @@ export default function Contact() {
   
   const [popup, setPopup] = useState(null);
   const [openFaq, setOpenFaq] = useState(0);
+  const [adminDetails, setAdminDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      const result = await getAdminDetailsAction();
+      if (result.success) {
+        setAdminDetails(result.admin);
+      }
+    };
+    fetchAdmin();
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -70,9 +82,10 @@ export default function Contact() {
     // Show success popup
     setPopup({ type: 'success', text: 'Redirecting to WhatsApp...' });
     
+    const whatsappNumber = adminDetails?.numbers?.[0] || WHATSAPP_NUMBER;
     // Redirect to WhatsApp
     setTimeout(() => {
-      window.open(`https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, '')}?text=${encodedMessage}`, '_blank');
+      window.open(`https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodedMessage}`, '_blank');
       setPopup(null);
       setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" });
     }, 1500);
@@ -174,8 +187,10 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-xl font-medium text-gray-900 mb-1">Phone:</h4>
-                  <p className="text-gray-600 text-[15px]">Customer Support: <span className="text-[#0088ff]">({WHATSAPP_NUMBER})</span></p>
-                  <p className="text-gray-600 text-[15px]">Sales Inquiries: <span className="text-[#0088ff]">(1-400-444-4444)</span></p>
+                  <p className="text-gray-600 text-[15px]">Customer Support: <span className="text-[#0088ff]">({adminDetails?.numbers?.[0] || WHATSAPP_NUMBER})</span></p>
+                  {adminDetails?.numbers?.[1] && (
+                    <p className="text-gray-600 text-[15px]">Sales Inquiries: <span className="text-[#0088ff]">({adminDetails.numbers[1]})</span></p>
+                  )}
                 </div>
               </div>
 
@@ -188,8 +203,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-xl font-medium text-gray-900 mb-1">Email:</h4>
-                  <p className="text-gray-600 text-[15px]">General Inquiries: <span className="text-[#0088ff]">{CONTACT_EMAIL}</span></p>
-                  <p className="text-gray-600 text-[15px]">Support: <span className="text-[#0088ff]">armannijum@gmail.com</span></p>
+                  <p className="text-gray-600 text-[15px]">General Inquiries: <span className="text-[#0088ff]">{adminDetails?.email || CONTACT_EMAIL}</span></p>
+                  <p className="text-gray-600 text-[15px]">Support: <span className="text-[#0088ff]">{adminDetails?.email || "armannijum@gmail.com"}</span></p>
                 </div>
               </div>
 
@@ -203,7 +218,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-xl font-medium text-gray-900 mb-1">Address:</h4>
                   <p className="text-gray-600 text-[15px] max-w-[280px] leading-relaxed">
-                    {CONTACT_ADDRESS}
+                    {adminDetails?.address || CONTACT_ADDRESS}
                   </p>
                 </div>
               </div>
@@ -221,7 +236,7 @@ export default function Contact() {
             style={{ border: 0 }} 
             loading="lazy" 
             allowFullScreen 
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(adminDetails?.address || MAP_QUERY)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
           >
           </iframe>
         </div>

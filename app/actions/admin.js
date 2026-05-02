@@ -119,6 +119,17 @@ export async function createWorkAction(workData) {
 export async function createServiceAction(serviceData) {
     try {
         await dbConnect();
+        
+        // Generate slug from title
+        if (serviceData.title) {
+            serviceData.slug = serviceData.title
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '') // Remove non-word chars
+                .replace(/\s+/g, '-') // Replace spaces with hyphens
+                .replace(/-+/g, '-') // Replace multiple hyphens with single
+                .trim();
+        }
+
         const newService = await Service.create(serviceData);
         return { success: true, service: JSON.parse(JSON.stringify(newService)) };
     } catch (error) {
@@ -191,6 +202,17 @@ export async function getServiceByIdAction(serviceId) {
 export async function updateServiceAction(serviceId, serviceData) {
     try {
         await dbConnect();
+
+        // Update slug if title changed
+        if (serviceData.title) {
+            serviceData.slug = serviceData.title
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+        }
+
         const updatedService = await Service.findByIdAndUpdate(
             serviceId,
             { $set: serviceData },
@@ -201,5 +223,29 @@ export async function updateServiceAction(serviceId, serviceData) {
     } catch (error) {
         console.error("Update Service Error:", error);
         return { error: "Failed to update service" };
+    }
+}
+
+export async function getServiceBySlugAction(slug) {
+    try {
+        await dbConnect();
+        const service = await Service.findOne({ slug });
+        if (!service) return { error: "Service not found" };
+        return { success: true, service: JSON.parse(JSON.stringify(service)) };
+    } catch (error) {
+        console.error("Get Service By Slug Error:", error);
+        return { error: "Failed to fetch service" };
+    }
+}
+export async function getAdminDetailsAction() {
+    try {
+        await dbConnect();
+        // Find user with name "Admin"
+        const admin = await User.findOne({ name: "Admin" }).select("-password");
+        if (!admin) return { error: "Admin details not found" };
+        return { success: true, admin: JSON.parse(JSON.stringify(admin)) };
+    } catch (error) {
+        console.error("Get Admin Details Error:", error);
+        return { error: "Failed to fetch admin details" };
     }
 }

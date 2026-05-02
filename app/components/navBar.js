@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getAllServicesAction, getAdminDetailsAction } from "@/app/actions/admin";
 
 const NAV_LINKS = [
   { label: "HOME", href: "/" },
@@ -110,7 +111,49 @@ export default function Navbar() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileMegaOpen, setMobileMegaOpen] = useState(false);
   const [activeCol, setActiveCol] = useState(0);
+  const [dynamicMegaMenu, setDynamicMegaMenu] = useState([]);
+  const [adminDetails, setAdminDetails] = useState(null);
+  const [totalServices, setTotalServices] = useState(0);
   const megaRef = useRef(null);
+
+  const CATEGORIES = [
+    { name: "Residential solutions", desc: "Complete waterproofing for every home surface", accent: "#0088ff" },
+    { name: "Specialized solutions", desc: "Advanced protection for unique structures", accent: "#f97316" },
+    { name: "Technical solutions", desc: "Engineering-grade diagnostics & repairs", accent: "#3b82f6" },
+    { name: "Premium finishes", desc: "High-performance decorative coatings", accent: "#8b5cf6" }
+  ];
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      const result = await getAllServicesAction();
+      if (result.success) {
+        setTotalServices(result.services.length);
+        const grouped = CATEGORIES.map(cat => ({
+          category: cat.name.toUpperCase(),
+          description: cat.desc,
+          accent: cat.accent,
+          items: result.services
+            .filter(s => s.category === cat.name)
+            .map(s => ({
+              label: s.title,
+              href: `/services/${s.slug}`,
+              desc: s.description.substring(0, 30) + "..."
+            }))
+        }));
+        setDynamicMegaMenu(grouped);
+      }
+    };
+
+    const fetchAdmin = async () => {
+      const result = await getAdminDetailsAction();
+      if (result.success) {
+        setAdminDetails(result.admin);
+      }
+    };
+
+    fetchServices();
+    fetchAdmin();
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -129,7 +172,7 @@ export default function Navbar() {
 
   const isActive = (href) => pathname === href;
   const isServicesActive = pathname.startsWith("/services");
-  const currentAccent = MEGA_MENU[activeCol]?.accent || "#0088ff";
+  const currentAccent = dynamicMegaMenu[activeCol]?.accent || "#0088ff";
 
   return (
     <>
@@ -271,7 +314,7 @@ export default function Navbar() {
               {/* Left column — category tabs */}
               <div className="w-64 border-r border-gray-100 bg-gray-50/70 py-6 px-4 flex flex-col gap-1 shrink-0">
                 <p className="text-[11px] font-black tracking-[0.2em] text-gray-400 px-3 pb-3 uppercase">Categories</p>
-                {MEGA_MENU.map((col, i) => (
+                {dynamicMegaMenu.map((col, i) => (
                   <button
                     key={col.category}
                     onMouseEnter={() => setActiveCol(i)}
@@ -315,21 +358,21 @@ export default function Navbar() {
                 >
                   
                   <a
-                    href="tel:+1800000000"
+                    href={`tel:${adminDetails?.numbers?.[0] || "+1800000000"}`}
                     className=" flex items-center gap-1.5 font-bold"
                     style={{ fontSize: "12px", color: "#0088ff" }}
                   >
                     <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M2 3a1 1 0 0 1 1-1h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a1 1 0 0 1-1 1C8 18 2 12 2 3z"/>
                     </svg>
-                    +1 800 000 0000
+                    {adminDetails?.numbers?.[0] || "+1 800 000 0000"}
                   </a>
                 </div>
               </div>
 
               {/* Right pane — service items grid */}
               <div className="flex-1 p-8 overflow-y-auto">
-                {MEGA_MENU.map((col, colIdx) => (
+                {dynamicMegaMenu.map((col, colIdx) => (
                   <div
                     key={col.category}
                     className={`transition-all duration-200 ${
@@ -364,13 +407,10 @@ export default function Navbar() {
                       </Link>
                     </div>
 
-                    {/* Items grid + optional featured card */}
-                    <div className={`grid gap-2 ${col.featured ? "grid-cols-3" : "grid-cols-3"}`}>
-                      {/* Service items */}
-                      <div
-                        className={col.featured ? "col-span-2 grid grid-cols-2 gap-2" : "col-span-3 grid grid-cols-3 gap-2"}
-                      >
-                        {col.items.map((item, itemIdx) => {
+                    {/* Items grid */}
+                    <div className="grid grid-cols-3 gap-2">
+                      {col.items.length > 0 ? (
+                        col.items.map((item, itemIdx) => {
                           const active = isActive(item.href);
                           return (
                             <Link
@@ -381,18 +421,6 @@ export default function Navbar() {
                                 borderColor: active ? "transparent" : "transparent",
                                 backgroundColor: active ? "#e8f4ff" : "transparent",
                               }}
-                              onMouseEnter={(e) => {
-                                if (!active) {
-                                  e.currentTarget.style.backgroundColor = "#f8fafc";
-                                  e.currentTarget.style.borderColor = "#e5e7eb";
-                                }
-                              }}
-                              onMouseLeave={(e) => {
-                                if (!active) {
-                                  e.currentTarget.style.backgroundColor = "transparent";
-                                  e.currentTarget.style.borderColor = "transparent";
-                                }
-                              }}
                             >
                               <span
                                 className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150"
@@ -400,18 +428,10 @@ export default function Navbar() {
                                   backgroundColor: active ? col.accent : "#f1f5f9",
                                   color: active ? "white" : "#64748b",
                                 }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = col.accent;
-                                  e.currentTarget.style.color = "white";
-                                }}
-                                onMouseLeave={(e) => {
-                                  if (!active) {
-                                    e.currentTarget.style.backgroundColor = "#f1f5f9";
-                                    e.currentTarget.style.color = "#64748b";
-                                  }
-                                }}
                               >
-                                <span className="w-5 h-5">{ICONS[colIdx]?.[itemIdx]}</span>
+                                <span className="w-5 h-5">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                                </span>
                               </span>
                               <div className="min-w-0 pt-0.5">
                                 <span
@@ -427,41 +447,10 @@ export default function Navbar() {
                               </div>
                             </Link>
                           );
-                        })}
-                      </div>
-
-                      {/* Featured card */}
-                      {col.featured && (
-                        <div
-                          className="col-span-1 rounded-xl p-6 flex flex-col justify-between"
-                          style={{
-                            background: `linear-gradient(145deg, ${col.accent}12, ${col.accent}06)`,
-                            border: `1.5px solid ${col.accent}25`,
-                          }}
-                        >
-                          <div>
-                            <div
-                              className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                              style={{ backgroundColor: col.accent }}
-                            >
-                              <svg className="w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="white" strokeWidth="1.5">
-                                <circle cx="10" cy="10" r="7"/>
-                                <path d="M10 7v3l2 2"/>
-                              </svg>
-                            </div>
-                            <h4 className="font-black text-gray-900 leading-tight" style={{ fontSize: "15px" }}>{col.featured.title}</h4>
-                            <p className="text-gray-500 mt-2 leading-relaxed" style={{ fontSize: "13px" }}>{col.featured.body}</p>
-                          </div>
-                          <Link
-                            href={col.featured.href}
-                            className="mt-5 inline-flex items-center gap-2 font-bold tracking-wide text-white px-5 py-3 rounded-xl transition-opacity hover:opacity-90"
-                            style={{ fontSize: "13px", backgroundColor: col.accent }}
-                          >
-                            {col.featured.cta}
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                          </Link>
+                        })
+                      ) : (
+                        <div className="col-span-3 py-20 text-center">
+                            <p className="text-gray-400 font-bold uppercase tracking-widest text-xs italic">No services in this category yet</p>
                         </div>
                       )}
                     </div>
@@ -478,7 +467,7 @@ export default function Navbar() {
                   style={{ backgroundColor: "#22c55e" }}
                 />
                 <p className="text-gray-500" style={{ fontSize: "13px" }}>
-                  <span className="font-semibold text-gray-700">27 services</span> across 4 categories · Available 24/7
+                  <span className="font-semibold text-gray-700">{totalServices} services</span> across {dynamicMegaMenu.length} categories · Available 24/7
                 </p>
               </div>
               <div className="flex items-center gap-6">
@@ -539,7 +528,7 @@ export default function Navbar() {
                     }`}
                   >
                     <div className="pl-1 pt-1 pb-2 flex flex-col gap-3">
-                      {MEGA_MENU.map((col, colIdx) => (
+                      {dynamicMegaMenu.map((col, colIdx) => (
                         <div key={col.category}>
                           <div className="flex items-center gap-2 px-3 py-1.5">
                             <span
@@ -551,27 +540,33 @@ export default function Navbar() {
                             </p>
                           </div>
                           <div className="grid grid-cols-2 gap-0.5">
-                            {col.items.map((item, itemIdx) => (
-                              <Link
-                                key={item.label}
-                                href={item.href}
-                                onClick={() => setMenuOpen(false)}
-                                className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all duration-150"
-                                style={{
-                                  fontSize: "11px",
-                                  backgroundColor: isActive(item.href) ? "#e8f4ff" : "transparent",
-                                  color: isActive(item.href) ? "#0088ff" : "#4b5563",
-                                }}
-                              >
-                                <span
-                                  className="shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-white"
-                                  style={{ background: col.accent }}
+                            {col.items.length > 0 ? (
+                                col.items.map((item, itemIdx) => (
+                                <Link
+                                    key={item.label}
+                                    href={item.href}
+                                    onClick={() => setMenuOpen(false)}
+                                    className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all duration-150"
+                                    style={{
+                                    fontSize: "11px",
+                                    backgroundColor: isActive(item.href) ? "#e8f4ff" : "transparent",
+                                    color: isActive(item.href) ? "#0088ff" : "#4b5563",
+                                    }}
                                 >
-                                  <span className="w-3.5 h-3.5">{ICONS[colIdx]?.[itemIdx]}</span>
-                                </span>
-                                <span className="truncate">{item.label}</span>
-                              </Link>
-                            ))}
+                                    <span
+                                    className="shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-white"
+                                    style={{ background: col.accent }}
+                                    >
+                                    <span className="w-3.5 h-3.5">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                                    </span>
+                                    </span>
+                                    <span className="truncate">{item.label}</span>
+                                </Link>
+                                ))
+                            ) : (
+                                <p className="col-span-2 px-3 py-2 text-[10px] text-gray-400 italic">No services</p>
+                            )}
                           </div>
                         </div>
                       ))}

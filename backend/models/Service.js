@@ -14,6 +14,21 @@ const ServiceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: [
+      "Residential solutions",
+      "Specialized solutions",
+      "Technical solutions",
+      "Premium finishes"
+    ],
+  },
   description: {
     type: String,
     required: true,

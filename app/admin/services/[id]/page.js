@@ -125,6 +125,20 @@ export default function EditService() {
                 />
               </div>
               <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Category</label>
+                <select 
+                  value={formData.category}
+                  onChange={(e) => setFormData({...formData, category: e.target.value})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-[#0088ff] focus:bg-white transition-all font-bold text-[#111]"
+                  required
+                >
+                  <option value="Residential solutions">Residential solutions</option>
+                  <option value="Specialized solutions">Specialized solutions</option>
+                  <option value="Technical solutions">Technical solutions</option>
+                  <option value="Premium finishes">Premium finishes</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Description</label>
                 <textarea 
                   value={formData.description}
