@@ -6,6 +6,7 @@ import ImageUpload from "@/app/admin/components/ImageUpload";
 export default function AddServices() {
   const [formData, setFormData] = useState({
     title: "",
+    category: "Residential solutions",
     description: "",
     photos: [""],
     faq: [{ question: "", answer: "" }],
@@ -48,7 +49,7 @@ export default function AddServices() {
       setError(result.error);
     } else {
       setIsSaved(true);
-      setFormData({ title: "", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
+      setFormData({ title: "", category: "Residential solutions", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
       setTimeout(() => setIsSaved(false), 3000);
     }
     setIsLoading(false);
@@ -92,6 +93,20 @@ export default function AddServices() {
                   placeholder="e.g. Basement Waterproofing"
                   required
                 />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Category</label>
+                <select 
+                  value={formData.category}
+                  onChange={(e) => setFormData({...formData, category: e.target.value})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
+                  required
+                >
+                  <option value="Residential solutions">Residential solutions</option>
+                  <option value="Specialized solutions">Specialized solutions</option>
+                  <option value="Technical solutions">Technical solutions</option>
+                  <option value="Premium finishes">Premium finishes</option>
+                </select>
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Service Description</label>
