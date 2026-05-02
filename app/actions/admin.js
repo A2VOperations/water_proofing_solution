@@ -141,11 +141,36 @@ export async function createServiceAction(serviceData) {
 export async function createBlogAction(blogData) {
     try {
         await dbConnect();
+        console.log("Creating Blog with data:", { ...blogData, content: blogData.content?.substring(0, 50) + "..." });
+        
+        // Generate slug from title
+        if (blogData.title) {
+            let baseSlug = blogData.title
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+            
+            // Check for uniqueness
+            let uniqueSlug = baseSlug;
+            let counter = 1;
+            while (await Blog.findOne({ slug: uniqueSlug })) {
+                uniqueSlug = `${baseSlug}-${counter}`;
+                counter++;
+            }
+            blogData.slug = uniqueSlug;
+        }
+
+        // Add default values if missing
+        if (!blogData.author) blogData.author = "Admin";
+        if (!blogData.date) blogData.date = new Date();
+
         const newBlog = await Blog.create(blogData);
         return { success: true, blog: JSON.parse(JSON.stringify(newBlog)) };
     } catch (error) {
-        console.error("Create Blog Error:", error);
-        return { error: "Failed to create blog post" };
+        console.error("Create Blog Error Details:", error);
+        return { error: error.message || "Failed to create blog post" };
     }
 }
 
@@ -247,5 +272,46 @@ export async function getAdminDetailsAction() {
     } catch (error) {
         console.error("Get Admin Details Error:", error);
         return { error: "Failed to fetch admin details" };
+    }
+}
+
+export async function getAllBlogsAction() {
+    try {
+        await dbConnect();
+        const blogs = await Blog.find({}).sort({ date: -1 });
+        return { success: true, blogs: JSON.parse(JSON.stringify(blogs)) };
+    } catch (error) {
+        console.error("Get All Blogs Error:", error);
+        return { error: "Failed to fetch blogs" };
+    }
+}
+
+export async function getBlogBySlugAction(slug) {
+    try {
+        await dbConnect();
+        const blog = await Blog.findOne({ slug });
+        if (!blog) return { error: "Blog not found" };
+        return { success: true, blog: JSON.parse(JSON.stringify(blog)) };
+    } catch (error) {
+        console.error("Get Blog By Slug Error:", error);
+        return { error: "Failed to fetch blog" };
+    }
+}
+
+export async function deleteBlogAction(blogId) {
+    try {
+        await dbConnect();
+        const blog = await Blog.findById(blogId);
+        if (!blog) return { error: "Blog not found" };
+
+        if (blog.image && blog.image.includes('cloudinary')) {
+            try { await deleteImage(blog.image); } catch (err) {}
+        }
+
+        await Blog.findByIdAndDelete(blogId);
+        return { success: true };
+    } catch (error) {
+        console.error("Delete Blog Error:", error);
+        return { error: "Failed to delete blog" };
     }
 }

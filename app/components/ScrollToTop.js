@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 
 export default function ScrollToTop() {
@@ -7,6 +6,7 @@ export default function ScrollToTop() {
   const [scrollPercent, setScrollPercent] = useState(0);
 
   useEffect(() => {
+    // on mount, scroll to top and set manual restoration to prevent jumps
     window.scrollTo(0, 0);
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
@@ -42,18 +42,17 @@ export default function ScrollToTop() {
     <button
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      style={{ fontFamily: "'Nunito', sans-serif" }}
       className={`
         fixed bottom-6 right-6 z-[9999]
         w-14 h-14
         flex items-center justify-center
         rounded-full
         bg-white
-        shadow-[0_8px_32px_rgba(232,67,147,0.25)]
-        border-2 border-[#fce4ef]
+        shadow-[0_8px_32px_rgba(0,136,255,0.15)]
+        border-2 border-[#f0f7ff]
         transition-all duration-500 ease-out
-        hover:scale-110 hover:shadow-[0_12px_40px_rgba(232,67,147,0.4)]
-        hover:border-[#e84393]
+        hover:scale-110 hover:shadow-[0_12px_40px_rgba(0,136,255,0.25)]
+        hover:border-[#0088ff]
         active:scale-95
         ${visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-6 pointer-events-none"}
       `}
@@ -69,7 +68,7 @@ export default function ScrollToTop() {
           cy="28"
           r={radius}
           fill="none"
-          stroke="#fce4ef"
+          stroke="#f0f7ff"
           strokeWidth="2.5"
         />
         {/* Progress */}
@@ -78,7 +77,7 @@ export default function ScrollToTop() {
           cy="28"
           r={radius}
           fill="none"
-          stroke="#e84393"
+          stroke="#0088ff"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -89,11 +88,11 @@ export default function ScrollToTop() {
 
       {/* Arrow icon */}
       <svg
-        className="relative z-10 w-5 h-5 text-[#e84393]"
+        className="relative z-10 w-5 h-5 text-[#0088ff]"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        strokeWidth={2.8}
+        strokeWidth={3}
         strokeLinecap="round"
         strokeLinejoin="round"
       >

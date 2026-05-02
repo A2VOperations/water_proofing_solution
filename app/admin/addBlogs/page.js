@@ -16,25 +16,40 @@ export default function AddBlogs() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const [uploadKey, setUploadKey] = useState(0);
+
   const handleImageSuccess = (url) => {
     setFormData({ ...formData, image: url });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!formData.image) {
+      setError("Please upload a cover image first.");
+      return;
+    }
+
     setIsLoading(true);
     setError("");
 
-    const result = await createBlogAction(formData);
+    try {
+      const result = await createBlogAction(formData);
 
-    if (result.error) {
-      setError(result.error);
-    } else {
-      setIsSaved(true);
-      setFormData({ title: "", category: "", author: "", image: "", content: "" });
-      setTimeout(() => setIsSaved(false), 3000);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        setIsSaved(true);
+        setFormData({ title: "", category: "", author: "", image: "", content: "" });
+        setUploadKey(prev => prev + 1); // Reset image upload component
+        setTimeout(() => setIsSaved(false), 3000);
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -50,6 +65,12 @@ export default function AddBlogs() {
             Post Published
           </div>
         )}
+        {error && (
+          <div className="bg-red-50 text-red-500 px-4 py-2 rounded-lg font-bold text-sm border border-red-100 flex items-center gap-2">
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+            {error}
+          </div>
+        )}
       </header>
 
       <div className="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
@@ -58,7 +79,7 @@ export default function AddBlogs() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2 md:col-span-2">
               <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Cover Image (Cloudinary)</label>
-              <ImageUpload folder="blogs" onUploadSuccess={handleImageSuccess} />
+              <ImageUpload key={uploadKey} folder="blogs" onUploadSuccess={handleImageSuccess} />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Article Title</label>

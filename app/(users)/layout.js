@@ -1,7 +1,8 @@
 import "../globals.css";
 import Navbar from "../components/navBar";
 import Footer from "../components/footer";
-
+import ScrollToTop from "../components/ScrollToTop";
+import WhatsAppButton from "../components/WhatsappButton";
 
 export const metadata = {
   title: "Waterproofing Solutions | Expert Appliance Care",
@@ -20,6 +21,8 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
+        <ScrollToTop />
+        <WhatsAppButton/>
       </body>
     </html>
   );
