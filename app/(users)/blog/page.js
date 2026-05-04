@@ -92,7 +92,7 @@ export default function Blog() {
     <main className="min-h-screen bg-gray-50 font-sans pt-32 pb-24">
       
       {/* ── HEADER ── */}
-      <section className="max-w-7xl mx-auto px-6 text-center mb-20 mt-10">
+      <section className="max-w-7xl mx-auto px-6 text-center mb-10 mt-10">
         <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
           STAY UPDATED
         </p>

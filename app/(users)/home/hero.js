@@ -1,9 +1,13 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { CONTACT_CONFIG } from "@/app/config";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const SERVICES = [
   "Terrace Waterproofing",
@@ -54,48 +58,66 @@ export default function Hero() {
     service: "",
   });
 
-  // Refs for scroll animation
-  const topRowRef = useRef(null);
+  // Refs for animations
+  const containerRef = useRef(null);
+  const heroTextRef = useRef(null);
+  const heroSubtextRef = useRef(null);
+  const heroTitleRef = useRef(null);
+  const formCardRef = useRef(null);
+  const servicesHeadlineRef = useRef(null);
   const cardsRef = useRef([]);
-  const [topRowVisible, setTopRowVisible] = useState(false);
-  const [cardsVisible, setCardsVisible] = useState([false, false, false]);
 
-  useEffect(() => {
-    const observers = [];
+  useGSAP(() => {
+    // Entrance animations
+    const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
 
-    // Observe top row
-    if (topRowRef.current) {
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setTopRowVisible(true); },
-        { threshold: 0.1 }
-      );
-      obs.observe(topRowRef.current);
-      observers.push(obs);
-    }
+    tl.from(heroSubtextRef.current, {
+      y: 30,
+      opacity: 0,
+      delay: 0.2
+    })
+    .from(heroTitleRef.current, {
+      y: 50,
+      opacity: 0,
+    }, "-=0.7")
+    .from(heroTextRef.current, {
+      y: 30,
+      opacity: 0,
+    }, "-=0.7")
+    .from(formCardRef.current, {
+      y: 100,
+      opacity: 0,
+    }, "-=0.5");
 
-    // Observe each card
-    cardsRef.current.forEach((card, i) => {
-      if (!card) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              setCardsVisible((prev) => {
-                const next = [...prev];
-                next[i] = true;
-                return next;
-              });
-            }, i * 120);
-          }
-        },
-        { threshold: 0.1 }
-      );
-      obs.observe(card);
-      observers.push(obs);
+    // Scroll triggered animations for Services Section
+    gsap.from(servicesHeadlineRef.current, {
+      scrollTrigger: {
+        trigger: servicesHeadlineRef.current,
+        start: "top 90%",
+      },
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
     });
 
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+    gsap.fromTo(".service-card-hero", 
+      { y: 60, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: servicesHeadlineRef.current,
+          start: "top 70%",
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        immediateRender: false
+      }
+    );
+
+  }, { scope: containerRef });
 
   const [adminDetails, setAdminDetails] = useState(null);
   const [dynamicServices, setDynamicServices] = useState([]);
@@ -132,7 +154,7 @@ export default function Hero() {
   }
 
   return (
-    <div className="min-h-screen font-sans bg-white text-white">
+    <div ref={containerRef} className="min-h-screen font-sans bg-white text-white">
 
       {/* â”€â”€ HERO â”€â”€ */}
       <section className="relative min-h-screen flex flex-col justify-center pt-28 md:pt-16">
@@ -152,15 +174,15 @@ export default function Hero() {
 
         {/* Hero content */}
         <div className="relative z-10 w-full px-10 lg:px-20 xl:px-28 pt-40 pb-80 md:pb-40">
-          <p className="text-sm font-semibold tracking-[0.3em] uppercase text-white/80 mb-4">
+          <p ref={heroSubtextRef} className="text-sm font-semibold tracking-[0.3em] uppercase text-white/80 mb-4">
             Premium Waterproofing &amp; Seepage Solutions
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  uppercase leading-none tracking-tight max-w-5xl font-semibold">
+          <h1 ref={heroTitleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  uppercase leading-none tracking-tight max-w-5xl font-semibold">
             Shield Your Home
             <br />
             From Monsoon Damage
           </h1>
-          <p className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed">
+          <p ref={heroTextRef} className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed">
             From terrace seepage to basement leaks, Feexaro provides expert
             waterproofing for every Indian home.
           </p>
@@ -170,7 +192,7 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-[#0088ff] z-0" />
 
         {/* â”€â”€ FORM CARD â”€â”€ overlapping hero + accent bar */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full -mb-8">
+        <div ref={formCardRef} className="relative z-10 max-w-7xl mx-auto px-6 w-full -mb-8">
           <div className="bg-[#1a1a1a] rounded-xl p-8 md:p-10">
             <div className="grid md:grid-cols-[1fr_1.6fr] gap-10 items-start">
 
@@ -296,12 +318,8 @@ export default function Hero() {
 
           {/* Top row: headline left, tagline right */}
           <div
-            ref={topRowRef}
-            className="flex justify-center mb-14 transition-all duration-700 ease-out w-full"
-            style={{
-              opacity: topRowVisible ? 1 : 0,
-              transform: topRowVisible ? "translateY(0)" : "translateY(28px)",
-            }}
+            ref={servicesHeadlineRef}
+            className="flex justify-center mb-14 w-full"
           >
             <h2 className="font-black uppercase leading-tight text-white text-4xl md:text-5xl text-center py-10 max-w-3xl mx-auto">
               Protect your home with industry-leading quality{" "}
@@ -312,17 +330,11 @@ export default function Hero() {
           </div>
 
           {/* Cards */}
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-4 services-cards-grid">
             {SERVICE_CARDS.map((item, i) => (
               <div
                 key={i}
-                ref={(el) => (cardsRef.current[i] = el)}
-                className="group relative bg-white/10 rounded-xl overflow-hidden border border-white/15 p-8 hover:bg-white/[0.17] hover:border-white/30 transition-all duration-300"
-                style={{
-                  opacity: cardsVisible[i] ? 1 : 0,
-                  transform: cardsVisible[i] ? "translateY(0)" : "translateY(36px)",
-                  transition: "opacity 0.6s ease, transform 0.6s ease, background 0.25s, border-color 0.25s",
-                }}
+                className="group relative bg-white/10 rounded-xl overflow-hidden border border-white/15 p-8 hover:bg-white/[0.17] hover:border-white/30 transition-all duration-300 service-card-hero"
               >
                 {/* Top accent bar on hover */}
                 <div className="absolute top-0 left-0 right-0 h-[3px] bg-white/40 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />

@@ -1,11 +1,48 @@
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useState, useEffect, useRef } from "react";
 import { getAdminDetailsAction } from "@/app/actions/admin";
 import { CONTACT_CONFIG } from "@/app/config";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const Section5 = () => {
   const [adminDetails, setAdminDetails] = useState(null);
+  const containerRef = useRef(null);
+  const contentRef = useRef(null);
+  const sidePanelRef = useRef(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      }
+    });
+
+    tl.from(contentRef.current.children, {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+
+    gsap.from(sidePanelRef.current, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 60%",
+      },
+      x: 100,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+
+  }, { scope: containerRef });
 
   useEffect(() => {
     const fetchAdmin = async () => {
@@ -47,6 +84,7 @@ const Section5 = () => {
         `}
       </style>
       <div
+        ref={containerRef}
         className="relative w-full min-h-[400px] overflow-hidden bg-[#0d1117] flex items-stretch"
         style={{
           backgroundImage: "url('/home/6711000bab0a0289b4b137fd_home2-about2-img.jpg')",
@@ -63,7 +101,7 @@ const Section5 = () => {
         ></div>
 
         <div className="relative z-20 flex flex-col justify-center gap-6 px-6 py-16 max-w-7xl mx-auto w-full">
-          <div className="max-w-xl flex flex-col gap-6">
+          <div ref={contentRef} className="max-w-xl flex flex-col gap-6">
           <div className="flex items-center gap-2 w-fit px-4 py-1.5 rounded-full text-[11px] font-medium tracking-widest uppercase text-[#3fa9f5] bg-[rgba(63,169,245,0.12)] border border-[rgba(63,169,245,0.35)]">
             <span className="badge-dot w-1.5 h-1.5 rounded-full bg-[#3fa9f5]"></span>
             Limited Period Offer
@@ -156,7 +194,7 @@ const Section5 = () => {
         </div>
       </div>
 
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white/95 rounded-l-2xl px-3.5 py-5 flex flex-col items-center gap-2.5 shadow-[-4px_0_20px_rgba(0,0,0,0.2)]">
+        <div ref={sidePanelRef} className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white/95 rounded-l-2xl px-3.5 py-5 flex flex-col items-center gap-2.5 shadow-[-4px_0_20px_rgba(0,0,0,0.2)]">
           <a 
             href={`tel:${adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp}`}
             className="w-7 h-7 rounded-full bg-[#3fa9f5] flex items-center justify-center no-underline"

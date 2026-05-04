@@ -3,10 +3,44 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getAllBlogsAction } from "@/app/actions/admin";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function BlogSection() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const containerRef = useRef(null);
+  const headerRef = useRef(null);
+
+  useGSAP(() => {
+    if (loading) return;
+
+    gsap.from(headerRef.current, {
+      scrollTrigger: {
+        trigger: headerRef.current,
+        start: "top 90%",
+      },
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+
+    gsap.from(".blog-card", {
+      scrollTrigger: {
+        trigger: ".blog-grid",
+        start: "top 85%",
+      },
+      y: 60,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+  }, { scope: containerRef, dependencies: [loading] });
 
   useEffect(() => {
     async function fetchBlogs() {
@@ -29,34 +63,11 @@ export default function BlogSection() {
     return `${day} ${month} ${year}`;
   };
 
-  const BlogCard = ({ post, index }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const ref = useRef(null);
-
-    useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        },
-        { threshold: 0.1 },
-      );
-
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
-
-      return () => observer.disconnect();
-    }, []);
-
+  const BlogCard = ({ post }) => {
     return (
-      <Link href={`/blog/${post.slug}`} className="h-full">
+      <Link href={`/blog/${post.slug}`} className="h-full blog-card">
         <div
-          ref={ref}
-          className={`bg-white rounded-[24px] border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden group flex flex-col h-full transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}`}
-          style={{ transitionDelay: `${index * 100}ms` }}
+          className="bg-white rounded-[24px] border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden group flex flex-col h-full transform"
         >
           {/* Image Container */}
           <div className="relative w-full aspect-[4/3] rounded-[24px] overflow-hidden bg-gray-100">
@@ -68,7 +79,7 @@ export default function BlogSection() {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
 
-            {/* Date Badge with Inverted Curves (Replaced buggy SVGs with clean CSS shadow trick) */}
+            {/* Date Badge with Inverted Curves */}
             <div className="absolute bottom-0 right-10 bg-white px-6 py-3 rounded-t-[20px] z-10 flex items-center justify-center">
               {/* Left Inverted Curve */}
               <div className="absolute bottom-0 -left-[20px] w-[20px] h-[20px] bg-transparent rounded-br-[20px] shadow-[10px_10px_0_10px_white] pointer-events-none"></div>
@@ -100,9 +111,9 @@ export default function BlogSection() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 font-sans pt-32 pb-24">
+    <main ref={containerRef} className="min-h-screen bg-gray-50 font-sans pt-15 pb-15">
       {/* ── HEADER ── */}
-      <section className="max-w-7xl mx-auto px-6 text-center mb-20 mt-10">
+      <section ref={headerRef} className="max-w-7xl mx-auto px-6 text-center mb-20 mt-10">
         <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
           STAY UPDATED
         </p>
@@ -139,7 +150,7 @@ export default function BlogSection() {
 
       {/* ── BLOG GRID ── */}
       <section className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 blog-grid">
           {loading ? (
              [1, 2, 3, 4].map((i) => (
                <div key={i} className="h-[450px] bg-gray-100 animate-pulse rounded-[24px]"></div>
@@ -149,8 +160,8 @@ export default function BlogSection() {
               No blog posts available yet.
             </div>
           ) : (
-            blogs.map((post, i) => (
-              <BlogCard key={post._id} post={post} index={i} />
+            blogs.map((post) => (
+              <BlogCard key={post._id} post={post} />
             ))
           )}
         </div>

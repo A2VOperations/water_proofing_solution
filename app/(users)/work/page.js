@@ -143,7 +143,7 @@ export default function Work() {
   const row2Images = allProjectImages.filter((_, i) => i % 2 !== 0);
 
   return (
-    <main className="min-h-screen bg-white font-sans text-gray-900 pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-x-hidden">
+    <main className=" bg-white font-sans text-gray-900 pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-x-hidden">
       {/* ── HEADER ── */}
       <section className="max-w-5xl mx-auto px-6 text-center mb-16 sm:mb-24 mt-4 sm:mt-10">
         <div className="inline-block border border-gray-200 rounded-full px-4 py-1.5 text-[9px] sm:text-[10px] font-black tracking-[0.2em] text-[#0088ff] mb-4 sm:mb-6 uppercase bg-gray-50/50">
@@ -181,7 +181,7 @@ export default function Work() {
 
       {/* ── RESTORED DUAL CAROUSEL SECTION ── */}
       {works.length > 0 && (
-        <section className="relative w-full py-16 sm:py-20 flex flex-col gap-6 sm:gap-8 bg-[#f9f9f9] border-y border-gray-100 overflow-hidden mb-20 sm:mb-32">
+        <section className="relative w-full py-16 sm:py-20 flex flex-col gap-6 sm:gap-8 bg-[#f9f9f9] border-y border-gray-100 overflow-hidden sm:mb-10">
           <div className="w-full">
             <div ref={row1Ref} className="flex gap-4 sm:gap-6 w-max will-change-transform">
               {[...row1Images, ...row1Images, ...row1Images].map((src, i) => (
@@ -255,7 +255,7 @@ export default function Work() {
       </section>
 
       {/* ── CALL TO ACTION ── */}
-      <section className="max-w-7xl mx-auto px-6 mb-20 sm:mb-32">
+      <section className="max-w-7xl mx-auto px-6 mb-10">
         <div className="bg-[#111] rounded-[32px] sm:rounded-[48px] p-10 sm:p-16 md:p-20 text-center relative overflow-hidden group">
           <h2 className="text-[26px] sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight mb-8 relative z-10 leading-[1.1]">
             Have a similar project<br />in mind?

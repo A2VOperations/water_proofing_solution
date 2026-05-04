@@ -1,7 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { getAllServicesAction } from "@/app/actions/admin";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CATEGORY_ICONS = {
   "Residential Solutions": (
@@ -27,15 +32,82 @@ const CATEGORY_ICONS = {
   ),
 };
 
+const FALLBACK_SERVICES = [
+  {
+    title: "Terrace Waterproofing",
+    description: "Multi-layered protection for your roof to prevent seepage and cracks during heavy rains.",
+    category: "Residential Solutions",
+    slug: "terrace-waterproofing"
+  },
+  {
+    title: "Wall Seepage Control",
+    description: "Specialized wall treatments to stop dampness and peeling paint permanently.",
+    category: "Residential Solutions",
+    slug: "wall-seepage-control"
+  },
+  {
+    title: "Bathroom Leak Repair",
+    description: "No-chipping solutions for leaking bathrooms and toilets with epoxy grouting.",
+    category: "Residential Solutions",
+    slug: "bathroom-leak-repair"
+  }
+];
+
 const Services = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const containerRef = useRef(null);
+  const titleRef = useRef(null);
+
+  useGSAP(() => {
+    if (loading) return;
+
+    gsap.from(titleRef.current, {
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: "top 85%",
+      },
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+
+    gsap.fromTo(".service-card", 
+      { y: 50, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 60%",
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.15,
+        ease: "power2.out",
+        immediateRender: false
+      }
+    );
+
+    gsap.from(".view-more-btn", {
+      scrollTrigger: {
+        trigger: ".view-more-btn",
+        start: "top 90%",
+      },
+      scale: 0.9,
+      opacity: 0,
+      duration: 0.6,
+      ease: "back.out(1.7)"
+    });
+  }, { scope: containerRef, dependencies: [loading] });
 
   useEffect(() => {
     const fetchServices = async () => {
       const result = await getAllServicesAction();
-      if (result.success) {
+      if (result.success && result.services.length > 0) {
         setServices(result.services.slice(0, 6));
+      } else {
+        setServices(FALLBACK_SERVICES);
       }
       setLoading(false);
     };
@@ -45,9 +117,9 @@ const Services = () => {
   if (loading) return null;
 
   return (
-    <section className="bg-[#f0f4f8] py-24 w-full">
+    <section ref={containerRef} className="bg-[#f0f4f8] py-24 w-full">
       <div className="max-w-[90%] mx-auto px-6 md:px-12">
-      <div className="text-center mb-20">
+      <div ref={titleRef} className="text-center mb-20">
         <div className="inline-block mb-6">
           <span className="px-6 py-2.5 rounded-full border border-[#041f38] text-[12px] font-black uppercase tracking-[0.3em] text-[#041f38] bg-white/50 backdrop-blur-sm">
             Our Services
@@ -58,11 +130,11 @@ const Services = () => {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 services-grid">
         {services.map((service, index) => (
           <div
             key={service._id || index}
-            className="bg-white p-10 rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50"
+            className="bg-white p-10 rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50 service-card"
           >
             {/* Logo SVG & Title */}
             <div className="flex items-start gap-5 mb-8">
@@ -124,7 +196,7 @@ const Services = () => {
       <div className="mt-20 text-center">
         <Link 
           href="/services" 
-          className="inline-flex items-center gap-3 bg-[#041F38] hover:bg-[#0089FF] text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all duration-500 hover:-translate-y-1 shadow-2xl"
+          className="inline-flex items-center gap-3 bg-[#041F38] hover:bg-[#0089FF] text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all duration-500 hover:-translate-y-1 shadow-2xl view-more-btn"
         >
           View More Services
           <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">

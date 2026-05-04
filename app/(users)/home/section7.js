@@ -24,7 +24,7 @@ const section7 = ({ speed = 8000 }) => {
   const items = [...marqueeItems, ...marqueeItems];
 
   return (
-    <div className="relative w-full bg-white py-12 md:py-16 border-y border-gray-100 select-none overflow-hidden">
+    <div className="relative w-full bg-white py-12 md:py-5 border-y border-gray-100 select-none overflow-hidden">
       <Swiper
         loop={true}
         speed={speed}

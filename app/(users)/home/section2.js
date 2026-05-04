@@ -1,11 +1,59 @@
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { getAdminDetailsAction } from "@/app/actions/admin";
 import { CONTACT_CONFIG } from "@/app/config";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Section2 = () => {
   const [adminDetails, setAdminDetails] = useState(null);
+  const sectionRef = useRef(null);
+  const leftTextRef = useRef(null);
+  const rightTextRef = useRef(null);
+  const checklistRef = useRef(null);
+  const mainImageRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 80%",
+      }
+    });
+
+    tl.from(leftTextRef.current, {
+      x: -50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    })
+    .from(rightTextRef.current, {
+      x: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    }, "-=0.6")
+    .from(".checklist-item", {
+      y: 20,
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: "power2.out"
+    }, "-=0.4")
+    .from(mainImageRef.current, {
+      scale: 0.95,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out"
+    }, "-=0.6")
+
+  }, { scope: sectionRef });
 
   useEffect(() => {
     const fetchAdmin = async () => {
@@ -38,10 +86,10 @@ const Section2 = () => {
   ];
 
   return (
-    <section className="max-w-[1400px] py-15 mx-auto px-6 overflow-hidden bg-white">
+    <section ref={sectionRef} className="max-w-[1400px] py-15 mx-auto px-6 overflow-hidden bg-white">
       {/* Top Content: Header & Description */}
       <div className="flex flex-col lg:flex-row justify-between gap-12 mb-10">
-        <div className="lg:w-1/2">
+        <div ref={leftTextRef} className="lg:w-1/2">
           <div className="mb-6">
             <span className="px-5 py-2 rounded-full border border-[#041f38] text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#041f38] ">
               Our Experience
@@ -53,7 +101,7 @@ const Section2 = () => {
           </h2>
         </div>
 
-        <div className="">
+        <div ref={rightTextRef} className="">
           <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
             We provide specialized waterproofing and seepage control for Indian
             homes with expert efficiency. Trust us to ensure your structure
@@ -63,7 +111,7 @@ const Section2 = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
             {checklistItems.map((item, index) => (
-              <div key={index} className="flex items-center gap-3 group">
+              <div key={index} className="flex items-center gap-3 group checklist-item">
                 <div className="w-6 h-6 bg-[#008cf0] rounded-md flex items-center justify-center transition-all group-hover:scale-110 shadow-lg shadow-blue-600/20">
                   <svg
                     className="w-3.5 h-3.5 text-white"
@@ -91,7 +139,7 @@ const Section2 = () => {
       {/* Main Grid: Visuals & Side Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: Showcase */}
-        <div className="lg:col-span-9 relative group rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10 h-[450px]">
+        <div ref={mainImageRef} className="lg:col-span-9 relative group rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10 h-[450px]">
           <Image
             src="/handyman_working_under_sink.png"
             alt="Professional Waterproofing Expert at Work"
@@ -121,7 +169,7 @@ const Section2 = () => {
         {/* Right Stack: Cards */}
         <div className="lg:col-span-3 flex flex-col gap-8 h-full">
           {/* Trustpilot Card */}
-          <div className="bg-[#e9eef2] p-10 rounded-[48px] relative overflow-hidden border border-gray-100">
+          <div className="bg-[#e9eef2] p-10 rounded-[48px] relative overflow-hidden border border-gray-100 side-card">
             <div className="relative flex justify-between items-center z-10">
               <div className="flex flex-col justify-center">
                 <div className="flex justify-center mb-2">
@@ -153,7 +201,7 @@ const Section2 = () => {
           </div>
 
           {/* Offer Card */}
-          <div className="bg-[#0089FF] p-10 rounded-[40px] flex flex-col justify-between h-[320px] relative overflow-hidden group/offer transition-all hover:bg-[#0076FF]">
+          <div className="bg-[#0089FF] p-10 rounded-[40px] flex flex-col justify-between h-[320px] relative overflow-hidden group/offer transition-all hover:bg-[#0076FF] ">
             {/* Background Decorative Badge */}
             <div className="absolute -top-10 -right-10 opacity-10 group-hover/offer:scale-125 group-hover/offer:-rotate-12 transition-transform duration-700">
               <svg

@@ -1,8 +1,39 @@
 "use client";
+import React, { useRef } from 'react';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-import React from 'react';
+gsap.registerPlugin(ScrollTrigger);
 
 const PricingSection = () => {
+  const containerRef = useRef(null);
+  const headerRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.from(headerRef.current, {
+      scrollTrigger: {
+        trigger: headerRef.current,
+        start: "top 90%",
+      },
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+
+    gsap.from(".pricing-card", {
+      scrollTrigger: {
+        trigger: ".pricing-grid",
+        start: "top 85%",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+  }, { scope: containerRef });
   const plans = [
     {
       name: "BASIC PLAN",
@@ -43,9 +74,9 @@ const PricingSection = () => {
   ];
 
   return (
-    <section className="py-20 px-5 bg-white font-sans">
+    <section ref={containerRef} className="py-20 px-5 bg-white font-sans">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div ref={headerRef} className="text-center mb-16">
           <span className="inline-block px-5 py-1.5 border border-[#0B2238] rounded-full text-xs font-semibold tracking-wider text-[#0B2238] mb-5">
             PRICING OPTIONS
           </span>
@@ -54,11 +85,11 @@ const PricingSection = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch pricing-grid">
           {plans.map((plan, index) => (
             <div 
               key={index} 
-              className={`group relative pr-4 transition-transform duration-300 hover:-translate-y-2.5 ${plan.active ? 'z-10' : 'z-0'}`}
+              className={`group relative pr-4 transition-transform duration-300 hover:-translate-y-2.5 pricing-card ${plan.active ? 'z-10' : 'z-0'}`}
             >
               {/* Dark shape behind card */}
               <div className="absolute inset-0 left-8 bg-[#0B2238] rounded-[20px] z-0"></div>
