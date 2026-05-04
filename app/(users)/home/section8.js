@@ -23,9 +23,9 @@ export default function BlogSection() {
   const formatDate = (dateString) => {
     if (!dateString) return "DATE";
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
-    const year = date.getFullYear();
+    const day = date.toLocaleString('en-IN', { day: 'numeric', timeZone: 'Asia/Kolkata' });
+    const month = date.toLocaleString('en-IN', { month: 'short', timeZone: 'Asia/Kolkata' }).toUpperCase();
+    const year = date.toLocaleString('en-IN', { year: 'numeric', timeZone: 'Asia/Kolkata' });
     return `${day} ${month} ${year}`;
   };
 

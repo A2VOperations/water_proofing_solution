@@ -111,7 +111,7 @@ export default function BlogPost() {
                  <span className="text-white">{blog.author}</span>
                </div>
                <span>•</span>
-               <span>{new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+               <span>{new Date(blog.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Kolkata' })}</span>
                <span>•</span>
                <span>{blog.readTime || '5 MIN READ'}</span>
             </div>

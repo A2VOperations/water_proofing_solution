@@ -66,7 +66,7 @@ const BlogCard = ({ post, index }) => {
           </svg>
 
           <span className="text-[#0088ff] text-[11px] font-bold tracking-widest uppercase">
-            {new Date(post.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+            {new Date(post.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' })}
           </span>
         </div>
       </div>

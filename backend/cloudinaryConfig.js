@@ -15,6 +15,11 @@ export const uploadImage = async (fileStr, folder = 'waterproofing') => {
   try {
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
       folder: folder,
+      format: "webp",
+      transformation: [
+        { width: 1200, crop: "limit" },
+        { quality: "auto:good" }
+      ]
     });
     return uploadResponse.secure_url;
   } catch (error) {

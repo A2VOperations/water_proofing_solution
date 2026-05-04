@@ -21,7 +21,11 @@ export default function ImageUpload({ onUploadSuccess, folder = "waterproofing" 
     setUploading(true);
     try {
       const base64 = await convertToBase64(file);
-      const result = await uploadImageAction(base64, folder);
+      const formData = new FormData();
+      formData.append('image', base64);
+      formData.append('folder', folder);
+      
+      const result = await uploadImageAction(formData);
       
       if (result.success) {
         onUploadSuccess(result.url);

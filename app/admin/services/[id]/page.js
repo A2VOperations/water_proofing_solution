@@ -65,7 +65,7 @@ export default function EditService() {
     const result = await updateServiceAction(id, formData);
     if (result.success) {
       setIsSaved(true);
-      setTimeout(() => setIsSaved(false), 3000);
+      setTimeout(() => router.push('/admin/services'), 1000);
     } else {
       setError(result.error);
     }

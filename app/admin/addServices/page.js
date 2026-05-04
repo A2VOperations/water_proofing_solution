@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createServiceAction } from "@/app/actions/admin";
 import ImageUpload from "@/app/admin/components/ImageUpload";
 
 export default function AddServices() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
     category: "Residential Solutions",
@@ -50,7 +52,7 @@ export default function AddServices() {
     } else {
       setIsSaved(true);
       setFormData({ title: "", category: "Residential Solutions", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
-      setTimeout(() => setIsSaved(false), 3000);
+      setTimeout(() => router.push('/admin/services'), 1000);
     }
     setIsLoading(false);
   };
