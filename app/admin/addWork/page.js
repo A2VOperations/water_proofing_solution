@@ -36,7 +36,21 @@ export default function AddWork() {
     setIsLoading(true);
     setError("");
 
-    const result = await createWorkAction(formData);
+    // Filter out empty strings from images array
+    const validImages = formData.images.filter(img => img && img.trim() !== "");
+
+    if (validImages.length === 0) {
+      setError("Please upload at least one image before publishing.");
+      setIsLoading(false);
+      return;
+    }
+
+    const submissionData = {
+      ...formData,
+      images: validImages
+    };
+
+    const result = await createWorkAction(submissionData);
 
     if (result.error) {
       setError(result.error);
@@ -126,7 +140,14 @@ export default function AddWork() {
             </div>
           </section>
 
-          <div className="pt-6 border-t border-gray-100">
+          {error && (
+            <div className="bg-red-50 text-red-500 px-6 py-4 rounded-xl font-bold text-sm border border-red-100 flex items-center gap-3 animate-shake">
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+              {error}
+            </div>
+          )}
+
+          <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-4">
             <button 
               type="submit"
               disabled={isLoading}
@@ -134,6 +155,7 @@ export default function AddWork() {
             >
               {isLoading ? "Publishing..." : "Publish Work"}
             </button>
+            {isLoading && <p className="text-gray-400 font-bold text-[10px] uppercase tracking-widest animate-pulse">Uploading Data...</p>}
           </div>
 
         </form>
