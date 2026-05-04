@@ -6,6 +6,8 @@ import { getAllWorksAction, deleteWorkAction } from "@/app/actions/admin";
 export default function ManageWorks() {
   const [works, setWorks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     fetchWorks();
@@ -20,15 +22,21 @@ export default function ManageWorks() {
     setLoading(false);
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this project? This will also remove images from Cloudinary.")) return;
-    
-    const result = await deleteWorkAction(id);
+  const handleDeleteClick = (id) => {
+    setDeleteId(id);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+    setIsDeleting(true);
+    const result = await deleteWorkAction(deleteId);
     if (result.success) {
-      setWorks(works.filter(w => w._id !== id));
+      setWorks(works.filter(w => w._id !== deleteId));
+      setDeleteId(null);
     } else {
       alert(result.error);
     }
+    setIsDeleting(false);
   };
 
   return (
@@ -77,7 +85,7 @@ export default function ManageWorks() {
                 </p>
                 <div className="flex gap-3">
                   <button 
-                    onClick={() => handleDelete(work._id)}
+                    onClick={() => handleDeleteClick(work._id)}
                     className="flex-1 px-4 py-3 rounded-xl border border-red-100 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-50 transition-colors"
                   >
                     Delete
@@ -93,6 +101,39 @@ export default function ManageWorks() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Custom Delete Modal */}
+      {deleteId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity">
+          <div className="bg-white rounded-[32px] p-8 max-w-sm w-full shadow-[0_20px_60px_rgba(0,0,0,0.15)] animate-in fade-in zoom-in-95 duration-200">
+            <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-black text-center text-[#111] mb-2 tracking-tight">Delete Project?</h3>
+            <p className="text-gray-500 text-sm text-center mb-8 font-medium leading-relaxed">
+              This action cannot be undone. The project and its associated Cloudinary images will be permanently removed.
+            </p>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setDeleteId(null)}
+                disabled={isDeleting}
+                className="flex-1 px-4 py-3.5 rounded-xl font-bold text-gray-600 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-50 text-sm"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmDelete}
+                disabled={isDeleting}
+                className="flex-1 px-4 py-3.5 rounded-xl font-bold text-white bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-50 text-sm flex items-center justify-center shadow-lg shadow-red-500/30"
+              >
+                {isDeleting ? "Deleting..." : "Yes, Delete"}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

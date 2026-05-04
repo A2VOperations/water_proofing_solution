@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
-
+import { setDefaultResultOrder } from 'dns';
+import { Resolver } from 'dns/promises';
 // We define the schema here for a standalone script execution
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },

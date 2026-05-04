@@ -1,12 +1,14 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createServiceAction } from "@/app/actions/admin";
 import ImageUpload from "@/app/admin/components/ImageUpload";
 
 export default function AddServices() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
-    category: "Home Sealing & Repairs",
+    category: "Residential Solutions",
     description: "",
     photos: [""],
     faq: [{ question: "", answer: "" }],
@@ -43,14 +45,28 @@ export default function AddServices() {
     setIsLoading(true);
     setError("");
 
-    const result = await createServiceAction(formData);
+    // Filter out empty strings from photos array
+    const validPhotos = formData.photos.filter(img => img && img.trim() !== "");
+
+    if (validPhotos.length === 0) {
+      setError("Please upload at least one photo before publishing.");
+      setIsLoading(false);
+      return;
+    }
+
+    const submissionData = {
+      ...formData,
+      photos: validPhotos
+    };
+
+    const result = await createServiceAction(submissionData);
 
     if (result.error) {
       setError(result.error);
     } else {
       setIsSaved(true);
-      setFormData({ title: "", category: "Home Sealing & Repairs", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
-      setTimeout(() => setIsSaved(false), 3000);
+      setFormData({ title: "", category: "Residential Solutions", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
+      setTimeout(() => router.push('/admin/services'), 1000);
     }
     setIsLoading(false);
   };
@@ -102,10 +118,10 @@ export default function AddServices() {
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
                   required
                 >
-                  <option value="Home Sealing & Repairs">Home Sealing & Repairs</option>
-                  <option value="Industrial & Large Scale Sealing">Industrial & Large Scale Sealing</option>
-                  <option value="Engineering Diagnostics">Engineering Diagnostics</option>
-                  <option value="Decorative Waterproof Coatings">Decorative Waterproof Coatings</option>
+                  <option value="Residential Solutions">Residential Solutions</option>
+                  <option value="Specialized Solutions">Specialized Solutions</option>
+                  <option value="Technical Solutions">Technical Solutions</option>
+                  <option value="Premium Finishes">Premium Finishes</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2">
@@ -206,7 +222,14 @@ export default function AddServices() {
             </div>
           </section>
 
-          <div className="pt-6 border-t border-gray-100">
+          {error && (
+            <div className="bg-red-50 text-red-500 px-6 py-4 rounded-xl font-bold text-sm border border-red-100 flex items-center gap-3">
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+              {error}
+            </div>
+          )}
+
+          <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-4">
             <button 
               type="submit"
               disabled={isLoading}
@@ -214,6 +237,7 @@ export default function AddServices() {
             >
               {isLoading ? "Publishing..." : "Publish Service"}
             </button>
+            {isLoading && <p className="text-gray-400 font-bold text-[10px] uppercase tracking-widest animate-pulse">Uploading Data...</p>}
           </div>
 
         </form>

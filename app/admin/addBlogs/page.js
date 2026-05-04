@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createBlogAction } from "@/app/actions/admin";
 import ImageUpload from "@/app/admin/components/ImageUpload";
 
 export default function AddBlogs() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -45,7 +47,7 @@ export default function AddBlogs() {
         setFormData({ title: "", category: "", author: "", image: "", content: "" });
         setUploadKey(prev => prev + 1);
         setImageUploaded(false);
-        setTimeout(() => setIsSaved(false), 3000);
+        setTimeout(() => router.push('/admin/blogs'), 1000);
       }
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");

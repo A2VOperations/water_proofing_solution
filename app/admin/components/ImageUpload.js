@@ -21,7 +21,11 @@ export default function ImageUpload({ onUploadSuccess, folder = "waterproofing" 
     setUploading(true);
     try {
       const base64 = await convertToBase64(file);
-      const result = await uploadImageAction(base64, folder);
+      const formData = new FormData();
+      formData.append('image', base64);
+      formData.append('folder', folder);
+      
+      const result = await uploadImageAction(formData);
       
       if (result.success) {
         onUploadSuccess(result.url);
@@ -48,7 +52,7 @@ export default function ImageUpload({ onUploadSuccess, folder = "waterproofing" 
   return (
     <div className="flex flex-col gap-4">
       <div className="relative w-full h-40 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center overflow-hidden group hover:border-[#0088ff] transition-colors cursor-pointer">
-        {preview ? (
+        {preview && preview.trim() !== "" ? (
           <img src={preview} alt="Preview" className="w-full h-full object-cover" />
         ) : (
           <div className="flex flex-col items-center text-gray-400 group-hover:text-[#0088ff]">

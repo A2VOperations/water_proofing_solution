@@ -40,57 +40,42 @@ const ServiceCard = ({ service }) => {
       </div>
 
       {/* Title & Icon Area */}
-      <div className="flex items-center gap-5 mb-8">
+      <div className="flex items-start gap-5 mb-8 mt-6">
         <div className="w-16 h-16 bg-[#f0f7ff] rounded-[20px] flex items-center justify-center shrink-0 transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">
           <svg className="w-8 h-8 text-[#0089FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300">
+        <h3 className="text-xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words break-all pt-1">
           {service.title}
         </h3>
       </div>
 
       {/* Description */}
-      <p className="text-gray-500 text-sm leading-relaxed mb-auto font-medium">
+      <p className="text-gray-500 text-sm leading-relaxed mb-16 font-medium break-words break-all line-clamp-3">
         {service.description.substring(0, 100)}...
       </p>
 
-      {/* Curve and Button Pocket */}
-      <div className="mt-12 relative h-16 -mx-10 -mb-10 bg-[#f0f4f8]">
-        <svg
-          className="absolute -top-6 right-[140px] w-[25px] h-[25px] text-[#f0f4f8] rotate-90"
-          fill="white"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M20 20 H0 V0 C0 11.046 8.954 20 20 20 Z" />
-        </svg>
+      {/* Button Pocket positioned at bottom right */}
+      <div className="absolute bottom-0 right-0 w-[90px] h-[90px] bg-[#f0f4f8] z-10 flex items-center justify-center rounded-tl-[40px]">
+        {/* Top Inverted Curve */}
+        <div className="absolute -top-[24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+        {/* Left Inverted Curve */}
+        <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
 
-        <svg
-          className="absolute -top-6 right-9 w-[25px] h-[25px] text-[#f0f4f8] -rotate-90"
-          fill="white"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
+        <Link 
+          href={`/services/${service.slug}`}
+          className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn mt-2 ml-2"
         >
-          <path d="M0 20 H20 V0 C20 11.046 11.046 20 0 20 Z" />
-        </svg>
-
-        <div className="absolute -top-16 right-[60px] w-20 h-32 bg-[#f0f4f8] flex items-start justify-center rounded-t-full pt-4">
-          <Link 
-            href={`/services/${service.slug}`}
-            className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn"
+          <svg
+            className="w-6 h-6 text-white transition-transform duration-500 group-hover/btn:rotate-45"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg
-              className="w-6 h-6 text-white transition-transform duration-500 group-hover/btn:rotate-45"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M7 17L17 7M17 7H7M17 7V17" />
-            </svg>
-          </Link>
-        </div>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
+        </Link>
       </div>
     </div>
   );
@@ -101,10 +86,10 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true);
 
   const CATEGORY_LIST = [
-    "Home Sealing & Repairs",
-    "Industrial & Large Scale Sealing",
-    "Engineering Diagnostics",
-    "Decorative Waterproof Coatings"
+    "Residential Solutions",
+    "Specialized Solutions",
+    "Technical Solutions",
+    "Premium Finishes"
   ];
 
   useEffect(() => {
