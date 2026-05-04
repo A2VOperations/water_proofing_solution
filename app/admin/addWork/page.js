@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createWorkAction } from "@/app/actions/admin";
 import ImageUpload from "@/app/admin/components/ImageUpload";
 
 export default function AddWork() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -41,7 +43,7 @@ export default function AddWork() {
     } else {
       setIsSaved(true);
       setFormData({ title: "", description: "", images: [""] });
-      setTimeout(() => setIsSaved(false), 3000);
+      setTimeout(() => router.push('/admin/works'), 1000);
     }
     setIsLoading(false);
   };

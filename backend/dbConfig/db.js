@@ -19,7 +19,7 @@ async function dbConnect() {
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log("Successfully connected to MongoDB.");
+      console.log("Successfully connected to MongoDB:", MONGODB_URI.includes("mongodb.net") ? "ATLAS" : "LOCAL/OTHER");
       return mongoose;
     }).catch((error) => {
       console.error("Error connecting to MongoDB:", error);

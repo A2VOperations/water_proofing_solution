@@ -1,4 +1,6 @@
 "use server";
+// Force rebuild: 2026-05-04 13:10
+
 
 import dbConnect from "@/backend/dbConfig/db";
 import User from "@/backend/models/User";
@@ -9,8 +11,10 @@ import bcrypt from "bcryptjs";
 
 import { deleteImage, uploadImage } from "@/backend/cloudinaryConfig";
 
-export async function uploadImageAction(base64Image, folder) {
+export async function uploadImageAction(formData) {
     try {
+        const base64Image = formData.get('image');
+        const folder = formData.get('folder');
         const url = await uploadImage(base64Image, folder);
         return { success: true, url };
     } catch (error) {

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
@@ -72,37 +72,20 @@ const MEGA_MENU = [
   },
 ];
 
-// Icon SVGs mapped by [colIdx][itemIdx]
-const ICONS = [
-  [
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M10 2L2 8v10h5v-5h6v5h5V8L10 2z"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="7" width="16" height="11" rx="1.5"/><path d="M7 7V5a3 3 0 0 1 6 0v2"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 18h16M4 18V9l6-5 6 5v9"/><path d="M8 18v-4h4v4"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M3 8h14M8 8v9"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 18h16M4 18V9l6-5 6 5v9"/><path d="M4 14h12"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="6" width="16" height="12" rx="1.5"/><path d="M6 6V4a4 4 0 0 1 8 0v2"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="16" height="16" rx="2"/><path d="M2 8h16"/><path d="M8 14h4"/></svg>,
-  ],
-  [
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 17L10 3l7 14H3z"/><path d="M10 9v4"/><circle cx="10" cy="15" r=".5" fill="currentColor"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="10" cy="10" r="7"/><path d="M3 10h14"/><path d="M10 3c-2.5 2.5-2.5 11.5 0 14"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="3" width="16" height="13" rx="1.5"/><path d="M7 19h6M10 16v3"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><ellipse cx="10" cy="14" rx="8" ry="3"/><path d="M2 14V8M18 14V8"/><ellipse cx="10" cy="8" rx="8" ry="3"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 18h16M4 18V7l6-5 6 5v11"/><path d="M4 12h12"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="10" width="14" height="8" rx="1.5"/><path d="M7 10V7a3 3 0 0 1 6 0v3"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 6h12M4 10h12M4 14h8"/></svg>,
-  ],
-  [
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="10" cy="10" r="3"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3M3.5 3.5l2 2M14.5 14.5l2 2M3.5 16.5l2-2M14.5 5.5l2-2"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="4" y="2" width="12" height="16" rx="1.5"/><path d="M7 7h6M7 10h6M7 13h4"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 18h16M4 18V9l6-5 6 5v9M8 18v-5h4v5"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 4.5a4.5 4.5 0 1 1-5.47 5.47L2 14.5 5.5 18l4.53-4.53A4.5 4.5 0 1 1 12 4.5z"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4h12v12H4zM4 4l12 12M20 4L4 20" clipPath="inset(0 0 0 0)"/><path d="M4 4l12 12M4 16l12-12" strokeWidth="1.5"/></svg>,
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 8h12v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8z"/><path d="M2 8h16M8 4h4"/></svg>,
-  ],
-  [
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="16" height="16" rx="2"/><path d="M2 8h16M8 14h4"/></svg>,
-  ],
+// Rich set of diverse SVG icons for dynamic services
+const SERVICE_ICONS = [
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>, // Home
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>, // Building
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>, // Drop/Water
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>, // Shield
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>, // Layers
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8l4 4-4 4M8 12h7"></path></svg>, // Arrow circle
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>, // Panel/Grid
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>, // Activity
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>, // Stack
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>, // Info
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>, // Lock
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> // Book
 ];
 
 export default function Navbar() {
@@ -117,10 +100,10 @@ export default function Navbar() {
   const megaRef = useRef(null);
 
   const CATEGORIES = [
-    { name: "Residential solutions", desc: "Complete waterproofing for every home surface", accent: "#0088ff" },
-    { name: "Specialized solutions", desc: "Advanced protection for unique structures", accent: "#f97316" },
-    { name: "Technical solutions", desc: "Engineering-grade diagnostics & repairs", accent: "#3b82f6" },
-    { name: "Premium finishes", desc: "High-performance decorative coatings", accent: "#8b5cf6" }
+    { name: "Residential Solutions", desc: "Complete waterproofing for every home surface", accent: "#0088ff" },
+    { name: "Specialized Solutions", desc: "Advanced protection for unique structures", accent: "#f97316" },
+    { name: "Technical Solutions", desc: "Engineering-grade diagnostics & repairs", accent: "#3b82f6" },
+    { name: "Premium Finishes", desc: "High-performance decorative coatings", accent: "#8b5cf6" }
   ];
 
   useEffect(() => {
@@ -430,7 +413,7 @@ export default function Navbar() {
                                 }}
                               >
                                 <span className="w-5 h-5">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                                    {SERVICE_ICONS[(colIdx * 5 + itemIdx) % SERVICE_ICONS.length]}
                                 </span>
                               </span>
                               <div className="min-w-0 pt-0.5">
