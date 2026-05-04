@@ -101,10 +101,10 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true);
 
   const CATEGORY_LIST = [
-    "Home Sealing & Repairs",
-    "Industrial & Large Scale Sealing",
-    "Engineering Diagnostics",
-    "Decorative Waterproof Coatings"
+    "Residential Solutions",
+    "Specialized Solutions",
+    "Technical Solutions",
+    "Premium Finishes"
   ];
 
   useEffect(() => {
