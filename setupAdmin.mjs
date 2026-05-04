@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/water-proofing-admin";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://operationa2vgroups_db_user:pl8lnOO74Ei9LVTU@ac-6duqcqa-shard-00-00.fg8xboe.mongodb.net:27017,ac-6duqcqa-shard-00-01.fg8xboe.mongodb.net:27017,ac-6duqcqa-shard-00-02.fg8xboe.mongodb.net:27017/water-proofing-admin?replicaSet=atlas-bo8knz-shard-0&tls=true&authSource=admin&retryWrites=true&w=majority";
 
 async function setup() {
   try {
