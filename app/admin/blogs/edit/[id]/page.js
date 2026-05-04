@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createBlogAction } from "@/app/actions/admin";
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { getBlogByIdAction, updateBlogAction } from "@/app/actions/admin";
 import ImageUpload from "@/app/admin/components/ImageUpload";
+import Link from "next/link";
 
-export default function AddBlogs() {
+export default function EditBlog() {
   const router = useRouter();
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -16,11 +18,30 @@ export default function AddBlogs() {
 
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState("");
-  const [uploadKey, setUploadKey] = useState(0);
   const [imageUploaded, setImageUploaded] = useState(false);
 
-  // ✅ Use functional updater to avoid stale closure
+  useEffect(() => {
+    const fetchBlog = async () => {
+      const result = await getBlogByIdAction(id);
+      if (result.success) {
+        setFormData({
+          title: result.blog.title,
+          category: result.blog.category,
+          author: result.blog.author,
+          image: result.blog.image,
+          content: result.blog.content,
+        });
+        if (result.blog.image) setImageUploaded(true);
+      } else {
+        setError(result.error || "Failed to load blog post");
+      }
+      setIsFetching(false);
+    };
+    fetchBlog();
+  }, [id]);
+
   const handleImageSuccess = (url) => {
     setFormData(prev => ({ ...prev, image: url }));
     setImageUploaded(true);
@@ -38,15 +59,12 @@ export default function AddBlogs() {
     setError("");
 
     try {
-      const result = await createBlogAction(formData);
+      const result = await updateBlogAction(id, formData);
 
       if (result.error) {
         setError(result.error);
       } else {
         setIsSaved(true);
-        setFormData({ title: "", category: "", author: "", image: "", content: "" });
-        setUploadKey(prev => prev + 1);
-        setImageUploaded(false);
         setTimeout(() => router.push('/admin/blogs'), 1000);
       }
     } catch (err) {
@@ -57,26 +75,35 @@ export default function AddBlogs() {
     }
   };
 
+  if (isFetching) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50">
+        <div className="w-16 h-16 border-4 border-[#0088ff] border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Loading Article...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="p-8 max-w-4xl mx-auto">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
           <div className="w-16 h-16 border-4 border-[#0088ff] border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 font-black uppercase tracking-[0.2em] text-[#111] text-xs">Publishing Article...</p>
+          <p className="mt-4 font-black uppercase tracking-[0.2em] text-[#111] text-xs">Saving Changes...</p>
         </div>
       )}
 
       <header className="mb-10 flex justify-between items-start gap-4">
         <div>
-          <h1 className="text-3xl font-black uppercase tracking-tight text-[#111]">Add Blog Post</h1>
-          <p className="text-gray-500 font-medium mt-2">Publish a new article to your blog.</p>
+          <h1 className="text-3xl font-black uppercase tracking-tight text-[#111]">Edit Blog Post</h1>
+          <p className="text-gray-500 font-medium mt-2">Update your published article details.</p>
         </div>
         <div className="flex flex-col items-end gap-2 flex-shrink-0">
           {isSaved && (
             <div className="bg-green-50 text-green-600 px-4 py-2 rounded-lg font-bold text-sm border border-green-100 flex items-center gap-2">
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path></svg>
-              Post Published!
+              Changes Saved!
             </div>
           )}
           {error && (
@@ -94,9 +121,16 @@ export default function AddBlogs() {
           {/* Cover Image */}
           <div className="flex flex-col gap-2">
             <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">
-              Cover Image <span className="text-red-500">*</span> {imageUploaded && <span className="text-green-500 ml-2">✓ Uploaded</span>}
+              Cover Image <span className="text-red-500">*</span> {imageUploaded && <span className="text-green-500 ml-2">✓ Ready</span>}
             </label>
-            <ImageUpload key={uploadKey} folder="blogs" onUploadSuccess={handleImageSuccess} />
+            <div className="relative group">
+                {formData.image && (
+                    <div className="absolute top-4 left-4 z-10">
+                        <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black text-[#0088ff] shadow-sm border border-[#0088ff]/10">CURRENT IMAGE</span>
+                    </div>
+                )}
+                <ImageUpload folder="blogs" onUploadSuccess={handleImageSuccess} />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -145,18 +179,14 @@ export default function AddBlogs() {
             />
           </div>
 
-          {/* Debug info - shows current image status */}
-          <div className="text-[10px] text-gray-300 font-mono">
-            Image ready: {formData.image ? "✓ YES" : "✗ NOT YET"}
-          </div>
-
-          <div className="pt-6 border-t border-gray-100">
+          <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
+            <Link href="/admin/blogs" className="text-gray-400 hover:text-[#111] font-bold text-xs uppercase tracking-widest transition-colors">Discard Changes</Link>
             <button
               type="submit"
-              disabled={isLoading || !formData.image}
-              className="bg-[#0088ff] hover:bg-[#0070d6] text-white font-bold px-10 py-5 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,136,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,136,255,0.23)] hover:-translate-y-0.5 uppercase tracking-widest text-sm w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              disabled={isLoading}
+              className="bg-[#0088ff] hover:bg-[#0070d6] text-white font-bold px-10 py-5 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,136,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,136,255,0.23)] hover:-translate-y-0.5 uppercase tracking-widest text-sm w-full sm:w-auto disabled:opacity-50"
             >
-              {isLoading ? "Publishing..." : !formData.image ? "Upload Image First" : "Publish Article"}
+              {isLoading ? "Saving..." : "Update Post"}
             </button>
           </div>
 

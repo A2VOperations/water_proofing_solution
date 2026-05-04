@@ -62,7 +62,33 @@ export default function EditService() {
     setIsUpdating(true);
     setError("");
 
-    const result = await updateServiceAction(id, formData);
+    // Filter out empty strings from photos array
+    const validPhotos = formData.photos.filter(img => img && img.trim() !== "");
+
+    if (validPhotos.length === 0) {
+      setError("Please upload at least one photo before publishing.");
+      setIsUpdating(false);
+      return;
+    }
+
+    // Filter out empty FAQs or invalid ones
+    const validFaq = formData.faq.filter(f => f.question.trim() !== "" || f.answer.trim() !== "");
+    
+    // Check if any partially filled FAQs exist
+    const hasIncompleteFaq = validFaq.some(f => f.question.trim() === "" || f.answer.trim() === "");
+    if (hasIncompleteFaq) {
+      setError("Please complete both the question and answer for all FAQs you've added, or remove the empty ones.");
+      setIsUpdating(false);
+      return;
+    }
+
+    const submissionData = {
+      ...formData,
+      photos: validPhotos,
+      faq: validFaq
+    };
+
+    const result = await updateServiceAction(id, submissionData);
     if (result.success) {
       setIsSaved(true);
       setTimeout(() => router.push('/admin/services'), 1000);
@@ -115,7 +141,7 @@ export default function EditService() {
             </h2>
             <div className="grid grid-cols-1 gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Service Name</label>
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Service Name <span className="text-red-500">*</span></label>
                 <input 
                   type="text" 
                   value={formData.title}
@@ -125,7 +151,7 @@ export default function EditService() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Category</label>
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Category <span className="text-red-500">*</span></label>
                 <select 
                   value={formData.category}
                   onChange={(e) => setFormData({...formData, category: e.target.value})}
@@ -139,7 +165,7 @@ export default function EditService() {
                 </select>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Description</label>
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Description <span className="text-red-500">*</span></label>
                 <textarea 
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
@@ -152,10 +178,10 @@ export default function EditService() {
 
           {/* Photos Section */}
           <section className="space-y-6">
-            <h2 className="text-[#0088ff] text-xs font-black tracking-widest uppercase pb-4 border-b border-gray-100 flex items-center gap-2">
-              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-              Service Gallery
-            </h2>
+              <h2 className="text-[#0088ff] text-xs font-black tracking-widest uppercase pb-4 border-b border-gray-100 flex items-center gap-2">
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Service Gallery <span className="text-red-500 ml-1">*</span>
+              </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {formData.photos.map((photo, i) => (
                 <div key={i} className="relative group rounded-3xl overflow-hidden border border-gray-100 bg-gray-50 h-56">
@@ -202,8 +228,7 @@ export default function EditService() {
                 <div key={i} className="p-8 bg-gray-50 rounded-3xl border border-gray-100 space-y-4 relative group">
                   <button type="button" onClick={() => handleRemoveFaq(i)} className="absolute top-8 right-8 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity">
                     <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                  </button>
-                  <div className="grid grid-cols-1 gap-4">
+                  </button><div className="grid grid-cols-1 gap-4">
                     <div className="flex flex-col gap-2">
                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Question {i+1}</label>
                         <input 
