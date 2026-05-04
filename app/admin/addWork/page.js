@@ -73,7 +73,7 @@ export default function AddWork() {
                   value={formData.title}
                   onChange={(e) => setFormData({...formData, title: e.target.value})}
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
-                  placeholder="e.g. Luxury Apartment Waterproofing"
+                  placeholder="e.g. High-Rise Terrace Sealing Project"
                   required
                 />
               </div>

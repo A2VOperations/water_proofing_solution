@@ -6,7 +6,7 @@ import ImageUpload from "@/app/admin/components/ImageUpload";
 export default function AddServices() {
   const [formData, setFormData] = useState({
     title: "",
-    category: "Residential solutions",
+    category: "Home Sealing & Repairs",
     description: "",
     photos: [""],
     faq: [{ question: "", answer: "" }],
@@ -49,7 +49,7 @@ export default function AddServices() {
       setError(result.error);
     } else {
       setIsSaved(true);
-      setFormData({ title: "", category: "Residential solutions", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
+      setFormData({ title: "", category: "Home Sealing & Repairs", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
       setTimeout(() => setIsSaved(false), 3000);
     }
     setIsLoading(false);
@@ -90,7 +90,7 @@ export default function AddServices() {
                   value={formData.title}
                   onChange={(e) => setFormData({...formData, title: e.target.value})}
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
-                  placeholder="e.g. Basement Waterproofing"
+                  placeholder="e.g. Concrete Crack Injection"
                   required
                 />
               </div>
@@ -102,10 +102,10 @@ export default function AddServices() {
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
                   required
                 >
-                  <option value="Residential solutions">Residential solutions</option>
-                  <option value="Specialized solutions">Specialized solutions</option>
-                  <option value="Technical solutions">Technical solutions</option>
-                  <option value="Premium finishes">Premium finishes</option>
+                  <option value="Home Sealing & Repairs">Home Sealing & Repairs</option>
+                  <option value="Industrial & Large Scale Sealing">Industrial & Large Scale Sealing</option>
+                  <option value="Engineering Diagnostics">Engineering Diagnostics</option>
+                  <option value="Decorative Waterproof Coatings">Decorative Waterproof Coatings</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2">

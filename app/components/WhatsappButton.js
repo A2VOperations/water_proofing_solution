@@ -1,9 +1,12 @@
 "use client";
 
+import { CONTACT_CONFIG } from "@/app/config";
+
 export default function WhatsAppButton() {
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "123456789"; 
+  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || CONTACT_CONFIG.whatsapp; 
   const message = encodeURIComponent("Hello! I'd like to know more.");
   const url = `https://wa.me/${phone}?text=${message}`;
+
 
   return (
     <a

@@ -19,13 +19,16 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/water-
 
 async function setup() {
   try {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
+    });
     console.log("Connected to MongoDB...");
 
     // ============================================
     // EDIT THESE VALUES TO ADD YOUR EMAIL & PASSWORD
     // ============================================
-    const adminEmail = "admin@waterproofing.com"; 
+    const adminEmail = "vharsh2003new@gmail.com"; 
     const adminPassword = "admin123";
     const adminName = "Admin";
     // ============================================

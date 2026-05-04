@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAdminDetailsAction } from "@/app/actions/admin";
+import { CONTACT_CONFIG } from "@/app/config";
+
 
 const Section5 = () => {
   const [adminDetails, setAdminDetails] = useState(null);
@@ -16,7 +18,8 @@ const Section5 = () => {
 
   const handleWhatsAppRedirect = (e) => {
     if (e) e.preventDefault();
-    const number = adminDetails?.numbers?.[0] || "911234567890";
+    const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp;
+
     const cleanNumber = number.replace(/\D/g, "");
     const message = "Hello, I'm interested in getting an estimate for your waterproofing services. Please assist me.";
     window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
@@ -66,16 +69,16 @@ const Section5 = () => {
           </div>
 
           <h1 className="font-syne font-extrabold text-white leading-tight text-4xl lg:text-[44px]">
-            Find an Expert
+            Expert Seepage
             <br />
-            Handyman on
+            Control &amp;
             <br />
-            <span className="text-[#3fa9f5]">Emergency Fixing</span>
+            <span className="text-[#3fa9f5]">Emergency Leak Fixes</span>
           </h1>
 
           <p className="text-sm text-white/50 leading-relaxed max-w-sm">
-            Trusted professionals available 24/7 — plumbing, electrical,
-            carpentry & more. Same-day service guaranteed.
+            Specialized seepage control for terraces, bathrooms, and external walls. 
+            24/7 emergency leak detection and same-day structural repairs.
           </p>
 
           <div className="flex items-center gap-4 flex-wrap">
@@ -154,7 +157,7 @@ const Section5 = () => {
 
         <div className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white/95 rounded-l-2xl px-3.5 py-5 flex flex-col items-center gap-2.5 shadow-[-4px_0_20px_rgba(0,0,0,0.2)]">
           <a 
-            href={`tel:${adminDetails?.numbers?.[0] || "1234567890"}`}
+            href={`tel:${adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp}`}
             className="w-7 h-7 rounded-full bg-[#3fa9f5] flex items-center justify-center no-underline"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -165,8 +168,9 @@ const Section5 = () => {
             </svg>
           </a>
           <span className="writing-vertical text-[12px] font-medium text-[#1a1a2e] tracking-wide">
-            {adminDetails?.numbers?.[0] || "+1 000-000-0000"}
+            {adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}
           </span>
+
         </div>
       </div>
     </>

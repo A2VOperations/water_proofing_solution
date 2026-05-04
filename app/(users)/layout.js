@@ -5,8 +5,8 @@ import ScrollToTop from "../components/ScrollToTop";
 import WhatsAppButton from "../components/WhatsappButton";
 
 export const metadata = {
-  title: "Waterproofing Solutions | Expert Appliance Care",
-  description: "We handle repairs & maintenance for all your appliances with expert efficiency.",
+  title: "Premium Waterproofing Solutions India | Expert Seepage Control",
+  description: "Professional waterproofing services for terraces, basements, and wet areas. Protecting Indian homes from seepage and dampness with advanced technology.",
 };
 
 export default function RootLayout({ children }) {
@@ -15,9 +15,9 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col font-['Inter',_sans-serif]">
+      <body className="min-h-full flex flex-col">
         <Navbar />
         {children}
         <Footer />

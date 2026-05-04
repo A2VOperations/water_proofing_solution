@@ -1,44 +1,46 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { CONTACT_CONFIG } from "@/app/config";
+
 
 const SERVICES = [
-  "Roof Repair",
-  "Roof Replacement",
-  "Leak Detection",
-  "Emergency Services",
-  "Gutter Installation",
-  "Inspection",
+  "Terrace Waterproofing",
+  "External Wall Sealing",
+  "Bathroom Sealing",
+  "Basement Waterproofing",
+  "Water Tank Sealing",
+  "Seepage Detection",
 ];
 
 const SERVICE_CARDS = [
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6">
-        <path d="M12 2C8.13 2 5 5.13 5 9v1H3v2h18v-2h-2V9c0-3.87-3.13-7-7-7zm0 2c2.76 0 5 2.24 5 5v1H7V9c0-2.76 2.24-5 5-5zM5 14v2c0 1.1.9 2 2 2h1v1a1 1 0 0 0 2 0v-1h4v1a1 1 0 0 0 2 0v-1h1c1.1 0 2-.9 2-2v-2H5z" />
+        <path d="M12 2L2 12h3v8h14v-8h3L12 2zm0 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
       </svg>
     ),
-    title: "Premium Roof Installation",
-    desc: "Our expert team ensures seamless roof installation using top-tier materials built to last for decades.",
+    title: "Advanced Terrace Sealing",
+    desc: "Our specialized liquid membranes ensure your terrace remains leak-proof through the heaviest monsoons.",
   },
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6">
-        <path d="M15.5 2.1L11 6.6 13.4 9 18 4.5c.7 1.7.3 3.8-1.1 5.2-1.3 1.3-3.1 1.8-4.8 1.4L5.3 18c-.8.8-.8 2 0 2.8s2 .8 2.8 0l6.9-6.8c-.4-1.7.1-3.5 1.4-4.8 1.4-1.4 3.5-1.8 5.2-1.1L17 12.6l2.4 2.4 4.5-4.5C23.2 7.4 21.1 1.4 15.5 2.1zM6.7 19.3c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4s1-.4 1.4 0c.4.4.4 1 0 1.4z" />
+        <path d="M17.66 8L12 2.35 6.34 8C4.78 9.56 4 11.64 4 13.64s.78 4.08 2.34 5.64c1.56 1.56 3.64 2.34 5.66 2.34s4.08-.78 5.66-2.34c1.56-1.56 2.34-3.64 2.34-5.64s-.78-4.08-2.34-5.64zM12 19c-3.11 0-5.66-2.55-5.66-5.66 0-1.51.62-2.92 1.71-4.02l3.95-3.95 3.95 3.95c1.09 1.1 1.71 2.51 1.71 4.02 0 3.11-2.55 5.66-5.66 5.66z" />
       </svg>
     ),
-    title: "Fast and Reliable Repairs",
-    desc: "Make sure that any leaks or damage won't compromise your safety. We respond fast, fix it right.",
+    title: "Instant Seepage Fixes",
+    desc: "Stop wall dampness and paint peeling instantly with our engineering-grade injection grouting systems.",
   },
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
       </svg>
     ),
-    title: "Stress-Free Roof Replacement",
-    desc: "Transform your living space with a stylish new roof that stands out and adds lasting value to your home.",
+    title: "Complete Home Protection",
+    desc: "From basements to balconies, we provide end-to-end sealing solutions that add lasting value to your home.",
   },
 ];
 
@@ -122,7 +124,8 @@ export default function Hero() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const number = adminDetails?.numbers?.[0] || "911234567890"; // Fallback
+    const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp; // Fallback
+
     const cleanNumber = number.replace(/\D/g, "");
     const message = `*New Quote Request*\n\n*Name:* ${form.firstName} ${form.lastName}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Zip Code:* ${form.zip}\n*Service:* ${form.service}`;
     window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
@@ -131,7 +134,7 @@ export default function Hero() {
   return (
     <div className="min-h-screen font-sans bg-white text-white">
 
-      {/* ── HERO ── */}
+      {/* â”€â”€ HERO â”€â”€ */}
       <section className="relative min-h-screen flex flex-col justify-center pt-28 md:pt-16">
 
         {/* Background image */}
@@ -148,25 +151,25 @@ export default function Hero() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-80 md:pb-60">
-          <p className="text-xs font-bold tracking-[0.3em] uppercase text-white/80 mb-4">
-            Roofing Repair &amp; Replacement Services
+        <div className="relative z-10 w-full px-10 lg:px-20 xl:px-28 pt-40 pb-80 md:pb-40">
+          <p className="text-sm font-semibold tracking-[0.3em] uppercase text-white/80 mb-4">
+            Premium Waterproofing &amp; Seepage Solutions
           </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-none tracking-tight max-w-3xl">
-            Keep Your Home
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  uppercase leading-none tracking-tight max-w-5xl font-semibold">
+            Shield Your Home
             <br />
-            Dry And Beautiful
+            From Monsoon Damage
           </h1>
-          <p className="mt-6 text-sm text-white/75 max-w-sm leading-relaxed">
-            Whether you&apos;re in need of an entirely new roof or just have a
-            leak, Roofer has you covered.
+          <p className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed">
+            From terrace seepage to basement leaks, Feexaro provides expert
+            waterproofing for every Indian home.
           </p>
         </div>
 
         {/* Bottom accent bar */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-[#0088ff] z-0" />
 
-        {/* ── FORM CARD ── overlapping hero + accent bar */}
+        {/* â”€â”€ FORM CARD â”€â”€ overlapping hero + accent bar */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full -mb-8">
           <div className="bg-[#1a1a1a] rounded-xl p-8 md:p-10">
             <div className="grid md:grid-cols-[1fr_1.6fr] gap-10 items-start">
@@ -277,7 +280,7 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* ── SERVICES SECTION ── */}
+      {/* â”€â”€ SERVICES SECTION â”€â”€ */}
       <section className="relative bg-[#0088ff] px-6 pt-24 pb-20 overflow-hidden">
 
         {/* Grain overlay */}

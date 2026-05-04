@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { getAdminDetailsAction } from "@/app/actions/admin";
+import { CONTACT_CONFIG } from "@/app/config";
+import Link from "next/link";
+
 
 const Section2 = () => {
   const [adminDetails, setAdminDetails] = useState(null);
@@ -17,17 +20,18 @@ const Section2 = () => {
 
   const handleWhatsAppRedirect = (e) => {
     if (e) e.preventDefault();
-    const number = adminDetails?.numbers?.[0] || "911234567890";
+    const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp;
+
     const cleanNumber = number.replace(/\D/g, "");
     const message = "Hello, I saw the summer offer and I'm interested in booking a service. Please provide more details.";
     window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
   };
 
   const checklistItems = [
-    { text: "Certified Expert Handyman", iconColor: "bg-blue-600" },
-    { text: "55+ Expert Handyman", iconColor: "bg-blue-600" },
-    { text: "Trusted By thousands Clients", iconColor: "bg-blue-600" },
-    { text: "Modern Equipment Use", iconColor: "bg-blue-600" },
+    { text: "Certified Waterproofing Expert", iconColor: "bg-blue-600" },
+    { text: "15+ Years Industry Experience", iconColor: "bg-blue-600" },
+    { text: "Trusted By 5000+ Clients", iconColor: "bg-blue-600" },
+    { text: "Advanced Thermal Imaging Use", iconColor: "bg-blue-600" },
   ];
 
   return (
@@ -41,17 +45,17 @@ const Section2 = () => {
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-[#0A1A2F] leading-[1.1] tracking-tight">
-            We take care of your every <br className="hidden md:block" />{" "}
-            appliances
+            Complete Waterproofing <br className="hidden md:block" />{" "}
+            Solutions for Every Surface
           </h2>
         </div>
 
         <div className="">
           <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
-            We handle repairs & maintenance for all your appliances with expert
-            efficiency. Trust us to ensure your appliances function perfectly &
-            reliably. Our plumbing service encompass a wide range of tasks
-            related to the installation.
+            We provide specialized waterproofing and seepage control for Indian homes with expert
+            efficiency. Trust us to ensure your structure remains leak-proof &
+            reliably dry. Our services encompass a wide range of tasks
+            related to structural integrity and dampness prevention.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
             {checklistItems.map((item, index) => (
@@ -82,11 +86,11 @@ const Section2 = () => {
 
       {/* Main Grid: Visuals & Side Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left: Handyman Showcase */}
+        {/* Left: Showcase */}
         <div className="lg:col-span-9 relative group rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10 h-[450px]">
           <Image
             src="/handyman_working_under_sink.png"
-            alt="Professional Handyman at Work"
+            alt="Professional Waterproofing Expert at Work"
             width={1300}
             height={900}
             className="object-cover transition-all duration-1000 group-hover:scale-110 h-[450px]"
@@ -94,16 +98,16 @@ const Section2 = () => {
           />
           {/* Watch Video Floating Button */}
           <div className="absolute bottom-10 left-10">
-            <button className="flex items-center gap-5 bg-white hover:bg-gray-50 py-4 px-8 rounded-full shadow-2xl transition-all duration-300 transform hover:-translate-y-2 active:scale-95 group/btn">
+            <Link href="/work" className="flex items-center gap-5 bg-white hover:bg-gray-50 py-4 px-8 rounded-full shadow-2xl transition-all duration-300 transform hover:-translate-y-2 active:scale-95 group/btn">
               <div className="w-12 h-12 bg-[#0A1A2F] rounded-full flex items-center justify-center text-white shadow-xl transition-transform group-hover/btn:rotate-12">
                 <svg className="w-5 h-5 ml-1 fill-current" viewBox="0 0 24 24">
                   <path d="M7 6v12l10-6z" />
                 </svg>
               </div>
               <span className="font-extrabold text-[#0A1A2F] text-sm uppercase tracking-widest">
-                Watch Video
+                Watch Work
               </span>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -176,9 +180,9 @@ const Section2 = () => {
                 </svg>
               </div>
               <h3 className="text-xl text-white leading-tight font-bold pr-10">
-                Summer offer{" "}
+                Monsoon Readiness offer{" "}
                 <span className="font-normal opacity-90">
-                  – New clients save $100 on all hourly services.
+                  New clients save ₹5000 on all<br/> services.
                 </span>
               </h3>
             </div>
