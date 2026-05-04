@@ -6,7 +6,7 @@ import ImageUpload from "@/app/admin/components/ImageUpload";
 export default function AddServices() {
   const [formData, setFormData] = useState({
     title: "",
-    category: "Home Sealing & Repairs",
+    category: "Residential Solutions",
     description: "",
     photos: [""],
     faq: [{ question: "", answer: "" }],
@@ -49,7 +49,7 @@ export default function AddServices() {
       setError(result.error);
     } else {
       setIsSaved(true);
-      setFormData({ title: "", category: "Home Sealing & Repairs", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
+      setFormData({ title: "", category: "Residential Solutions", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
       setTimeout(() => setIsSaved(false), 3000);
     }
     setIsLoading(false);
@@ -102,10 +102,10 @@ export default function AddServices() {
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
                   required
                 >
-                  <option value="Home Sealing & Repairs">Home Sealing & Repairs</option>
-                  <option value="Industrial & Large Scale Sealing">Industrial & Large Scale Sealing</option>
-                  <option value="Engineering Diagnostics">Engineering Diagnostics</option>
-                  <option value="Decorative Waterproof Coatings">Decorative Waterproof Coatings</option>
+                  <option value="Residential Solutions">Residential Solutions</option>
+                  <option value="Specialized Solutions">Specialized Solutions</option>
+                  <option value="Technical Solutions">Technical Solutions</option>
+                  <option value="Premium Finishes">Premium Finishes</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2">
