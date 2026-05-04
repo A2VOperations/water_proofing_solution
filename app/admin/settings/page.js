@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { updateUserSettingsAction, adminLoginAction, getUserSettingsAction } from "@/app/actions/admin";
+import { CONTACT_CONFIG } from "@/app/config";
+
 
 export default function AdminSettings() {
   const [formData, setFormData] = useState({
@@ -33,9 +35,10 @@ export default function AdminSettings() {
               setFormData({
                   name: freshUser.name || "",
                   email: freshUser.email || "",
-                  companyTitle: freshUser.companyTitle || "WP Solutions Inc.",
-                  address: freshUser.address || "123 Main St, City",
-                  numbers: freshUser.numbers && freshUser.numbers.length > 0 ? freshUser.numbers : [""],
+                  companyTitle: freshUser.companyTitle || CONTACT_CONFIG.companyTitle,
+                  address: freshUser.address || CONTACT_CONFIG.address,
+                  numbers: freshUser.numbers && freshUser.numbers.length > 0 ? freshUser.numbers : [CONTACT_CONFIG.phone],
+
                   password: "",
                   id: freshUser._id || freshUser.id || user.id || "",
               });
@@ -50,9 +53,10 @@ export default function AdminSettings() {
               setFormData({
                   name: user.name || "",
                   email: user.email || "",
-                  companyTitle: user.companyTitle || "WP Solutions Inc.",
-                  address: user.address || "123 Main St, City",
-                  numbers: user.numbers && user.numbers.length > 0 ? user.numbers : [""],
+                  companyTitle: user.companyTitle || CONTACT_CONFIG.companyTitle,
+                  address: user.address || CONTACT_CONFIG.address,
+                  numbers: user.numbers && user.numbers.length > 0 ? user.numbers : [CONTACT_CONFIG.phone],
+
                   password: "",
                   id: user.id || "",
               });

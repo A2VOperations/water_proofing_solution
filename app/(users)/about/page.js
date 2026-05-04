@@ -3,32 +3,34 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { CONTACT_CONFIG } from "@/app/config";
+
 
 const MILESTONES = [
   {
     year: "2002",
-    title: "Company Founded",
-    description: "Rooflet was established as a small roofing consultancy, supporting property owners and contractors with expert guidance on roofing materials and project planning."
+    title: "Founding in Mumbai",
+    description: "Feexaro was established as a specialized terrace leakage consultancy in Mumbai, providing expert guidance on monsoon protection for high-rise residential buildings."
   },
   {
     year: "2005",
-    title: "First Major Expansion",
-    description: "Rooflet expanded into full-service commercial roofing, taking on large-scale installations and specialized projects involving complex structures and heavy roofing materials."
+    title: "Pan-India Expansion",
+    description: "Expanded operations to major Indian metros, specializing in structural waterproofing for large-scale commercial complexes and hospitality projects."
   },
   {
     year: "2013",
-    title: "Milestone in Growth",
-    description: "Rooflet was established as a small roofing consultancy, supporting property owners and contractors with expert guidance on roofing materials and project planning."
+    title: "Nano-Tech Innovation",
+    description: "Pioneered the use of nano-technology based water repellent coatings, offering superior protection for luxury villas and heritage structures across the country."
   },
   {
     year: "2018",
-    title: "Optimizing Materials & Installation",
-    description: "Rooflet was established as a small roofing consultancy, supporting property owners and contractors with expert guidance on roofing materials and project planning."
+    title: "Infrastructure Partnerships",
+    description: "Collaborated with major infrastructure firms for advanced basement and podium sealing in metro stations and underground transit systems."
   },
   {
     year: "2022",
-    title: "Advancing Roofing for Industry Leaders",
-    description: "Rooflet was established as a small roofing consultancy, supporting property owners and contractors with expert guidance on roofing materials and project planning."
+    title: "Eco-Friendly Solutions",
+    description: "Adopted sustainable, heat-reflective waterproofing membranes specifically designed for the tropical Indian climate, reducing energy costs for our clients."
   }
 ];
 
@@ -57,23 +59,23 @@ const WORK_STEPS = [
 
 const TESTIMONIALS = [
   {
-    quote: "I would recommend practitioners at this center to everyone! They are great to work with and are excellent trainers. Thank you all!",
-    name: "Arnold Wilson",
-    title: "CLIENT, USA",
-    rating: 3,
+    quote: "Feexaro's terrace waterproofing saved our home from the heavy Mumbai rains. Their team was professional and the results are flawless!",
+    name: "Rajesh Kumar",
+    title: "HOMEOWNER, MUMBAI",
+    rating: 5,
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80"
   },
   {
-    quote: "The service provided was absolutely phenomenal. I have never seen such dedication and attention to detail. Highly recommended!",
-    name: "Sarah Jenkins",
-    title: "HOMEOWNER, UK",
+    quote: "We had persistent seepage issues in our office basement for years. Feexaro's PU grouting solution fixed it in just two days.",
+    name: "Sneha Sharma",
+    title: "FACILITY MANAGER, DELHI",
     rating: 5,
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
   },
   {
-    quote: "Fast, reliable, and reasonably priced. The team was very professional and cleaned up after themselves. Five stars!",
-    name: "David Chen",
-    title: "BUSINESS OWNER, CA",
+    quote: "Highly recommend their water tank sealing service. Very clean work and the team followed all safety protocols strictly.",
+    name: "Arjun Reddy",
+    title: "SOCIETY PRESIDENT, BANGALORE",
     rating: 4,
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80"
   }
@@ -111,11 +113,14 @@ export default function About() {
     fetchData();
   }, []);
 
+
+
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleQuoteSubmit = (e) => {
     e.preventDefault();
-    const number = adminDetails?.numbers?.[0] || "12003456789";
+    const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp;
+
     const cleanNumber = number.replace(/\D/g, "");
     const whatsappMessage = `Hello, I would like to request a quote.\n\nName: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nService: ${form.service}\nMessage: ${form.message}`;
     const encodedMessage = encodeURIComponent(whatsappMessage);
@@ -137,13 +142,13 @@ export default function About() {
       {/* ── HERO SECTION ── */}
       <section className="bg-[#1a1a1a] text-white py-32 px-6 flex flex-col items-center text-center pt-48 pb-32">
         <p className="text-[#0088ff] text-[13px] font-bold tracking-[0.1em] uppercase mb-6">
-          ROOFING HISTORY
+          WATERPROOFING JOURNEY
         </p>
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-bold uppercase tracking-[-0.02em] max-w-5xl leading-[1.05] mb-8">
-          RAISING ROOFING<br />SERVICE STANDARDS<br />SINCE 2002
+          SHIELDING INDIAN<br />HOMES FROM SEEPAGE<br />SINCE 2002
         </h1>
         <p className="text-gray-300 max-w-2xl text-[17px] font-medium leading-relaxed mb-12">
-          Streamlining the roofing process and delivering exceptional results<br className="hidden md:block" /> through a client-centered approach.
+          Expert structural protection and advanced leak detection<br className="hidden md:block" /> through an engineering-centered approach.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <button 
@@ -170,7 +175,7 @@ export default function About() {
             <div className="text-center mb-10">
               <p className="text-[#0088ff] text-sm font-bold tracking-[0.1em] uppercase mb-2">GET A FREE QUOTE</p>
               <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.1]">
-                GET YOUR ROOFING QUOTE<br/>IN NO TIME.
+                GET YOUR WATERPROOFING<br/>QUOTE IN NO TIME.
               </h2>
             </div>
 
@@ -253,7 +258,7 @@ export default function About() {
           {/* Right Scrolling Column */}
           <div className="lg:w-1/2 flex flex-col gap-16 mt-4 lg:mt-0">
             <p className="text-gray-800 text-[18px] md:text-[20px] font-medium leading-relaxed mb-2">
-              Roofing has always evolved through innovation. At Rooflet, we continue that tradition—adapting, improving, and delivering solutions that match our clients' needs.
+              Waterproofing technology has evolved rapidly. At Feexaro, we lead that evolution—adapting, improving, and delivering structural protection that matches our clients' needs.
             </p>
 
             <div className="flex flex-col gap-14">
@@ -312,10 +317,10 @@ export default function About() {
               OUR EXPERIENCE
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-[#031b33] mb-8 leading-[1.1] tracking-tight">
-              We take care of your every appliances
+              We take care of your structural integrity
             </h2>
             <p className="text-gray-500 mb-10 leading-relaxed text-md font-medium">
-              We handle repairs & maintenance for all your appliances with experti efficiency Trust us ensure your appliances function perfectly & reliably Plumbing service encompass a wide range of tasks related to the installation.
+              We handle leakage protection & maintenance for all your properties with expert efficiency. Trust us to ensure your structure stays dry & reliably protected. Our services encompass a wide range of tasks related to dampness prevention and structural sealing.
             </p>
             
             <div className="grid sm:grid-cols-2 gap-y-5 gap-x-12 mb-12">
@@ -360,7 +365,7 @@ export default function About() {
               WORK PROCESS
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#031b33] mb-12 leading-tight">
-              We take care of your every appliances
+              We take care of your building's health
             </h2>
             <div className="relative h-[600px] w-full rounded-3xl overflow-hidden bg-gray-50">
               <Image src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80" fill className="object-cover" alt="Work process" />
@@ -395,7 +400,7 @@ export default function About() {
             {/* Background gear icon */}
             <svg className="absolute text-white/10 w-80 h-80 -left-20 -bottom-20 pointer-events-none" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
             <h2 className="text-3xl md:text-[40px] font-bold text-white max-w-lg mb-8 md:mb-0 relative z-10 leading-[1.2]">
-              Looking for a reliable plumbing service?
+              Looking for a reliable waterproofing service?
             </h2>
             <button className="group flex items-center rounded-full overflow-hidden w-fit shadow-xl relative z-10">
               <span className="bg-white text-[#031b33] px-8 py-4.5 text-[13px] font-bold tracking-wider transition-colors duration-300 group-hover:bg-[#031b33] group-hover:text-white">

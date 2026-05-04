@@ -101,10 +101,10 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true);
 
   const CATEGORY_LIST = [
-    "Residential solutions",
-    "Specialized solutions",
-    "Technical solutions",
-    "Premium finishes"
+    "Home Sealing & Repairs",
+    "Industrial & Large Scale Sealing",
+    "Engineering Diagnostics",
+    "Decorative Waterproof Coatings"
   ];
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function ServicesPage() {
             Every Waterproofing <br /> Service You Need
           </h1>
           <p className="text-gray-500 text-lg font-medium leading-relaxed max-w-2xl mx-auto">
-            From specialized injection grouting to premium aesthetic finishes, we provide engineering-grade protection for every corner of your property.
+            From specialized injection grouting to premium aesthetic coatings, we provide engineering-grade protection for every corner of your property across India.
           </p>
         </header>
 

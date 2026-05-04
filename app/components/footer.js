@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getAdminDetailsAction } from "@/app/actions/admin";
+import { CONTACT_CONFIG } from "@/app/config";
+
 
 const USEFUL_LINKS_COL1 = [
   { label: "Home", href: "/" },
@@ -82,7 +84,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <span className="text-white text-[28px] font-bold tracking-wide">
-                  Rooflêt
+                  Feexaro
                 </span>
               </Link>
             </div>
@@ -158,11 +160,11 @@ export default function Footer() {
               <div className="flex flex-col items-center lg:items-start">
                 <h3 className="text-white text-[16px] font-semibold mb-6">Say Hello</h3>
                 <div className="flex flex-col gap-4 items-center lg:items-start">
-                  <a href={`mailto:${adminDetails?.email || "contact@pbminfotech.com"}`} className="text-gray-300 hover:text-white transition-colors text-[14px] underline underline-offset-4 decoration-gray-500 hover:decoration-white">
-                    {adminDetails?.email || "contact@pbminfotech.com"}
+                  <a href={`mailto:${adminDetails?.email || CONTACT_CONFIG.email}`} className="text-gray-300 hover:text-white transition-colors text-[14px] underline underline-offset-4 decoration-gray-500 hover:decoration-white">
+                    {adminDetails?.email || CONTACT_CONFIG.email}
                   </a>
-                  <a href={`tel:${adminDetails?.numbers?.[0] || "+1800123456789"}`} className="text-white text-[20px] font-semibold tracking-wide hover:text-[#0088ff] transition-colors mt-1">
-                    {adminDetails?.numbers?.[0] || "+1 800 123 456 789"}
+                  <a href={`tel:${adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp}`} className="text-white text-[20px] font-semibold tracking-wide hover:text-[#0088ff] transition-colors mt-1">
+                    {adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}
                   </a>
                 </div>
               </div>
@@ -178,7 +180,7 @@ export default function Footer() {
             Terms and conditions
           </Link>
           <p className="m-0 mb-2 sm:mb-0">
-            © 2024 {adminDetails?.companyTitle || "PBM Infotech"}
+            © 2024 {adminDetails?.companyTitle || CONTACT_CONFIG.companyTitle}
           </p>
           <Link href="/privacy" className="hover:text-gray-900 transition-colors">
             Privacy policy

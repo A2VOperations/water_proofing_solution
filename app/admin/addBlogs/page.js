@@ -105,7 +105,7 @@ export default function AddBlogs() {
                 value={formData.title}
                 onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
-                placeholder="e.g. Tips for Roof Maintenance"
+                placeholder="e.g. Best Practices for Terrace Waterproofing"
                 required
               />
             </div>

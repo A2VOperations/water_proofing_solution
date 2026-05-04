@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { getAdminDetailsAction } from "@/app/actions/admin";
+import { CONTACT_CONFIG } from "@/app/config";
+
 
 export default function PrivacyPolicy() {
   const [adminDetails, setAdminDetails] = useState(null);
@@ -15,7 +17,8 @@ export default function PrivacyPolicy() {
     fetchAdmin();
   }, []);
 
-  const companyName = adminDetails?.companyTitle || "Feexaro Waterproofing Solutions";
+  const companyName = adminDetails?.companyTitle || CONTACT_CONFIG.companyTitle;
+
 
   return (
     <main className="min-h-screen bg-white pt-32 pb-24 font-sans text-gray-800">
@@ -91,9 +94,9 @@ export default function PrivacyPolicy() {
             </p>
             <div className="bg-[#f9fafb] p-8 rounded-3xl border border-gray-100 shadow-sm">
               <p className="font-bold text-[#0A1A2F] mb-1">{companyName}</p>
-              <p className="text-gray-600 mb-1">{adminDetails?.address}</p>
-              <p className="text-gray-600 mb-1">Email: {adminDetails?.email}</p>
-              <p className="text-gray-600">Phone: {adminDetails?.numbers?.[0]}</p>
+              <p className="text-gray-600 mb-1">{adminDetails?.address || CONTACT_CONFIG.address}</p>
+              <p className="text-gray-600 mb-1">Email: {adminDetails?.email || CONTACT_CONFIG.email}</p>
+              <p className="text-gray-600">Phone: {adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}</p>
             </div>
           </div>
         </div>

@@ -4,6 +4,8 @@ import { useParams } from "next/navigation";
 import { getServiceBySlugAction, getAdminDetailsAction } from "@/app/actions/admin";
 import Link from "next/link";
 import Image from "next/image";
+import { CONTACT_CONFIG } from "@/app/config";
+
 
 export default function ServiceDetail() {
     const { slug } = useParams();
@@ -36,7 +38,8 @@ export default function ServiceDetail() {
 
     const handleWhatsAppRedirect = (e) => {
         if (e) e.preventDefault();
-        const number = adminDetails?.numbers?.[0] || "911234567890"; // Fallback
+        const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp; // Fallback
+
         const cleanNumber = number.replace(/\D/g, "");
         const message = `Hello, I'm interested in the "${service?.title}" service. Please provide more details.`;
         window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");

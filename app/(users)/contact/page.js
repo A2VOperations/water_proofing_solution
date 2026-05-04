@@ -2,32 +2,34 @@
 
 import { useState, useEffect } from "react";
 import { getAdminDetailsAction } from "@/app/actions/admin";
+import { CONTACT_CONFIG } from "@/app/config";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "12003456789";
-const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "arinistudiobd@gmail.com";
-const CONTACT_ADDRESS = process.env.NEXT_PUBLIC_CONTACT_ADDRESS || "456 Social Media Boulevard, Suite 789, Creative Town, CA 98765";
-const MAP_QUERY = process.env.NEXT_PUBLIC_MAP_QUERY || "Jersey City, NJ, USA";
+
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || CONTACT_CONFIG.whatsapp;
+const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || CONTACT_CONFIG.email;
+const CONTACT_ADDRESS = process.env.NEXT_PUBLIC_CONTACT_ADDRESS || CONTACT_CONFIG.address;
+const MAP_QUERY = process.env.NEXT_PUBLIC_MAP_QUERY || CONTACT_CONFIG.mapQuery;
 
 const FAQS = [
   {
-    question: "How often do you need to repair a roofing services?",
-    answer: "We offer a wide range of plumbing services, including installation, repair, maintenance, and replacement of plumbing fixtures, faucets, pipes, and water heaters."
+    question: "How often should I check for wall seepage?",
+    answer: "We recommend a professional dampness audit every 2-3 years, especially before the monsoon season, to identify early signs of structural moisture."
   },
   {
-    question: "Do you offer a next day delivery service?",
-    answer: "Yes, we strive to accommodate urgent requests based on availability. Contact our support team to schedule a next-day service."
+    question: "Do you offer emergency leak detection?",
+    answer: "Yes, we provide 24/7 emergency leak detection services across major cities using thermal imaging and moisture meters."
   },
   {
-    question: "What is the standard delivery time?",
-    answer: "Standard delivery and service scheduling usually takes 3 to 5 business days, depending on your location and the complexity of the project."
+    question: "What is the standard warranty on waterproofing?",
+    answer: "Our services come with a performance warranty ranging from 5 to 10 years, depending on the system and material used."
   },
   {
-    question: "How can I take your emergency services?",
-    answer: "You can reach our 24/7 emergency hotline at our primary contact number. We have a dedicated team ready to dispatch immediately."
+    question: "How can I request an on-site inspection?",
+    answer: "You can book a free on-site assessment through our WhatsApp hotline or by filling out the contact form on this page."
   },
   {
-    question: "Do you offer an installation service?",
-    answer: "Yes, we provide full-service installation for all types of roofing materials, ensuring industry standards and compliance."
+    question: "Do you provide terrace waterproofing installation?",
+    answer: "Yes, we provide full-service waterproofing for all types of structures using modern membrane and engineering-grade liquid systems."
   }
 ];
 
@@ -116,7 +118,7 @@ export default function Contact() {
           CONTACT US
         </p>
         <h1 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
-          EVERY ROOF, FULLY<br/>MANAGED.
+          EVERY LEAK, FULLY<br/>SEALED.
         </h1>
         <p className="text-gray-600 text-lg md:text-xl font-medium max-w-2xl mx-auto">
           We're here to help! Reach out with any questions or feedback you may have.
@@ -187,7 +189,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-xl font-medium text-gray-900 mb-1">Phone:</h4>
-                  <p className="text-gray-600 text-[15px]">Customer Support: <span className="text-[#0088ff]">({adminDetails?.numbers?.[0] || WHATSAPP_NUMBER})</span></p>
+                  <p className="text-gray-600 text-[15px]">Customer Support: <span className="text-[#0088ff]">({adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone})</span></p>
                   {adminDetails?.numbers?.[1] && (
                     <p className="text-gray-600 text-[15px]">Sales Inquiries: <span className="text-[#0088ff]">({adminDetails.numbers[1]})</span></p>
                   )}
@@ -244,7 +246,7 @@ export default function Contact() {
       <section className="max-w-3xl mx-auto px-6 mb-24">
         <div className="text-center mb-14">
           <h2 className="text-5xl md:text-[64px] font-black uppercase text-[#111] mb-2 tracking-tight">FAQ'S</h2>
-          <p className="text-gray-600 font-medium text-lg">Roofing services and products questions and answers</p>
+          <p className="text-gray-600 font-medium text-lg">Waterproofing solutions questions and answers</p>
         </div>
 
         <div className="flex flex-col border-t border-gray-200">
