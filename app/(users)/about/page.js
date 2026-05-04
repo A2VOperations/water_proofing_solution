@@ -520,7 +520,7 @@ export default function About() {
             </div>
 
             <div className="flex items-center justify-center lg:justify-start w-full">
-              <button className="relative group flex items-center bg-[#031b33] rounded-full py-4.5 pl-8 pr-16 transition-all duration-300 hover:bg-[#0088ff] shadow-lg hover:shadow-[#0088ff]/30">
+              <Link href="/work" className="relative group flex items-center bg-[#031b33] rounded-full py-4.5 pl-8 pr-16 transition-all duration-300 hover:bg-[#0088ff] shadow-lg hover:shadow-[#0088ff]/30">
                 <span className="text-white text-[13px] font-black tracking-widest uppercase">
                   KNOW MORE
                 </span>
@@ -540,7 +540,7 @@ export default function About() {
                     <polyline points="7 7 17 7 17 17"></polyline>
                   </svg>
                 </div>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -624,7 +624,7 @@ export default function About() {
               Looking for a reliable waterproofing service?
             </h2>
             <div className="relative z-10">
-              <button className="relative group flex items-center bg-white rounded-full py-4 pl-8 pr-16 transition-all duration-300 hover:bg-[#031b33] shadow-lg hover:shadow-black/10">
+              <Link href="/contact" className="relative group flex items-center bg-white rounded-full py-4 pl-8 pr-16 transition-all duration-300 hover:bg-[#031b33] shadow-lg hover:shadow-black/10">
                 <span className="text-black group-hover:text-white text-[13px] font-black tracking-widest uppercase transition-colors duration-300">
                   APPOINTMENT
                 </span>
@@ -644,7 +644,7 @@ export default function About() {
                     <polyline points="7 7 17 7 17 17"></polyline>
                   </svg>
                 </div>
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -666,12 +666,12 @@ export default function About() {
             </div>
             <p className="text-white text-lg font-medium leading-relaxed pr-8">
               Trusted by more than 2,000 satisfied{" "}
-              <a
-                href="#"
+              <Link
+                href="/work"
                 className="text-[#0088ff] hover:underline underline-offset-4 decoration-2"
               >
                 customers
-              </a>
+              </Link>
             </p>
           </div>
         </div>

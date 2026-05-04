@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { getAllWorksAction } from "@/app/actions/admin";
+import Link from "next/link";
 
 const WorkCard = ({ work, index }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -260,9 +261,9 @@ export default function Work() {
             Have a similar project<br />in mind?
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center relative z-10">
-            <a href="/contact" className="bg-[#0088ff] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#0070d6] hover:-translate-y-1 transition-all shadow-xl shadow-[#0088ff]/20">
+            <Link href="/contact" className="bg-[#0088ff] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#0070d6] hover:-translate-y-1 transition-all shadow-xl shadow-[#0088ff]/20">
               Get A Quote
-            </a>
+            </Link>
           </div>
         </div>
       </section>

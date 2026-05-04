@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAdminDetailsAction } from "@/app/actions/admin";
 import { CONTACT_CONFIG } from "@/app/config";
+import Link from "next/link";
 
 
 const Section5 = () => {
@@ -100,7 +101,7 @@ const Section5 = () => {
               Get Estimate
             </button>
 
-            <a
+            <Link
               href="/work"
               className="flex items-center gap-2 text-white/70 text-[13px] hover:text-white transition-colors no-underline"
             >
@@ -121,7 +122,7 @@ const Section5 = () => {
                 />
               </svg>
               See our work
-            </a>
+            </Link>
           </div>
 
           <div className="flex items-center gap-7">

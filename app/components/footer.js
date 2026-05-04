@@ -107,7 +107,7 @@ export default function Footer() {
             {/* Newsletter Row */}
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8 pb-10 border-b border-white/10 w-full">
               <h2 className="text-white text-[28px] md:text-[36px] font-bold w-full lg:w-[45%] leading-tight">
-                Subscribe to Our<br/>Newsletter
+                Protect Your Home <br/> from Leaks
               </h2>
               
               <div className="w-full lg:w-[55%]">
