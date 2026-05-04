@@ -64,9 +64,9 @@ const Services = () => {
             key={service._id || index}
             className="bg-white p-10 rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50"
           >
-            {/* Logo SVG & Title (Restored Logo SVG block) */}
-            <div className="flex items-center gap-5 mb-8">
-              <div className="w-20 h-20 bg-[#f0f7ff] rounded-[24px] flex items-center justify-center transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">
+            {/* Logo SVG & Title */}
+            <div className="flex items-start gap-5 mb-8">
+              <div className="shrink-0 w-20 h-20 bg-[#f0f7ff] rounded-[24px] flex items-center justify-center transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">
                 <div className="transition-colors duration-500 group-hover:text-[#0089FF]">
                   {CATEGORY_ICONS[service.category] || (
                     <svg className="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,39 +75,28 @@ const Services = () => {
                   )}
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300">
+              <h3 className="text-2xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words break-all pt-2">
                 {service.title}
               </h3>
             </div>
 
             {/* Description - Limited to 3 lines */}
-            <p className="text-gray-500 text-base leading-relaxed mb-16 max-w-[90%] font-medium line-clamp-3">
+            <p className="text-gray-500 text-base leading-relaxed mb-16 max-w-[85%] font-medium line-clamp-3 break-words break-all">
               {service.description}
             </p>
 
-            {/* Inverted Curves (Reverted to absolute to remove extra padding) */}
-            <svg
-              className="absolute bottom-0 right-9 w-[25px] h-[25px] text-[#f0f4f8] z-0"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M20 20 H0 V0 C0 11.046 8.954 20 20 20 Z" />
-            </svg>
-            <svg
-              className="absolute bottom-0 right-35 - w-[25px] h-[25px] text-[#f0f4f8]"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M0 20 H20 V0 C20 11.046 11.046 20 0 20 Z" />
-            </svg>
+            {/* Button Pocket positioned at bottom right */}
+            <div className="absolute bottom-0 right-0 w-[90px] h-[90px] bg-[#f0f4f8] z-10 flex items-center justify-center rounded-tl-[40px]">
+              
+              {/* Top Inverted Curve */}
+              <div className="absolute -top-[24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+              
+              {/* Left Inverted Curve */}
+              <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
 
-            {/* Button Pocket */}
-            <div className="absolute bottom-0 right-[60px] w-20 h-20 bg-[#f0f4f8] z-10 flex items-center justify-center rounded-t-full">
               <Link 
                 href={`/services/${service.slug}`}
-                className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn"
+                className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn mt-2 ml-2"
               >
                 <svg
                   className="w-6 h-6 text-white transition-transform duration-500 group-hover/btn:rotate-45"
