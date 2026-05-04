@@ -228,7 +228,10 @@ export default function About() {
                 </h2>
               </div>
 
-              <form onSubmit={handleQuoteSubmit} className="flex flex-col gap-4">
+              <form
+                onSubmit={handleQuoteSubmit}
+                className="flex flex-col gap-4"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
                     type="text"
@@ -441,7 +444,7 @@ export default function About() {
                   <path d="M0 0 Q20 0 20 20 V0 Z" />
                 </svg>
                 <Image
-                  src="/home/Home1-About-Img.jpg"
+                  src="/about/About-Img.jpg"
                   alt="Professional worker"
                   fill
                   className="object-cover"
@@ -457,7 +460,10 @@ export default function About() {
               <div className="bg-white absolute bottom-0 left-0 p-3 sm:p-4 rounded-tr-[10px]">
                 <div className="bg-[#0088ff] text-white p-4 sm:p-6 rounded-[20px] z-10">
                   <h3 className="text-3xl sm:text-5xl font-black mb-1 flex items-center leading-none">
-                    25<span className="text-2xl sm:text-3xl ml-1 text-black">+</span>
+                    25
+                    <span className="text-2xl sm:text-3xl ml-1 text-black">
+                      +
+                    </span>
                   </h3>
                   <p className="text-[11px] sm:text-[14px] font-bold leading-tight opacity-90">
                     Years as a <br /> Trusted Provider
@@ -520,7 +526,10 @@ export default function About() {
             </div>
 
             <div className="flex items-center justify-center lg:justify-start w-full">
-              <Link href="/work" className="relative group flex items-center bg-[#031b33] rounded-full py-4.5 pl-8 pr-16 transition-all duration-300 hover:bg-[#0088ff] shadow-lg hover:shadow-[#0088ff]/30">
+              <Link
+                href="/work"
+                className="relative group flex items-center bg-[#031b33] rounded-full py-4.5 pl-8 pr-16 transition-all duration-300 hover:bg-[#0088ff] shadow-lg hover:shadow-[#0088ff]/30"
+              >
                 <span className="text-white text-[13px] font-black tracking-widest uppercase">
                   KNOW MORE
                 </span>
@@ -624,7 +633,10 @@ export default function About() {
               Looking for a reliable waterproofing service?
             </h2>
             <div className="relative z-10">
-              <Link href="/contact" className="relative group flex items-center bg-white rounded-full py-4 pl-8 pr-16 transition-all duration-300 hover:bg-[#031b33] shadow-lg hover:shadow-black/10">
+              <Link
+                href="/contact"
+                className="relative group flex items-center bg-white rounded-full py-4 pl-8 pr-16 transition-all duration-300 hover:bg-[#031b33] shadow-lg hover:shadow-black/10"
+              >
                 <span className="text-black group-hover:text-white text-[13px] font-black tracking-widest uppercase transition-colors duration-300">
                   APPOINTMENT
                 </span>
