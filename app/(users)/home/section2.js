@@ -4,7 +4,6 @@ import { getAdminDetailsAction } from "@/app/actions/admin";
 import { CONTACT_CONFIG } from "@/app/config";
 import Link from "next/link";
 
-
 const Section2 = () => {
   const [adminDetails, setAdminDetails] = useState(null);
 
@@ -23,8 +22,12 @@ const Section2 = () => {
     const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp;
 
     const cleanNumber = number.replace(/\D/g, "");
-    const message = "Hello, I saw the summer offer and I'm interested in booking a service. Please provide more details.";
-    window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    const message =
+      "Hello, I saw the summer offer and I'm interested in booking a service. Please provide more details.";
+    window.open(
+      `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
   };
 
   const checklistItems = [
@@ -45,17 +48,18 @@ const Section2 = () => {
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-[#0A1A2F] leading-[1.1] tracking-tight">
-            Complete Waterproofing <br className="hidden md:block" />{" "}
-            Solutions for Every Surface
+            Complete Waterproofing <br className="hidden md:block" /> Solutions
+            for Every Surface
           </h2>
         </div>
 
         <div className="">
           <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
-            We provide specialized waterproofing and seepage control for Indian homes with expert
-            efficiency. Trust us to ensure your structure remains leak-proof &
-            reliably dry. Our services encompass a wide range of tasks
-            related to structural integrity and dampness prevention.
+            We provide specialized waterproofing and seepage control for Indian
+            homes with expert efficiency. Trust us to ensure your structure
+            remains leak-proof & reliably dry. Our services encompass a wide
+            range of tasks related to structural integrity and dampness
+            prevention.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
             {checklistItems.map((item, index) => (
@@ -98,7 +102,10 @@ const Section2 = () => {
           />
           {/* Watch Video Floating Button */}
           <div className="absolute bottom-10 left-10">
-            <Link href="/work" className="flex items-center gap-5 bg-white hover:bg-gray-50 py-4 px-8 rounded-full shadow-2xl transition-all duration-300 transform hover:-translate-y-2 active:scale-95 group/btn">
+            <Link
+              href="/work"
+              className="flex items-center gap-5 bg-white hover:bg-gray-50 py-4 px-8 rounded-full shadow-2xl transition-all duration-300 transform hover:-translate-y-2 active:scale-95 group/btn"
+            >
               <div className="w-12 h-12 bg-[#0A1A2F] rounded-full flex items-center justify-center text-white shadow-xl transition-transform group-hover/btn:rotate-12">
                 <svg className="w-5 h-5 ml-1 fill-current" viewBox="0 0 24 24">
                   <path d="M7 6v12l10-6z" />
@@ -182,42 +189,37 @@ const Section2 = () => {
               <h3 className="text-xl text-white leading-tight font-bold pr-10">
                 Monsoon Readiness offer{" "}
                 <span className="font-normal opacity-90">
-                  New clients save ₹5000 on all<br/> services.
+                  New clients save ₹5000 on all
+                  <br /> services.
                 </span>
               </h3>
             </div>
 
-            <div
-              className="
-  absolute 
-  -right-[1px] 
-  bottom-[29.6%] 
-  w-[50px] 
-  h-[50px] 
-  rounded-br-[50px] 
-  bg-transparent
-  [box-shadow:8px_8px_0_8px_white]
-"
-            />
-            <div
-              className="
-  absolute 
-  bottom-0 
-  right-[29%] 
-  w-[50px] 
-  h-[50px] 
-  rounded-br-[50px] 
-  bg-transparent
-  [box-shadow:8px_8px_0_8px_white]
-"
-            />
+            <svg
+              className="absolute bottom-0 right-[95px] w-[20px] h-[20px] z-10 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Fills the bottom-left corner with white, carving out a quarter-circle cutout */}
+              <path d="M0 20 H20 V0 C20 11.046 11.046 20 0 20 Z" />
+            </svg>
+            <svg
+              className="absolute bottom-[95px] right-0 w-[20px] h-[20px] z-10 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Fills the bottom-left corner with white, carving out a quarter-circle cutout */}
+              <path d="M0 20 H20 V0 C20 11.046 11.046 20 0 20 Z" />
+            </svg>
 
             {/* Bottom Right Notch & Circle Button */}
             <div className="absolute bottom-0 right-0 translate-x-[1px] translate-y-[1px]">
               {/* The "Notch" background - white circle that cuts out the blue */}
               <div className="w-24 h-24 bg-white rounded-tl-[50px] flex items-center justify-center">
                 {/* The Dark Circle Button */}
-                <button 
+                <button
                   onClick={handleWhatsAppRedirect}
                   className="bg-[#041F38] hover:bg-black w-16 h-16 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-105 group/arrow mt-4 ml-4"
                 >
