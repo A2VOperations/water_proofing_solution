@@ -68,27 +68,13 @@ export default function BlogSection() {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
 
-            {/* Date Badge with Inverted Curves */}
-            <div className="absolute bottom-0 right-12 bg-white px-5 py-2.5 rounded-t-[20px] z-10 flex items-center justify-center">
+            {/* Date Badge with Inverted Curves (Replaced buggy SVGs with clean CSS shadow trick) */}
+            <div className="absolute bottom-0 right-10 bg-white px-6 py-3 rounded-t-[20px] z-10 flex items-center justify-center">
               {/* Left Inverted Curve */}
-              <svg
-                className="absolute bottom-0 -right-[20px] w-[20px] h-[20px] text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M20 20 H0 V0 C0 11.046 8.954 20 20 20 Z" />
-              </svg>
+              <div className="absolute bottom-0 -left-[20px] w-[20px] h-[20px] bg-transparent rounded-br-[20px] shadow-[10px_10px_0_10px_white] pointer-events-none"></div>
 
               {/* Right Inverted Curve */}
-              <svg
-                className="absolute bottom-0 -left-[20px] - w-[20px] h-[20px] text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M0 20 H20 V0 C20 11.046 11.046 20 0 20 Z" />
-              </svg>
+              <div className="absolute bottom-0 -right-[20px] w-[20px] h-[20px] bg-transparent rounded-bl-[20px] shadow-[-10px_10px_0_10px_white] pointer-events-none"></div>
 
               <span className="text-[#0088ff] text-[11px] font-bold tracking-widest uppercase">
                 {formatDate(post.date)}
@@ -98,7 +84,7 @@ export default function BlogSection() {
 
           {/* Text Content */}
           <div className="p-8 flex flex-col flex-grow">
-            <h3 className="text-[#111] text-[22px] font-bold leading-[1.3] mb-6 group-hover:text-[#0088ff] transition-colors duration-300">
+            <h3 className="text-[#111] text-[22px] font-bold leading-[1.3] mb-6 group-hover:text-[#0088ff] transition-colors duration-300 break-words break-all line-clamp-3">
               {post.title}
             </h3>
 

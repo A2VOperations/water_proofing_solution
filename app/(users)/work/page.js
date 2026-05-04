@@ -6,6 +6,7 @@ import { getAllWorksAction } from "@/app/actions/admin";
 const WorkCard = ({ work, index }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -34,7 +35,10 @@ const WorkCard = ({ work, index }) => {
   return (
     <div
       ref={cardRef}
-      className={`group relative aspect-[4/5] rounded-[32px] overflow-hidden bg-gray-100 shadow-sm transition-all duration-700 transform ${
+      onClick={() => setShowInfo(!showInfo)}
+      onMouseEnter={() => setShowInfo(true)}
+      onMouseLeave={() => setShowInfo(false)}
+      className={`group relative aspect-[4/5] rounded-[32px] overflow-hidden bg-gray-100 shadow-sm transition-all duration-700 transform cursor-pointer select-none ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
@@ -55,18 +59,24 @@ const WorkCard = ({ work, index }) => {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8 sm:p-10 text-white">
-        <div className="transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+      <div className={`absolute inset-0 bg-black/50 backdrop-blur-[2px] flex flex-col justify-end p-10 text-white transition-all duration-500 ${
+        showInfo ? "opacity-100" : "opacity-0"
+      }`}>
+        <div className={`transform transition-transform duration-500 delay-100 ${
+          showInfo ? "translate-y-0" : "translate-y-10"
+        }`}>
           <div className="w-12 h-1 bg-[#0088ff] mb-6 rounded-full"></div>
-          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-3">
+          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-3 break-words break-all overflow-hidden">
             {work.title}
           </h3>
-          <p className="text-sm sm:text-base text-gray-200 font-medium leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+          <p className={`text-sm sm:text-base text-gray-200 font-medium leading-relaxed transition-opacity duration-500 delay-200 break-words break-all line-clamp-3 ${
+            showInfo ? "opacity-100" : "opacity-0"
+          }`}>
             {work.description}
           </p>
         </div>
       </div>
-      <div className="absolute top-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest opacity-80">
+      <div className="absolute top-6 right-6 bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest opacity-90 z-20">
         Project #{index + 1}
       </div>
     </div>
