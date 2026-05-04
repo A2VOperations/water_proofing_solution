@@ -98,12 +98,12 @@ export default function BlogPost() {
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
         
-        <div className="absolute inset-0 flex flex-col justify-end items-center px-6 pb-20 text-center">
-          <div className="max-w-4xl">
+        <div className="absolute inset-0 flex flex-col justify-center items-center px-8 pt-28 md:pt-48 text-center">
+          <div className="max-w-6xl">
             <Link href="/blog" className="inline-block bg-[#0088ff] text-white px-4 py-1.5 rounded-full font-black text-[10px] uppercase tracking-widest mb-6 shadow-lg shadow-[#0088ff]/20">
               {blog.category}
             </Link>
-            <h1 className="text-4xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter mb-8 uppercase drop-shadow-2xl break-words break-all">
+            <h1 className="text-4xl md:text-7xl font-black text-white leading-[1.1] tracking-tighter mb-10 md:mb-16 uppercase drop-shadow-2xl break-words break-all">
               {blog.title}
             </h1>
             <div className="flex items-center justify-center gap-6 text-white/70 font-bold text-xs uppercase tracking-widest">
@@ -131,7 +131,7 @@ export default function BlogPost() {
         </div>
       </header>
 
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 mt-20">
+      <article className="max-w-3xl mx-auto px-10 sm:px-6 mt-20">
         {/* Content with rich formatting */}
         <div 
           className="blog-content select-text"
