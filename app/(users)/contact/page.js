@@ -121,7 +121,7 @@ export default function Contact() {
           EVERY LEAK, FULLY<br/>SEALED.
         </h1>
         <p className="text-gray-600 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-          We're here to help! Reach out with any questions or feedback you may have.
+          We&apos;re here to help! Reach out with any questions or feedback you may have.
         </p>
       </section>
 
@@ -245,7 +245,7 @@ export default function Contact() {
       {/* ── FAQ SECTION ── */}
       <section className="max-w-3xl mx-auto px-6 mb-24">
         <div className="text-center mb-14">
-          <h2 className="text-5xl md:text-[64px] font-black uppercase text-[#111] mb-2 tracking-tight">FAQ'S</h2>
+          <h2 className="text-5xl md:text-[64px] font-black uppercase text-[#111] mb-2 tracking-tight">FAQ&apos;S</h2>
           <p className="text-gray-600 font-medium text-lg">Waterproofing solutions questions and answers</p>
         </div>
 

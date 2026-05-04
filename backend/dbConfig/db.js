@@ -16,13 +16,18 @@ async function dbConnect() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 10000, // Timeout after 10 seconds
+      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log("Successfully connected to MongoDB.");
+      console.log("✅ Successfully connected to MongoDB.");
       return mongoose;
     }).catch((error) => {
-      console.error("Error connecting to MongoDB:", error);
+      console.error("❌ MongoDB Connection Error:", error.message);
+      if (error.message.includes('IP isn\'t whitelisted')) {
+          console.error("👉 TIP: Make sure your current IP address is whitelisted in MongoDB Atlas.");
+      }
       throw error;
     });
   }

@@ -28,7 +28,7 @@ async function setup() {
     // ============================================
     // EDIT THESE VALUES TO ADD YOUR EMAIL & PASSWORD
     // ============================================
-    const adminEmail = "vharsh2003new@gmail.com"; 
+    const adminEmail = "ak855717@gmail.com"; 
     const adminPassword = "admin123";
     const adminName = "Admin";
     // ============================================

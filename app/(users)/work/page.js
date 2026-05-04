@@ -34,7 +34,7 @@ const WorkCard = ({ work, index }) => {
   return (
     <div
       ref={cardRef}
-      className={`group relative aspect-[4/5] rounded-[32px] overflow-hidden bg-gray-100 shadow-sm transition-all duration-700 transform ${
+      className={`group relative aspect-[4/5] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-gray-100 shadow-sm transition-all duration-700 transform ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
@@ -55,13 +55,13 @@ const WorkCard = ({ work, index }) => {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8 sm:p-10 text-white">
-        <div className="transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500 delay-100">
-          <div className="w-12 h-1 bg-[#0088ff] mb-6 rounded-full"></div>
-          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-3">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent sm:bg-black/20 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[1px] sm:backdrop-blur-[2px] flex flex-col justify-end p-6 sm:p-10 text-white">
+        <div className="transform translate-y-0 sm:translate-y-10 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+          <div className="w-10 h-1 sm:w-12 sm:h-1 bg-[#0088ff] mb-4 sm:mb-6 rounded-full"></div>
+          <h3 className="text-xl sm:text-3xl font-black uppercase tracking-tight mb-2 sm:mb-3 leading-tight">
             {work.title}
           </h3>
-          <p className="text-sm sm:text-base text-gray-200 font-medium leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+          <p className="text-xs sm:text-base text-gray-200 font-medium leading-relaxed opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 line-clamp-3 sm:line-clamp-none">
             {work.description}
           </p>
         </div>
@@ -94,10 +94,12 @@ export default function Work() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       if (row1Ref.current && row2Ref.current) {
-        row1Ref.current.style.transform = `translateX(calc(-100px - ${scrollY * 0.45}px))`;
-        row2Ref.current.style.transform = `translateX(calc(-1500px + ${scrollY * 0.45}px))`;
+        const offset1 = window.innerWidth < 768 ? 50 : 100;
+        const offset2 = window.innerWidth < 768 ? 800 : 1500;
+        row1Ref.current.style.transform = `translateX(calc(-${offset1}px - ${scrollY * 0.45}px))`;
+        row2Ref.current.style.transform = `translateX(calc(-${offset2}px + ${scrollY * 0.45}px))`;
       }
-      if (stackRef.current) {
+      if (stackRef.current && window.innerWidth >= 768) {
         const rect = stackRef.current.getBoundingClientRect();
         const scrollableDistance = rect.height - window.innerHeight;
         if (scrollableDistance > 0) {
@@ -107,6 +109,15 @@ export default function Work() {
             const index = Math.min(3, Math.floor(progress * 4));
             setActiveIndex(index);
           }
+        }
+      } else if (stackRef.current && window.innerWidth < 768) {
+        // Simple scroll-into-view logic for mobile if needed, 
+        // but for now we just show the first few images or cycle them
+        const rect = stackRef.current.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const progress = 1 - (rect.bottom / (rect.height + window.innerHeight));
+          const index = Math.min(3, Math.floor(progress * 4));
+          setActiveIndex(index);
         }
       }
     };
@@ -121,23 +132,23 @@ export default function Work() {
   const row2Images = allProjectImages.filter((_, i) => i % 2 !== 0);
 
   return (
-    <main className="min-h-screen bg-white font-sans text-gray-900 pt-32 pb-24">
+    <main className="min-h-screen bg-white font-sans text-gray-900 pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-x-hidden">
       {/* ── HEADER ── */}
-      <section className="max-w-5xl mx-auto px-6 text-center mb-24 mt-10">
-        <div className="inline-block border border-gray-200 rounded-full px-4 py-1.5 text-[10px] font-black tracking-[0.2em] text-[#0088ff] mb-6 uppercase bg-gray-50/50">
+      <section className="max-w-5xl mx-auto px-6 text-center mb-16 sm:mb-24 mt-4 sm:mt-10">
+        <div className="inline-block border border-gray-200 rounded-full px-4 py-1.5 text-[9px] sm:text-[10px] font-black tracking-[0.2em] text-[#0088ff] mb-4 sm:mb-6 uppercase bg-gray-50/50">
           Portfolio
         </div>
-        <h1 className="text-[45px] md:text-[72px] font-black uppercase tracking-tight leading-[0.95] mb-8 text-[#111]">
+        <h1 className="text-[32px] sm:text-[54px] md:text-[72px] font-black uppercase tracking-tight leading-[1.0] mb-6 sm:mb-8 text-[#111]">
           DISCOVER OUR<br />
           <span className="text-[#0088ff]">RECENT PROJECTS.</span>
         </h1>
-        <p className="text-gray-500 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-500 text-base sm:text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
           Excellence in every detail. Explore our latest waterproofing solutions and specialized repairs across the region.
         </p>
       </section>
 
       {/* ── PROJECTS GRID ── */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
+      <section className="max-w-7xl mx-auto px-6 mb-15">
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
@@ -170,8 +181,8 @@ export default function Work() {
             </div>
           </div>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-            <div className="bg-[#0088ff] text-white w-[120px] h-[120px] sm:w-[200px] sm:h-[200px] rounded-full flex flex-col items-center justify-center text-center p-4 shadow-2xl border-[4px] sm:border-[6px] border-white">
-              <span className="font-bold text-[10px] sm:text-[17px] leading-tight tracking-wide uppercase">
+            <div className="bg-[#0088ff] text-white w-[110px] h-[110px] sm:w-[200px] sm:h-[200px] rounded-full flex flex-col items-center justify-center text-center p-3 sm:p-4 shadow-2xl border-[4px] sm:border-[6px] border-white">
+              <span className="font-bold text-[9px] sm:text-[17px] leading-tight tracking-wide uppercase">
                 Showcasing our<br/>Gallery
               </span>
             </div>
@@ -189,9 +200,9 @@ export default function Work() {
       )}
 
       {/* ── RESTORED STICKY CARD STASH SECTION ── */}
-      <section ref={stackRef} className="relative w-full h-[200vh] sm:h-[300vh] mb-20 sm:mb-32">
-        <div className="sticky top-0 h-screen w-full flex items-center bg-white overflow-hidden pt-20 sm:pt-0">
-          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 sm:gap-16 items-center w-full">
+      <section ref={stackRef} className="relative w-full mb-10 sm:mb-20">
+        <div className="md:sticky top-0 w-full flex items-center bg-white overflow-hidden pt-10 sm:pt-0">
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 sm:gap-16 py-10 items-center w-full">
             <div className="flex flex-col gap-4 sm:gap-6 relative z-10 text-center md:text-left items-center md:items-start">
               <div className="border border-gray-300 rounded-full px-4 py-1.5 w-fit text-[10px] sm:text-xs font-bold tracking-widest text-[#0088ff] mb-2 uppercase">
                 WHY CHOOSE US
@@ -213,7 +224,7 @@ export default function Work() {
                 </div>
               </div>
             </div>
-            <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[500px] lg:h-[600px] rounded-[40px] overflow-hidden shadow-2xl bg-gray-100 border border-gray-200">
+            <div className="relative w-full aspect-[4/3] md:aspect-square lg:aspect-video rounded-[24px] sm:rounded-[40px] overflow-hidden shadow-2xl bg-gray-100 border border-gray-200">
               {allProjectImages.slice(0, 4).map((img, i) => (
                 <div 
                   key={i} 
@@ -233,13 +244,13 @@ export default function Work() {
       </section>
 
       {/* ── CALL TO ACTION ── */}
-      <section className="max-w-7xl mx-auto px-6">
-        <div className="bg-[#111] rounded-[48px] p-12 md:p-20 text-center relative overflow-hidden group">
-          <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-8 relative z-10">
+      <section className="max-w-7xl mx-auto px-6 mb-20 sm:mb-32">
+        <div className="bg-[#111] rounded-[32px] sm:rounded-[48px] p-10 sm:p-16 md:p-20 text-center relative overflow-hidden group">
+          <h2 className="text-[26px] sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight mb-8 relative z-10 leading-[1.1]">
             Have a similar project<br />in mind?
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center relative z-10">
-            <a href="/contact" className="bg-[#0088ff] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#0070d6] hover:-translate-y-1 transition-all shadow-xl shadow-[#0088ff]/20">
+            <a href="/contact" className="bg-[#0088ff] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#0070d6] hover:-translate-y-1 transition-all shadow-xl shadow-[#0088ff]/20">
               Get A Quote
             </a>
           </div>
