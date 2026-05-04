@@ -101,7 +101,7 @@ export default function ServiceDetail() {
                         <div className="inline-block bg-[#0088ff] text-white px-4 py-1.5 rounded-full font-black text-[10px] uppercase tracking-widest mb-6 shadow-lg shadow-[#0088ff]/20">
                             {service.category}
                         </div>
-                        <h1 className="text-4xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter mb-8 uppercase drop-shadow-2xl">
+                        <h1 className="text-4xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter mb-8 uppercase drop-shadow-2xl break-words break-all">
                             {service.title}
                         </h1>
                         <div className="flex items-center justify-center gap-4 text-white/70 font-bold text-xs uppercase tracking-widest mb-10">
@@ -127,7 +127,7 @@ export default function ServiceDetail() {
             </header>
 
             {/* Article Content */}
-            <article className="max-w-3xl mx-auto px-6 mt-20">
+            <article className="max-w-3xl mx-auto px-4 sm:px-6 mt-20">
                 <div className="mb-12 flex justify-center">
                     <div className="inline-block border border-gray-200 rounded-full px-5 py-1.5 text-[10px] font-black tracking-[0.2em] text-[#0088ff] uppercase bg-gray-50/50">
                         Complete Solutions
