@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getAllWorksAction, deleteWorkAction } from "@/app/actions/admin";
 
 export default function ManageWorks() {
+  const router = useRouter();
   const [works, setWorks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState(null);
@@ -67,37 +69,48 @@ export default function ManageWorks() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {works.map((work) => (
-            <div key={work._id} className="bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-              <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
-                {work.images && work.images[0] ? (
-                  <img src={work.images[0]} alt={work.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-300">No Image</div>
-                )}
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-[#0088ff]">
-                  {work.images?.length || 0} Images
+            <div key={work._id} className="relative group">
+              <div 
+                onClick={() => router.push(`/admin/works/edit/${work._id}`)}
+                className="block bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all hover:-translate-y-2 cursor-pointer"
+              >
+                <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+                  {work.images && work.images[0] ? (
+                    <img src={work.images[0]} alt={work.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-300">No Image</div>
+                  )}
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-[#0088ff]">
+                    {work.images?.length || 0} Images
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-xl font-bold text-[#111] mb-2 truncate group-hover:text-[#0088ff] transition-colors">{work.title}</h3>
+                  <p className="text-gray-500 text-sm line-clamp-2 mb-6 font-medium leading-relaxed">
+                    {work.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs font-black text-[#0088ff] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
+                    Edit Project
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
+                  </div>
                 </div>
               </div>
-              <div className="p-8">
-                <h3 className="text-xl font-bold text-[#111] mb-2 truncate">{work.title}</h3>
-                <p className="text-gray-500 text-sm line-clamp-2 mb-6 font-medium leading-relaxed">
-                  {work.description}
-                </p>
-                <div className="flex gap-3">
-                  <button 
-                    onClick={() => handleDeleteClick(work._id)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-red-100 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-50 transition-colors"
-                  >
-                    Delete
-                  </button>
-                  <Link 
-                    href="/work" 
-                    target="_blank"
-                    className="flex-1 px-4 py-3 rounded-xl border border-gray-100 text-gray-600 text-[10px] font-black uppercase tracking-widest hover:bg-gray-50 transition-colors text-center"
-                  >
-                    View Live
-                  </Link>
-                </div>
+              
+              {/* Action Buttons Overlay */}
+              <div className="absolute top-4 left-4 flex gap-2 z-10 pointer-events-auto">
+                <Link 
+                  href={`/admin/works/edit/${work._id}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-10 h-10 rounded-full bg-white/90 backdrop-blur text-[#0088ff] flex items-center justify-center shadow-lg hover:bg-[#0088ff] hover:text-white transition-all opacity-0 group-hover:opacity-100"
+                >
+                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </Link>
+                <button 
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteClick(work._id); }}
+                  className="w-10 h-10 rounded-full bg-white/90 backdrop-blur text-red-500 flex items-center justify-center shadow-lg hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
+                >
+                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
               </div>
             </div>
           ))}

@@ -326,6 +326,45 @@ export async function deleteBlogAction(blogId) {
         return { error: "Failed to delete blog" };
     }
 }
+
+export async function getBlogByIdAction(blogId) {
+    try {
+        await dbConnect();
+        const blog = await Blog.findById(blogId);
+        if (!blog) return { error: "Blog not found" };
+        return { success: true, blog: JSON.parse(JSON.stringify(blog)) };
+    } catch (error) {
+        console.error("Get Blog By ID Error:", error);
+        return { error: "Failed to fetch blog post" };
+    }
+}
+
+export async function updateBlogAction(blogId, blogData) {
+    try {
+        await dbConnect();
+        
+        // Update slug if title changed
+        if (blogData.title) {
+            blogData.slug = blogData.title
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+        }
+
+        const updatedBlog = await Blog.findByIdAndUpdate(
+            blogId,
+            { $set: blogData },
+            { returnDocument: 'after' }
+        );
+        if (!updatedBlog) return { error: "Blog not found" };
+        return { success: true, blog: JSON.parse(JSON.stringify(updatedBlog)) };
+    } catch (error) {
+        console.error("Update Blog Error:", error);
+        return { error: "Failed to update blog post" };
+    }
+}
 export async function getAllWorksAction() {
     try {
         await dbConnect();
@@ -356,5 +395,33 @@ export async function deleteWorkAction(workId) {
     } catch (error) {
         console.error("Delete Work Error:", error);
         return { error: "Failed to delete work" };
+    }
+}
+
+export async function getWorkByIdAction(workId) {
+    try {
+        await dbConnect();
+        const work = await Work.findById(workId);
+        if (!work) return { error: "Work not found" };
+        return { success: true, work: JSON.parse(JSON.stringify(work)) };
+    } catch (error) {
+        console.error("Get Work By ID Error:", error);
+        return { error: "Failed to fetch work entry" };
+    }
+}
+
+export async function updateWorkAction(workId, workData) {
+    try {
+        await dbConnect();
+        const updatedWork = await Work.findByIdAndUpdate(
+            workId,
+            { $set: workData },
+            { returnDocument: 'after' }
+        );
+        if (!updatedWork) return { error: "Work not found" };
+        return { success: true, work: JSON.parse(JSON.stringify(updatedWork)) };
+    } catch (error) {
+        console.error("Update Work Error:", error);
+        return { error: "Failed to update work entry" };
     }
 }

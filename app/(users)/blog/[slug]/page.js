@@ -103,7 +103,7 @@ export default function BlogPost() {
             <Link href="/blog" className="inline-block bg-[#0088ff] text-white px-4 py-1.5 rounded-full font-black text-[10px] uppercase tracking-widest mb-6 shadow-lg shadow-[#0088ff]/20">
               {blog.category}
             </Link>
-            <h1 className="text-4xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter mb-8 uppercase drop-shadow-2xl">
+            <h1 className="text-4xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter mb-8 uppercase drop-shadow-2xl break-words break-all">
               {blog.title}
             </h1>
             <div className="flex items-center justify-center gap-6 text-white/70 font-bold text-xs uppercase tracking-widest">
@@ -116,13 +116,22 @@ export default function BlogPost() {
                <span>•</span>
                <span>{new Date(blog.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Kolkata' })}</span>
                <span>•</span>
-               <span>{blog.readTime || '5 MIN READ'}</span>
+               <span>{(() => {
+                          const date = new Date(blog.date);
+                          const now = new Date();
+                          const diffInSecs = Math.floor((now - date) / 1000);
+                          if (diffInSecs < 60) return 'JUST NOW';
+                          if (diffInSecs < 3600) return `${Math.floor(diffInSecs / 60)} MIN AGO`;
+                          if (diffInSecs < 86400) return `${Math.floor(diffInSecs / 3600)} HOURS AGO`;
+                          if (diffInSecs < 604800) return `${Math.floor(diffInSecs / 86400)} DAYS AGO`;
+                          return date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+                        })()}</span>
             </div>
           </div>
         </div>
       </header>
 
-      <article className="max-w-3xl mx-auto px-6 mt-20">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 mt-20">
         {/* Content with rich formatting */}
         <div 
           className="blog-content select-text"

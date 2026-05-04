@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getAllServicesAction, deleteServiceAction } from "@/app/actions/admin";
 
 export default function ViewServices() {
+  const router = useRouter();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState(null);
@@ -68,10 +70,10 @@ export default function ViewServices() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service) => (
-            <Link 
-                href={`/admin/services/${service._id}`} 
+            <div 
+                onClick={() => router.push(`/admin/services/${service._id}`)}
                 key={service._id} 
-                className="group bg-white rounded-[32px] border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-[#0088ff]/30 transition-all hover:-translate-y-2 relative"
+                className="group bg-white rounded-[32px] border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-[#0088ff]/30 transition-all hover:-translate-y-2 relative cursor-pointer"
             >
               <div className="h-48 bg-gray-100 overflow-hidden relative">
                 {service.photos && service.photos[0] ? (
@@ -82,8 +84,15 @@ export default function ViewServices() {
                   </div>
                 )}
                 <div className="absolute top-4 right-4 flex gap-2">
+                  <Link 
+                    href={`/admin/services/${service._id}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-10 h-10 rounded-full bg-white/90 backdrop-blur text-[#0088ff] flex items-center justify-center shadow-lg hover:bg-[#0088ff] hover:text-white transition-all opacity-0 group-hover:opacity-100"
+                  >
+                    <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                  </Link>
                   <button 
-                    onClick={(e) => handleDeleteClick(e, service._id)}
+                    onClick={(e) => { e.stopPropagation(); handleDeleteClick(e, service._id); }}
                     className="w-10 h-10 rounded-full bg-white/90 backdrop-blur text-red-500 flex items-center justify-center shadow-lg hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
                   >
                     <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -104,7 +113,7 @@ export default function ViewServices() {
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
