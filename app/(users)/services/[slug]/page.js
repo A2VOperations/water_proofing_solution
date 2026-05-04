@@ -101,7 +101,7 @@ export default function ServiceDetail() {
     return (
         <main className="bg-[#fcfcfc] min-h-screen pb-32">
             {/* Minimalist Header with Overlay Title */}
-            <header className="relative w-full h-[50vh] md:h-[65vh] bg-gray-900 overflow-hidden">
+            <header className="relative w-full h-[60vh] md:h-[65vh] bg-gray-900 overflow-hidden">
                 <Image 
                     src={service.photos?.[0] || "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=2070&auto=format&fit=crop"} 
                     alt={service.title} 
@@ -111,20 +111,20 @@ export default function ServiceDetail() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#fcfcfc]" />
                 
-                <div className="absolute inset-0 flex flex-col justify-center items-center px-6 text-center">
-                    <div className="max-w-5xl">
+                <div className="absolute inset-0 flex flex-col justify-center items-center px-8 pt-28 md:pt-48 text-center">
+                    <div className="max-w-6xl">
                         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full font-black text-[10px] uppercase tracking-[0.2em] mb-8">
                             <span className="w-2 h-2 bg-[#0088ff] rounded-full animate-pulse"></span>
                             {service.category}
                         </div>
-                        <h1 className="text-5xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-6 uppercase drop-shadow-2xl break-words break-all">
+                        <h1 className="text-4xl md:text-7xl font-black text-white leading-[1.1] tracking-tighter mb-10 md:mb-16 uppercase drop-shadow-2xl break-words">
                             {service.title}
                         </h1>
                     </div>
                 </div>
             </header>
 
-            <div className="max-w-7xl mx-auto px-6 -mt-20 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     
                     {/* Left Column: Service Details */}
