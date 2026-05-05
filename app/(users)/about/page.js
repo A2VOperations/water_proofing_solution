@@ -5,6 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { CONTACT_CONFIG } from "@/app/config";
 
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/pagination";
+
 const MILESTONES = [
   {
     year: "2002",
@@ -567,7 +574,7 @@ export default function About() {
             </h2>
             <div className="relative w-full rounded-3xl overflow-hidden bg-gray-50">
               <Image
-                src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80"
+                src="/about/building.png"
                 width={1920}
                 height={1080}
                 className="object-cover"
@@ -692,13 +699,39 @@ export default function About() {
       {/* ── TESTIMONIALS SECTION ── */}
       <section className="max-w-7xl mx-auto px-6 pb-40">
         <div className="grid lg:grid-cols-2 gap-6">
-          <div className="relative h-[400px] lg:h-auto rounded-[32px] overflow-hidden">
-            <Image
-              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80"
-              fill
-              className="object-cover"
-              alt="Discussion"
-            />
+          <div className="relative h-[400px] lg:h-auto rounded-[32px] overflow-hidden group">
+            <Swiper
+              modules={[Autoplay, EffectFade, Pagination]}
+              effect="fade"
+              loop={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              className="w-full h-full"
+            >
+              {[
+                "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80",
+                "https://images.unsplash.com/photo-1504307651254-35680f3344d7?auto=format&fit=crop&w=1000&q=80",
+                "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&w=1000&q=80",
+                "https://images.unsplash.com/photo-1590385602724-59d8c83a975b?auto=format&fit=crop&w=1000&q=80",
+              ].map((src, idx) => (
+                <SwiperSlide key={idx} className="relative w-full h-full">
+                  <Image
+                    src={src}
+                    fill
+                    className="object-cover transition-transform duration-[4000ms] group-hover:scale-110"
+                    alt={`Project Gallery ${idx + 1}`}
+                  />
+                  {/* Subtle overlay for better consistency with the dark theme */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#031b33]/40 to-transparent"></div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
 
           <div className="bg-[#031b33] rounded-[32px] p-10 md:p-16 relative overflow-hidden flex flex-col justify-between min-h-[500px]">
