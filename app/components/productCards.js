@@ -114,42 +114,73 @@ const ProductCards = ({ solution, initialItems }) => {
       ) : (
         <div className="relative w-full pb-12">
           {items && items.length > 0 ? (
-            <Swiper
-              style={{ width: "100%" }}
-              modules={[Navigation, Pagination, Autoplay]}
-              spaceBetween={24}
-              slidesPerView={1}
-              centeredSlides={false}
-              navigation={{
-                nextEl: ".solutions-next",
-                prevEl: ".solutions-prev",
-              }}
-              pagination={{
-                clickable: true,
-                dynamicBullets: true,
-              }}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-              }}
-              observer={true}
-              observeParents={true}
-              watchSlidesProgress={true}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                },
-                1024: {
-                  slidesPerView: 4,
-                },
-              }}
-              className="w-full !pb-14"
-            >
-              {items.map((item, index) => {
-                const whatsappMessage = encodeURIComponent(
-                  `Hello! I'm interested in learning more about "${item.title}". Can you please provide more information?`,
-                );
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+            items.map((item, index) => {
+              const whatsappMessage = encodeURIComponent(
+                `Hello! I'm interested in learning more about "${item.title}". Can you please provide more information?`,
+              );
+              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+              return (
+                <div
+                  key={index}
+                  className="bg-white rounded-[2.5rem] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] group"
+                >
+                  {/* Image Section */}
+                  <div className="relative h-54 rounded-xl overflow-hidden">
+                    <Image
+                      src={item.image || "/api/placeholder/400/320"}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      width={400}
+                      height={320}
+                    />
+                    {/* Date Badge */}
+                    <svg
+                      className="absolute bottom-0 right-[40.7%] w-[20px] h-[20px] text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Fills the bottom-left corner with white, carving out a quarter-circle cutout */}
+                      <path d="M0 20 H20 V0 C20 11.046 11.046 20 0 20 Z" />
+                    </svg>
+                    {/* Left Inverted Curve */}
+                    <svg
+                      className="absolute bottom-0 right-2 w-[20px] h-[20px] text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Fills the bottom-right corner with white, carving out a quarter-circle cutout */}
+                      <path d="M20 20 H0 V0 C0 11.046 8.954 20 20 20 Z" />
+                    </svg>
+                    <div className="absolute bottom-0 right-7 bg-white px-4 py-2 rounded-t-2xl shadow-lg">
+                      <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                        {item.date || "4 MAY 2026"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="p-5 pt-4 flex flex-col">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors break-words whitespace-normal">
+                      {item.title}
+                    </h3>
+
+                    {/* Sub labels from image */}
+                    {/* <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.15em]">
+                        {item.tags || "GENERAL"}
+                      </span>
+                      <span className="text-gray-200">/</span>
+                      <span className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.15em]">
+                        WATERPROOFING
+                      </span>
+                    </div> */}
+
+                    <p className="text-gray-500 text-sm leading-relaxed mb-2 line-clamp-2 break-words whitespace-normal">
+                      {item.description}
+                    </p>
 
                 return (
                   <SwiperSlide key={index} className="h-auto pb-4 flex-shrink-0">

@@ -21,7 +21,7 @@ const FAQS = [
   },
   {
     question: "What is the standard warranty on waterproofing?",
-    answer: "Our services come with a performance warranty ranging from 5 to 10 years, depending on the system and material used."
+    answer: "All our specialized waterproofing solutions come with a 10-years performance warranty issued by us."
   },
   {
     question: "How can I request an on-site inspection?",
