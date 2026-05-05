@@ -1,10 +1,22 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { CONTACT_CONFIG } from "@/app/config";
+import { getAdminDetailsAction } from "@/app/actions/admin";
 
 export default function WhatsAppButton() {
-  const phone =
-    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || CONTACT_CONFIG.whatsapp;
+  const [phone, setPhone] = useState(CONTACT_CONFIG.whatsapp);
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      const result = await getAdminDetailsAction();
+      if (result.success && result.admin?.numbers?.length > 0) {
+        setPhone(result.admin.numbers[0].replace(/\D/g, ""));
+      }
+    };
+    fetchAdmin();
+  }, []);
+
   const message = encodeURIComponent("Hello! I'd like to know more.");
   const url = `https://wa.me/${phone}?text=${message}`;
 

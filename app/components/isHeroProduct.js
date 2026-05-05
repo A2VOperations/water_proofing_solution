@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CONTACT_CONFIG } from "@/app/config";
-import { getAllServicesAction } from "@/app/actions/admin";
+import { getAllServicesAction, getAdminDetailsAction } from "@/app/actions/admin";
 
 /**
  * IsHeroProduct Component
@@ -17,9 +17,17 @@ const IsHeroProduct = ({
 }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const whatsappNumber = CONTACT_CONFIG.whatsapp;
+  const [whatsappNumber, setWhatsappNumber] = useState(CONTACT_CONFIG.whatsapp);
 
   useEffect(() => {
+    const fetchAdmin = async () => {
+      const result = await getAdminDetailsAction();
+      if (result.success && result.admin?.numbers?.length > 0) {
+        setWhatsappNumber(result.admin.numbers[0].replace(/\D/g, ""));
+      }
+    };
+    fetchAdmin();
+
     const fetchHeroServices = async () => {
       setLoading(true);
       try {

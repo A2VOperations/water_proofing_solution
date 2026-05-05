@@ -84,7 +84,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <span className="text-white text-[28px] font-bold tracking-wide">
-                  Feexaro
+                  RWPC RAS CARE
                 </span>
               </Link>
             </div>

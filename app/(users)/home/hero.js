@@ -183,7 +183,7 @@ export default function Hero() {
             From Monsoon Damage
           </h1>
           <p ref={heroTextRef} className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed">
-            From terrace seepage to basement leaks, Feexaro provides expert
+            From terrace seepage to basement leaks, RWPC RAS CARE provides expert
             waterproofing for every Indian home.
           </p>
         </div>
