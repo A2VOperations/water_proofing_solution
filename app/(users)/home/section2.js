@@ -120,11 +120,7 @@ const Section2 = () => {
 
         <div ref={rightTextRef} className="">
           <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
-            We provide specialized waterproofing and seepage control for Indian
-            homes with expert efficiency. Trust us to ensure your structure
-            remains leak-proof & reliably dry. Our services encompass a wide
-            range of tasks related to structural integrity and dampness
-            prevention.
+           We provide specialized waterproofing and seepage control for homes across Delhi, Noida, Ghaziabad, and nearby areas, delivering expert solutions with efficiency and reliability. Our services cover a wide range of solutions focused on maintaining structural integrity and preventing dampness, making us a dependable choice for residential and commercial waterproofing needs in the region.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
             {checklistItems.map((item, index) => (
