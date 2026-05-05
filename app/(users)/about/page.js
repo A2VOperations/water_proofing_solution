@@ -370,13 +370,36 @@ export default function About() {
               <br />
               JOURNEY
             </h2>
-            <Image
-              src="/about/testimonial-side-img.jpg"
-              alt="Milestones"
-              width={1920}
-              height={1080}
-              className="rounded-3xl w-full"
-            />
+            <div className="rounded-3xl overflow-hidden shadow-2xl relative">
+              <Swiper
+                modules={[Autoplay, EffectFade]}
+                effect="fade"
+                loop={true}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }}
+                className="w-full h-[500px] aspect-[16/9] lg:aspect-[4/5]"
+              >
+                {[
+                  "/about/office1.webp",
+                  "/about/office2.webp",
+        
+                ].map((src, idx) => (
+                  <SwiperSlide key={idx}>
+                    <Image
+                      src={src}
+                      alt={`Milestone phase ${idx + 1}`}
+                      width={1920}
+                      height={1080}
+                      className="w-full h-[500px] object-cover"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              {/* Decorative overlay */}
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
           </div>
 
           {/* Right Scrolling Column */}
@@ -715,10 +738,8 @@ export default function About() {
               className="w-full h-full"
             >
               {[
-                "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80",
-                "https://images.unsplash.com/photo-1504307651254-35680f3344d7?auto=format&fit=crop&w=1000&q=80",
-                "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&w=1000&q=80",
-                "https://images.unsplash.com/photo-1590385602724-59d8c83a975b?auto=format&fit=crop&w=1000&q=80",
+                "/TESTIMONIALS1.jpg",
+                "/TESTIMONIALS2.jpg",
               ].map((src, idx) => (
                 <SwiperSlide key={idx} className="relative w-full h-full">
                   <Image
