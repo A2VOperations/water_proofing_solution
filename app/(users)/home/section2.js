@@ -19,41 +19,55 @@ const Section2 = () => {
   const mainImageRef = useRef(null);
   const cardsRef = useRef([]);
 
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 80%",
-      }
-    });
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+      });
 
-    tl.from(leftTextRef.current, {
-      x: -50,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    })
-    .from(rightTextRef.current, {
-      x: 50,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    }, "-=0.6")
-    .from(".checklist-item", {
-      y: 20,
-      opacity: 0,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: "power2.out"
-    }, "-=0.4")
-    .from(mainImageRef.current, {
-      scale: 0.95,
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out"
-    }, "-=0.6")
-
-  }, { scope: sectionRef });
+      tl.from(leftTextRef.current, {
+        x: -50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      })
+        .from(
+          rightTextRef.current,
+          {
+            x: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.6",
+        )
+        .from(
+          ".checklist-item",
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out",
+          },
+          "-=0.4",
+        )
+        .from(
+          mainImageRef.current,
+          {
+            scale: 0.95,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+          },
+          "-=0.6",
+        );
+    },
+    { scope: sectionRef },
+  );
 
   useEffect(() => {
     const fetchAdmin = async () => {
@@ -86,7 +100,10 @@ const Section2 = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="max-w-[1400px] py-15 mx-auto px-6 overflow-hidden bg-white">
+    <section
+      ref={sectionRef}
+      className="max-w-[1400px] py-15 mx-auto px-6 overflow-hidden bg-white"
+    >
       {/* Top Content: Header & Description */}
       <div className="flex flex-col lg:flex-row justify-between gap-12 mb-10">
         <div ref={leftTextRef} className="lg:w-1/2">
@@ -111,7 +128,10 @@ const Section2 = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
             {checklistItems.map((item, index) => (
-              <div key={index} className="flex items-center gap-3 group checklist-item">
+              <div
+                key={index}
+                className="flex items-center gap-3 group checklist-item"
+              >
                 <div className="w-6 h-6 bg-[#008cf0] rounded-md flex items-center justify-center transition-all group-hover:scale-110 shadow-lg shadow-blue-600/20">
                   <svg
                     className="w-3.5 h-3.5 text-white"
@@ -139,9 +159,20 @@ const Section2 = () => {
       {/* Main Grid: Visuals & Side Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: Showcase */}
-        <div ref={mainImageRef} className="lg:col-span-9 relative group rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10 h-[450px]">
-          <Image
+        <div
+          ref={mainImageRef}
+          className="lg:col-span-9 relative group rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10 h-[450px]"
+        >
+          {/* <Image
             src="/handyman_working_under_sink.png"
+            alt="Professional Waterproofing Expert at Work"
+            width={1300}
+            height={900}
+            className="object-cover transition-all duration-1000 group-hover:scale-110 h-[450px]"
+            priority
+          /> */}
+          <Image
+            src="/home/section2-image.png"
             alt="Professional Waterproofing Expert at Work"
             width={1300}
             height={900}

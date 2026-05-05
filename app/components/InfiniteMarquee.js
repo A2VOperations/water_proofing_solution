@@ -8,7 +8,7 @@ import Image from "next/image";
 import "swiper/css";
 import "swiper/css/free-mode";
 
-const InfiniteMarquee = ({ text = "Changing rooms", speed = 5000 }) => {
+const InfiniteMarquee = ({ text = "Changing roofs", speed = 5000 }) => {
   // We repeat the text to ensure it fills the swiper container
   const items = Array(10).fill(text);
 

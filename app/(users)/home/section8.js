@@ -15,32 +15,35 @@ export default function BlogSection() {
   const containerRef = useRef(null);
   const headerRef = useRef(null);
 
-  useGSAP(() => {
-    if (loading) return;
+  useGSAP(
+    () => {
+      if (loading) return;
 
-    gsap.from(headerRef.current, {
-      scrollTrigger: {
-        trigger: headerRef.current,
-        start: "top 90%",
-      },
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out"
-    });
+      gsap.from(headerRef.current, {
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 90%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      });
 
-    gsap.from(".blog-card", {
-      scrollTrigger: {
-        trigger: ".blog-grid",
-        start: "top 85%",
-      },
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: "power3.out"
-    });
-  }, { scope: containerRef, dependencies: [loading] });
+      gsap.from(".blog-card", {
+        scrollTrigger: {
+          trigger: ".blog-grid",
+          start: "top 85%",
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+    },
+    { scope: containerRef, dependencies: [loading] },
+  );
 
   useEffect(() => {
     async function fetchBlogs() {
@@ -57,18 +60,24 @@ export default function BlogSection() {
   const formatDate = (dateString) => {
     if (!dateString) return "DATE";
     const date = new Date(dateString);
-    const day = date.toLocaleString('en-IN', { day: 'numeric', timeZone: 'Asia/Kolkata' });
-    const month = date.toLocaleString('en-IN', { month: 'short', timeZone: 'Asia/Kolkata' }).toUpperCase();
-    const year = date.toLocaleString('en-IN', { year: 'numeric', timeZone: 'Asia/Kolkata' });
+    const day = date.toLocaleString("en-IN", {
+      day: "numeric",
+      timeZone: "Asia/Kolkata",
+    });
+    const month = date
+      .toLocaleString("en-IN", { month: "short", timeZone: "Asia/Kolkata" })
+      .toUpperCase();
+    const year = date.toLocaleString("en-IN", {
+      year: "numeric",
+      timeZone: "Asia/Kolkata",
+    });
     return `${day} ${month} ${year}`;
   };
 
   const BlogCard = ({ post }) => {
     return (
       <Link href={`/blog/${post.slug}`} className="h-full blog-card">
-        <div
-          className="bg-white rounded-[24px] border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden group flex flex-col h-full transform"
-        >
+        <div className="bg-white rounded-[24px] border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden group flex flex-col h-full transform">
           {/* Image Container */}
           <div className="relative w-full aspect-[4/3] rounded-[24px] overflow-hidden bg-gray-100">
             <Image
@@ -111,9 +120,15 @@ export default function BlogSection() {
   };
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-gray-50 font-sans pt-15 pb-15">
+    <main
+      ref={containerRef}
+      className="min-h-screen bg-gray-50 font-sans pt-15 pb-15"
+    >
       {/* ── HEADER ── */}
-      <section ref={headerRef} className="max-w-7xl mx-auto px-6 text-center mb-20 mt-10">
+      <section
+        ref={headerRef}
+        className="max-w-7xl mx-auto px-6 text-center mb-20 mt-10"
+      >
         <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
           STAY UPDATED
         </p>
@@ -152,17 +167,18 @@ export default function BlogSection() {
       <section className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 blog-grid">
           {loading ? (
-             [1, 2, 3, 4].map((i) => (
-               <div key={i} className="h-[450px] bg-gray-100 animate-pulse rounded-[24px]"></div>
-             ))
+            [1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="h-[450px] bg-gray-100 animate-pulse rounded-[24px]"
+              ></div>
+            ))
           ) : blogs.length === 0 ? (
             <div className="col-span-full text-center py-20 text-gray-400 font-bold uppercase tracking-widest">
               No blog posts available yet.
             </div>
           ) : (
-            blogs.map((post) => (
-              <BlogCard key={post._id} post={post} />
-            ))
+            blogs.map((post) => <BlogCard key={post._id} post={post} />)
           )}
         </div>
       </section>

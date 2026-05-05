@@ -67,74 +67,92 @@ export default function Hero() {
   const servicesHeadlineRef = useRef(null);
   const cardsRef = useRef([]);
 
-  useGSAP(() => {
-    // Entrance animations
-    const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
+  useGSAP(
+    () => {
+      // Entrance animations
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 1 },
+      });
 
-    tl.from(heroSubtextRef.current, {
-      y: 30,
-      opacity: 0,
-      delay: 0.2
-    })
-    .from(heroTitleRef.current, {
-      y: 50,
-      opacity: 0,
-    }, "-=0.7")
-    .from(heroTextRef.current, {
-      y: 30,
-      opacity: 0,
-    }, "-=0.7")
-    .from(formCardRef.current, {
-      y: 100,
-      opacity: 0,
-    }, "-=0.5");
+      tl.from(heroSubtextRef.current, {
+        y: 30,
+        opacity: 0,
+        delay: 0.2,
+      })
+        .from(
+          heroTitleRef.current,
+          {
+            y: 50,
+            opacity: 0,
+          },
+          "-=0.7",
+        )
+        .from(
+          heroTextRef.current,
+          {
+            y: 30,
+            opacity: 0,
+          },
+          "-=0.7",
+        )
+        .from(
+          formCardRef.current,
+          {
+            y: 100,
+            opacity: 0,
+          },
+          "-=0.5",
+        );
 
-    // Scroll triggered animations for Services Section
-    gsap.from(servicesHeadlineRef.current, {
-      scrollTrigger: {
-        trigger: servicesHeadlineRef.current,
-        start: "top 90%",
-      },
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out"
-    });
-
-    gsap.fromTo(".service-card-hero", 
-      { y: 60, opacity: 0 },
-      {
+      // Scroll triggered animations for Services Section
+      gsap.from(servicesHeadlineRef.current, {
         scrollTrigger: {
           trigger: servicesHeadlineRef.current,
-          start: "top 70%",
+          start: "top 90%",
         },
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.2,
+        y: 40,
+        opacity: 0,
+        duration: 1,
         ease: "power3.out",
-        immediateRender: false
-      }
-    );
+      });
 
-  }, { scope: containerRef });
+      gsap.fromTo(
+        ".service-card-hero",
+        { y: 60, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: servicesHeadlineRef.current,
+            start: "top 70%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power3.out",
+          immediateRender: false,
+        },
+      );
+    },
+    { scope: containerRef },
+  );
 
   const [adminDetails, setAdminDetails] = useState(null);
   const [dynamicServices, setDynamicServices] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { getAdminDetailsAction, getAllServicesAction } = await import("@/app/actions/admin");
+      const { getAdminDetailsAction, getAllServicesAction } =
+        await import("@/app/actions/admin");
       const [adminResult, servicesResult] = await Promise.all([
         getAdminDetailsAction(),
-        getAllServicesAction()
+        getAllServicesAction(),
       ]);
 
       if (adminResult.success) {
         setAdminDetails(adminResult.admin);
       }
       if (servicesResult.success) {
-        setDynamicServices(servicesResult.services.map(s => s.title));
+        setDynamicServices(servicesResult.services.map((s) => s.title));
       }
     };
     fetchData();
@@ -150,19 +168,31 @@ export default function Hero() {
 
     const cleanNumber = number.replace(/\D/g, "");
     const message = `*New Quote Request*\n\n*Name:* ${form.firstName} ${form.lastName}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Zip Code:* ${form.zip}\n*Service:* ${form.service}`;
-    window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    window.open(
+      `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
   }
 
   return (
-    <div ref={containerRef} className="min-h-screen font-sans bg-white text-white">
-
+    <div
+      ref={containerRef}
+      className="min-h-screen font-sans bg-white text-white"
+    >
       {/* â”€â”€ HERO â”€â”€ */}
-      <section className="relative min-h-screen flex flex-col justify-center pt-28 md:pt-16">
-
+      <section className="relative min-h-screen flex flex-col justify-center pt-5 md:pt-16">
         {/* Background image */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image
+          {/* <Image
             src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=80"
+            alt="Aerial view of rooftops"
+            fill
+            className="object-cover"
+            unoptimized
+            priority
+          /> */}
+          <Image
+            src="/home/hero-image.png"
             alt="Aerial view of rooftops"
             fill
             className="object-cover"
@@ -173,18 +203,27 @@ export default function Hero() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-10 w-full px-10 lg:px-20 xl:px-28 pt-40 pb-80 md:pb-40">
-          <p ref={heroSubtextRef} className="text-sm font-semibold tracking-[0.3em] uppercase text-white/80 mb-4">
+        <div className="relative z-10 w-full px-10 lg:px-20 xl:px-28 pt-40 pb-30 md:pb-40">
+          <p
+            ref={heroSubtextRef}
+            className="text-sm font-semibold tracking-[0.3em] uppercase text-white/80 mb-4"
+          >
             Premium Waterproofing &amp; Seepage Solutions
           </p>
-          <h1 ref={heroTitleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  uppercase leading-none tracking-tight max-w-5xl font-semibold">
+          <h1
+            ref={heroTitleRef}
+            className="text-5xl md:text-6xl lg:text-7xl  uppercase leading-none tracking-tight max-w-5xl font-semibold"
+          >
             Shield Your Home
             <br />
             From Monsoon Damage
           </h1>
-          <p ref={heroTextRef} className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed">
-            From terrace seepage to basement leaks, RWPC RAS CARE provides expert
-            waterproofing for every Indian home.
+          <p
+            ref={heroTextRef}
+            className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed"
+          >
+            From terrace seepage to basement leaks, RWPC RAS CARE provides
+            expert waterproofing for every Indian home.
           </p>
         </div>
 
@@ -192,10 +231,12 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-[#0088ff] z-0" />
 
         {/* â”€â”€ FORM CARD â”€â”€ overlapping hero + accent bar */}
-        <div ref={formCardRef} className="relative z-10 max-w-7xl mx-auto px-6 w-full -mb-8">
+        <div
+          ref={formCardRef}
+          className="relative z-10 max-w-7xl mx-auto px-6 w-full -mb-8"
+        >
           <div className="bg-[#1a1a1a] rounded-xl p-8 md:p-10">
             <div className="grid md:grid-cols-[1fr_1.6fr] gap-10 items-start">
-
               {/* Left text */}
               <div>
                 <h2 className="text-2xl md:text-3xl font-black uppercase leading-tight text-white">
@@ -208,9 +249,14 @@ export default function Hero() {
                 <div className="mt-4 flex items-center gap-2">
                   <div className="w-8 h-0.5 bg-[#0088ff]" />
                   <svg
-                    width="18" height="18" viewBox="0 0 24 24"
-                    fill="none" stroke="#0088ff" strokeWidth="2.5"
-                    strokeLinecap="round" strokeLinejoin="round"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#0088ff"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -231,51 +277,84 @@ export default function Hero() {
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3"
               >
                 <input
-                  type="text" name="firstName" placeholder="First name*"
-                  value={form.firstName} onChange={handleChange} required
+                  type="text"
+                  name="firstName"
+                  placeholder="First name*"
+                  value={form.firstName}
+                  onChange={handleChange}
+                  required
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-4 py-3 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
                 <input
-                  type="text" name="lastName" placeholder="Last name*"
-                  value={form.lastName} onChange={handleChange} required
+                  type="text"
+                  name="lastName"
+                  placeholder="Last name*"
+                  value={form.lastName}
+                  onChange={handleChange}
+                  required
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-4 py-3 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
                 <input
-                  type="email" name="email" placeholder="Email address*"
-                  value={form.email} onChange={handleChange} required
+                  type="email"
+                  name="email"
+                  placeholder="Email address*"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-4 py-3 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
                 <input
-                  type="tel" name="phone" placeholder="Phone number*"
-                  value={form.phone} onChange={handleChange} required
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone number*"
+                  value={form.phone}
+                  onChange={handleChange}
+                  required
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-4 py-3 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
                 <input
-                  type="text" name="zip" placeholder="Zip code"
-                  value={form.zip} onChange={handleChange}
+                  type="text"
+                  name="zip"
+                  placeholder="Zip code"
+                  value={form.zip}
+                  onChange={handleChange}
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-4 py-3 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
                 <div className="relative">
                   <select
-                    name="service" value={form.service}
-                    onChange={handleChange} required
+                    name="service"
+                    value={form.service}
+                    onChange={handleChange}
+                    required
                     className="w-full appearance-none rounded-lg bg-[#2a2a2a] border border-white/10 text-sm px-4 py-3 outline-none focus:border-[#0088ff] transition-colors text-white/40"
                     style={{ colorScheme: "dark" }}
                   >
                     <option value="" disabled className="text-white/40">
                       Choose a Service*
                     </option>
-                    {(dynamicServices.length > 0 ? dynamicServices : SERVICES).map((s) => (
-                      <option key={s} value={s} className="text-white bg-[#2a2a2a]">
+                    {(dynamicServices.length > 0
+                      ? dynamicServices
+                      : SERVICES
+                    ).map((s) => (
+                      <option
+                        key={s}
+                        value={s}
+                        className="text-white bg-[#2a2a2a]"
+                      >
                         {s}
                       </option>
                     ))}
                   </select>
                   <svg
                     className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/40"
-                    width="14" height="14" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2.5"
-                    strokeLinecap="round" strokeLinejoin="round"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <path d="M6 9l6 6 6-6" />
                   </svg>
@@ -288,9 +367,14 @@ export default function Hero() {
                   >
                     Get A Free Quote
                     <svg
-                      width="18" height="18" viewBox="0 0 24 24"
-                      fill="none" stroke="currentColor" strokeWidth="2.5"
-                      strokeLinecap="round" strokeLinejoin="round"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -304,7 +388,6 @@ export default function Hero() {
 
       {/* â”€â”€ SERVICES SECTION â”€â”€ */}
       <section className="relative bg-[#0088ff] px-6 pt-24 pb-20 overflow-hidden">
-
         {/* Grain overlay */}
         <div
           className="absolute inset-0 opacity-[0.18] pointer-events-none"
@@ -315,7 +398,6 @@ export default function Hero() {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto">
-
           {/* Top row: headline left, tagline right */}
           <div
             ref={servicesHeadlineRef}
@@ -345,13 +427,14 @@ export default function Hero() {
                 <h3 className="font-black uppercase tracking-wide text-white text-base mb-2">
                   {item.title}
                 </h3>
-                <p className="text-white/70 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
     </div>
   );
 }

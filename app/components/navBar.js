@@ -14,64 +14,6 @@ const NAV_LINKS = [
   { label: "CONTACT", href: "/contact" },
 ];
 
-const MEGA_MENU = [
-  {
-    category: "RESIDENTIAL SOLUTIONS",
-    description: "Complete waterproofing for every home surface",
-    accent: "#0088ff",
-    items: [
-      { label: "Bathroom Waterproofing", href: "/services/bathroom", desc: "Wet area protection" },
-      { label: "Building Waterproofing", href: "/services/building", desc: "Full envelope sealing" },
-      { label: "Basement Waterproofing", href: "/services/basement", desc: "Below-grade defense" },
-      { label: "HDPE Membrane", href: "/services/hdpe", desc: "High-density lining" },
-      { label: "Balcony Waterproofing", href: "/services/balcony", desc: "Outdoor deck sealing" },
-      { label: "Commercial Solutions", href: "/services/commercial", desc: "Large-scale projects" },
-      { label: "Concrete Waterproofing", href: "/services/concrete", desc: "Slab penetration guard" },
-    ],
-  },
-  {
-    category: "SPECIALIZED SYSTEMS",
-    description: "Advanced protection for unique structures",
-    accent: "#f97316",
-    items: [
-      { label: "Deadwall Waterproofing", href: "/services/deadwall", desc: "Retaining wall systems" },
-      { label: "Jacuzzi Waterproofing", href: "/services/jacuzzi", desc: "Spa & hot tub sealing" },
-      { label: "Podium Waterproofing", href: "/services/podium", desc: "Elevated deck systems" },
-      { label: "Swimming Pool", href: "/services/pool", desc: "Pool basin protection" },
-      { label: "Terrace Waterproofing", href: "/services/terrace", desc: "Roof terrace systems" },
-      { label: "Metro Sheet", href: "/services/metro", desc: "Underground transit" },
-      { label: "Expansion Joints", href: "/services/expansion", desc: "Movement joint sealing" },
-    ],
-  },
-  {
-    category: "TECHNICAL SOLUTIONS",
-    description: "Engineering-grade diagnostics & repairs",
-    accent: "#3b82f6",
-    items: [
-      { label: "PU Grouting", href: "/services/pu-grouting", desc: "Void-filling injection" },
-      { label: "Thermal Leak Detection", href: "/services/thermal", desc: "Infrared scanning" },
-      { label: "Interior Design", href: "/services/interior", desc: "Post-repair aesthetics" },
-      { label: "Structure Repair", href: "/services/structure", desc: "Concrete restoration" },
-      { label: "Wall Crack Repair", href: "/services/wall-crack", desc: "Crack injection" },
-      { label: "Water Tank Sealing", href: "/services/water-tank", desc: "Tank interior coating" },
-    ],
-  },
-  {
-    category: "PREMIUM FINISHES",
-    description: "High-performance decorative coatings",
-    accent: "#8b5cf6",
-    items: [
-      { label: "Epoxy Flooring", href: "/services/epoxy", desc: "Industrial floor coating" },
-    ],
-    featured: {
-      title: "Not sure what you need?",
-      body: "Our experts will assess your property and recommend the right system — free of charge.",
-      cta: "Book Free Assessment",
-      href: "/contact",
-    },
-  },
-];
-
 // Rich set of diverse SVG icons for dynamic services
 const SERVICE_ICONS = [
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>, // Home
@@ -97,6 +39,7 @@ export default function Navbar() {
   const [dynamicMegaMenu, setDynamicMegaMenu] = useState([]);
   const [adminDetails, setAdminDetails] = useState(null);
   const [totalServices, setTotalServices] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const megaRef = useRef(null);
 
   const CATEGORIES = [
@@ -136,6 +79,12 @@ export default function Navbar() {
 
     fetchServices();
     fetchAdmin();
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -155,6 +104,7 @@ export default function Navbar() {
 
   const isActive = (href) => pathname === href;
   const isServicesActive = pathname.startsWith("/services");
+  const isTransparentPage = pathname === "/" || pathname === "/about";
   const currentAccent = dynamicMegaMenu[activeCol]?.accent || "#0088ff";
 
   return (
@@ -170,17 +120,29 @@ export default function Navbar() {
 
       <header
         ref={megaRef}
-        className="fixed top-3 left-4 right-4 z-50 mx-auto max-w-8xl"
+        className={`fixed left-4 right-4 z-50 mx-auto max-w-8xl transition-all duration-500 ${
+          scrolled || !isTransparentPage ? "top-3" : "top-6"
+        }`}
         onMouseLeave={() => setMegaOpen(false)}
       >
         {/* Main bar */}
-        <div className="bg-white/95 backdrop-blur-md shadow-[0_2px_24px_rgba(0,0,0,0.10)] rounded-xl border border-gray-100/80">
+        <div 
+          className={`transition-all duration-500 rounded-xl border ${
+            scrolled || !isTransparentPage
+              ? "bg-white/95 backdrop-blur-md shadow-[0_2px_24px_rgba(0,0,0,0.10)] border-gray-100/80" 
+              : "bg-transparent border-transparent"
+          }`}
+        >
           <div className="px-2 flex items-center justify-between h-18">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <span
-                className="text-2xl pl-5 font-black tracking-tighter"
-                style={{ color: "#0088ff", fontFamily: "Georgia, serif", letterSpacing: "-0.03em" }}
+                className="text-2xl pl-5 font-black tracking-tighter transition-colors duration-300"
+                style={{ 
+                  color: scrolled || isServicesActive || !isTransparentPage ? "#0088ff" : "#ffffff", 
+                  fontFamily: "Georgia, serif", 
+                  letterSpacing: "-0.03em" 
+                }}
               >
                 Rooflêt
               </span>
@@ -197,7 +159,7 @@ export default function Navbar() {
                     style={{
                       fontSize: "12px",
                       backgroundColor: isServicesActive || megaOpen ? "#e8f4ff" : "transparent",
-                      color: isServicesActive || megaOpen ? "#0088ff" : "#4b5563",
+                      color: isServicesActive || megaOpen ? "#0088ff" : (scrolled || !isTransparentPage ? "#4b5563" : "#ffffff"),
                     }}
                     onMouseEnter={(e) => {
                       setMegaOpen(true);
@@ -209,7 +171,7 @@ export default function Navbar() {
                     onMouseLeave={(e) => {
                       if (!(isServicesActive || megaOpen)) {
                         e.currentTarget.style.backgroundColor = "transparent";
-                        e.currentTarget.style.color = "#4b5563";
+                        e.currentTarget.style.color = scrolled || !isTransparentPage ? "#4b5563" : "#ffffff";
                       }
                     }}
                   >
@@ -231,7 +193,7 @@ export default function Navbar() {
                     style={{
                       fontSize: "12px",
                       backgroundColor: isActive(link.href) ? "#e8f4ff" : "transparent",
-                      color: isActive(link.href) ? "#0088ff" : "#4b5563",
+                      color: isActive(link.href) ? "#0088ff" : (scrolled || !isTransparentPage ? "#4b5563" : "#ffffff"),
                     }}
                     onMouseEnter={(e) => {
                       if (!isActive(link.href)) {
@@ -242,7 +204,7 @@ export default function Navbar() {
                     onMouseLeave={(e) => {
                       if (!isActive(link.href)) {
                         e.currentTarget.style.backgroundColor = "transparent";
-                        e.currentTarget.style.color = "#4b5563";
+                        e.currentTarget.style.color = scrolled || !isTransparentPage ? "#4b5563" : "#ffffff";
                       }
                     }}
                   >
@@ -273,9 +235,9 @@ export default function Navbar() {
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
-              <span className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <span className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
-              <span className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-2" : ""} ${scrolled || !isTransparentPage ? "bg-gray-800" : "bg-white"}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""} ${scrolled || !isTransparentPage ? "bg-gray-800" : "bg-white"}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-2" : ""} ${scrolled || !isTransparentPage ? "bg-gray-800" : "bg-white"}`} />
             </button>
           </div>
         </div>
