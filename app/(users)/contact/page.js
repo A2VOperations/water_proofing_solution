@@ -251,10 +251,13 @@ export default function Contact() {
 
         <div className="flex flex-col border-t border-gray-200">
           {FAQS.map((faq, index) => (
-            <div key={index} className="border-b border-gray-200 py-6">
-              <button 
-                onClick={() => toggleFaq(index)}
-                className="w-full flex items-center justify-between text-left group"
+            <div 
+              key={index} 
+              className="border-b border-gray-200 py-6"
+              onMouseEnter={() => setOpenFaq(index)}
+            >
+              <div 
+                className="w-full flex items-center justify-between text-left group cursor-pointer"
               >
                 <h3 className={`text-xl md:text-[22px] font-bold pr-8 transition-colors ${openFaq === index ? 'text-[#0088ff]' : 'text-[#111] group-hover:text-[#0088ff]'}`}>
                   {faq.question}
@@ -264,7 +267,7 @@ export default function Contact() {
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </div>
-              </button>
+              </div>
               
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === index ? 'max-h-96 opacity-100 mt-5' : 'max-h-0 opacity-0'}`}

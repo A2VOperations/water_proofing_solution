@@ -14,6 +14,7 @@ export default function ServiceDetail() {
     const [error, setError] = useState("");
     const [adminDetails, setAdminDetails] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [openFaq, setOpenFaq] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -117,14 +118,14 @@ export default function ServiceDetail() {
                             <span className="w-2 h-2 bg-[#0088ff] rounded-full animate-pulse"></span>
                             {service.category}
                         </div>
-                        <h1 className="text-4xl md:text-7xl font-black text-white leading-[1.1] tracking-tighter mb-10 md:mb-16 uppercase drop-shadow-2xl break-words">
+                        <h1 className="text-4xl md:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-10 md:mb-16 uppercase drop-shadow-2xl break-words">
                             {service.title}
                         </h1>
                     </div>
                 </div>
             </header>
 
-            <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 -mt-5 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     
                     {/* Left Column: Service Details */}
@@ -208,13 +209,28 @@ export default function ServiceDetail() {
                                 </div>
                                 <div className="space-y-4">
                                     {service.faq.map((item, i) => (
-                                        <div key={i} className="bg-[#fcfcfc] rounded-3xl p-8 border border-gray-100 transition-all hover:bg-white hover:shadow-lg hover:border-[#0088ff]/20 group">
-                                            <h4 className="text-lg font-black text-[#111] mb-4 uppercase tracking-tight flex gap-4">
-                                                <span className="text-[#0088ff]">Q.</span> {item.question}
-                                            </h4>
-                                            <p className="text-gray-500 font-medium leading-relaxed pl-8 border-l-2 border-gray-100 group-hover:border-[#0088ff]/30 transition-all">
-                                                {item.answer}
-                                            </p>
+                                        <div 
+                                            key={i} 
+                                            className="bg-[#fcfcfc] rounded-3xl p-8 border border-gray-100 transition-all hover:bg-white hover:shadow-lg hover:border-[#0088ff]/20 group cursor-pointer"
+                                            onMouseEnter={() => setOpenFaq(i)}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <h4 className={`text-lg font-black uppercase tracking-tight flex gap-4 transition-colors ${openFaq === i ? 'text-[#0088ff]' : 'text-[#111] group-hover:text-[#0088ff]'}`}>
+                                                    <span className="text-[#0088ff]">Q.</span> {item.question}
+                                                </h4>
+                                                <div className={`transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`}>
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div 
+                                                className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === i ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'}`}
+                                            >
+                                                <p className="text-gray-500 font-medium leading-relaxed pl-8 border-l-2 border-[#0088ff]/30">
+                                                    {item.answer}
+                                                </p>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

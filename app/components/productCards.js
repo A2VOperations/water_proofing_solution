@@ -17,6 +17,11 @@ const ProductCards = ({ solution, initialItems }) => {
   const [items, setItems] = useState(initialItems || []);
   const [loading, setLoading] = useState(!initialItems);
   const [whatsappNumber, setWhatsappNumber] = useState(CONTACT_CONFIG.whatsapp);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const fetchAdmin = async () => {
@@ -64,6 +69,8 @@ const ProductCards = ({ solution, initialItems }) => {
       fetchServices();
     }
   }, [solution, initialItems]);
+
+  if (!mounted) return null;
 
   return (
     <section className="w-full max-w-[1400px] mx-auto px-6 py-20 overflow-hidden">
@@ -153,7 +160,10 @@ const ProductCards = ({ solution, initialItems }) => {
 
                 return (
                   <SwiperSlide key={index} className="h-auto pb-4 flex-shrink-0">
-                    <div className="flex flex-col w-full h-full bg-white rounded-[2.5rem] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] group">
+                    <div 
+                      onClick={() => window.location.href = item.link || "#"}
+                      className="flex flex-col w-full h-full bg-white rounded-[2.5rem] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] group cursor-pointer"
+                    >
                       {/* Image Section */}
                       <div className="relative h-64 overflow-hidden">
                         <Image
@@ -198,8 +208,7 @@ const ProductCards = ({ solution, initialItems }) => {
                         </p>
 
                         <div className="mt-auto flex flex-col gap-3">
-                          <Link
-                            href={item.link || "#"}
+                          <div
                             className="flex items-center justify-between group/btn text-sm font-bold text-gray-900 py-2 border-b border-gray-100 hover:text-blue-600 hover:border-blue-200 transition-all"
                           >
                             Read More
@@ -216,13 +225,14 @@ const ProductCards = ({ solution, initialItems }) => {
                             >
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
-                          </Link>
+                          </div>
 
                           <a
                             href={whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2 w-full bg-[#25D366] text-white py-3 px-4 rounded-2xl font-bold text-xs hover:bg-[#1ebe57] transition-all shadow-md hover:shadow-lg"
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center justify-center gap-2 w-full bg-[#25D366] text-white py-3 px-4 rounded-2xl font-bold text-[14px] hover:bg-[#1ebe57] transition-all shadow-md hover:shadow-lg"
                           >
                             <svg
                               className="w-5 h-5 fill-current"
