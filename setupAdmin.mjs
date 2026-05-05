@@ -21,7 +21,7 @@ const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
 const MONGODB_URI =
   process.env.MONGODB_URI ||
-  "mongodb://rascarewaterproofing_db_user:F6SnJRVtsFH2FB0I@ac-3jsckvi-shard-00-00.waur7um.mongodb.net:27017,ac-3jsckvi-shard-00-01.waur7um.mongodb.net:27017,ac-3jsckvi-shard-00-02.waur7um.mongodb.net:27017/YOUR_DB_NAME?replicaSet=atlas-jx7a53-shard-0&tls=true&authSource=admin&retryWrites=true&w=majority";
+  "mongodb://rascarewaterproofing_db_user:F6SnJRVtsFH2FB0I@ac-3jsckvi-shard-00-00.waur7um.mongodb.net:27017,ac-3jsckvi-shard-00-01.waur7um.mongodb.net:27017,ac-3jsckvi-shard-00-02.waur7um.mongodb.net:27017/waterProofing?replicaSet=atlas-jx7a53-shard-0&tls=true&authSource=admin&retryWrites=true&w=majority";
 
 async function setup() {
   try {
@@ -34,7 +34,7 @@ async function setup() {
     // ============================================
     // EDIT THESE VALUES TO ADD YOUR EMAIL & PASSWORD
     // ============================================
-    const adminEmail = "ak855717@gmail.com";
+    const adminEmail = "admin@gmail.com";
     const adminPassword = "admin123";
     const adminName = "Admin";
     // ============================================
