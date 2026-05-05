@@ -130,7 +130,7 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           
           {/* Left: Form Card */}
-          <div className="bg-[#1a1a1a] rounded-3xl p-8 md:p-12 shadow-xl">
+          <div className="bg-[#1a1a1a] rounded-3xl p-6 md:p-12 shadow-xl">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 h-full">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <input
@@ -164,7 +164,7 @@ export default function Contact() {
               />
               <button
                 type="submit"
-                className="flex items-center justify-center gap-3 bg-[#0088ff] hover:bg-[#006fd6] transition-colors text-white text-sm font-black tracking-widest px-8 py-5 uppercase rounded-lg mt-auto"
+                className="flex items-center justify-center gap-3 bg-[#0088ff] hover:bg-[#006fd6] transition-colors text-white text-xs md:text-sm font-black tracking-widest px-6 md:px-8 py-4 md:py-5 uppercase rounded-lg mt-auto"
               >
                 GET A FREE QUOTE
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
