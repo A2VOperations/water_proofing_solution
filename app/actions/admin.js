@@ -1,6 +1,7 @@
 "use server";
 // Force rebuild: 2026-05-04 13:10
 
+import { unstable_noStore as noStore } from "next/cache";
 
 import dbConnect from "@/backend/dbConfig/db";
 import User from "@/backend/models/User";
@@ -62,6 +63,7 @@ export async function adminLoginAction(formData) {
 
 export async function updateUserSettingsAction(userData) {
     try {
+        noStore();
         await dbConnect();
         
         const updateData = { ...userData };
@@ -99,6 +101,7 @@ export async function updateUserSettingsAction(userData) {
 
 export async function getUserSettingsAction(email) {
     try {
+        noStore();
         await dbConnect();
         const user = await User.findOne({ email }).select("-password");
         if (!user) return { error: "User not found" };
@@ -287,6 +290,7 @@ export async function getServiceBySlugAction(slug) {
 }
 export async function getAdminDetailsAction() {
     try {
+        noStore();
         await dbConnect();
         // Find user with name "Admin"
         const admin = await User.findOne({ name: "Admin" }).select("-password");

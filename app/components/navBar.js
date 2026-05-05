@@ -523,6 +523,18 @@ export default function Navbar() {
                         </div>
                       )}
                     </div>
+
+                    {/* All Services Link for Mobile */}
+                    <Link
+                      href="/services"
+                      onClick={() => {setMenuOpen(false); setMobileMegaOpen(false);}}
+                      className="mt-4 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gray-50 border border-gray-100 font-bold text-[#0088ff] text-[11px] tracking-widest uppercase"
+                    >
+                      View All Services
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </Link>
                   </div>
                 </div>
               ) : (

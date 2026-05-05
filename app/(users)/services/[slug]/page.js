@@ -13,8 +13,30 @@ export default function ServiceDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [adminDetails, setAdminDetails] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
     const [openFaq, setOpenFaq] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState(null);
+
+    // Keyboard navigation for lightbox
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (selectedIndex === null) return;
+            if (e.key === "ArrowRight") handleNextImage();
+            if (e.key === "ArrowLeft") handlePrevImage();
+            if (e.key === "Escape") setSelectedIndex(null);
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [selectedIndex, service?.photos]);
+
+    const handleNextImage = () => {
+        if (!service?.photos?.length) return;
+        setSelectedIndex((prev) => (prev + 1) % service.photos.length);
+    };
+
+    const handlePrevImage = () => {
+        if (!service?.photos?.length) return;
+        setSelectedIndex((prev) => (prev - 1 + service.photos.length) % service.photos.length);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,7 +69,7 @@ export default function ServiceDetail() {
         window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, "_blank");
     };
 
-    // Helper to turn plain text into structured service content
+    // Helper to turn plain text into structured service content with premium aesthetics
     const formatContent = (text) => {
         if (!text) return "";
         return text
@@ -56,26 +78,37 @@ export default function ServiceDetail() {
                 const trimmed = para.trim();
                 if (!trimmed) return "";
                 
-                // If it looks like a header (short and uppercase)
-                if (trimmed.length < 60 && (trimmed === trimmed.toUpperCase() || trimmed.endsWith(':'))) {
-                    return `<h3 class="text-2xl font-black text-[#111] mt-10 mb-6 uppercase tracking-tight flex items-center gap-3">
-                        <span class="w-8 h-1 bg-[#0088ff] rounded-full"></span>
-                        ${trimmed}
+                // If it looks like a header (short and uppercase or ends with colon)
+                if (trimmed.length < 70 && (trimmed === trimmed.toUpperCase() || trimmed.endsWith(':'))) {
+                    return `<h3 class="text-xl md:text-2xl font-black text-[#1a1a2e] mt-12 mb-6 uppercase tracking-tight flex items-center gap-4">
+                        <span class="flex-shrink-0 w-1.5 h-8 bg-gradient-to-b from-[#0088ff] to-[#3fa9f5] rounded-full"></span>
+                        ${trimmed.replace(/:$/, '')}
                     </h3>`;
                 }
                 
-                // Check if it's a list (starts with - or *)
+                // Check if it's a list (starts with - or •)
                 if (trimmed.startsWith('-') || trimmed.startsWith('•')) {
                     const items = trimmed.split('\n').map(item => item.replace(/^[-•]\s*/, '').trim());
-                    return `<ul class="space-y-4 mb-8">
-                        ${items.map(item => `<li class="flex items-start gap-3 text-gray-700 font-medium">
-                            <svg class="w-5 h-5 text-[#0088ff] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-                            ${item}
-                        </li>`).join('')}
-                    </ul>`;
+                    return `<div class="bg-gray-50/50 border border-gray-100 rounded-[32px] p-6 md:p-8 mb-8">
+                        <ul class="space-y-5">
+                            ${items.map(item => `<li class="flex items-start gap-4 text-gray-700 font-medium leading-relaxed group">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0088ff]/10 flex items-center justify-center mt-0.5 group-hover:bg-[#0088ff] transition-colors duration-300">
+                                    <svg class="w-3.5 h-3.5 text-[#0088ff] group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="flex-1">${item}</span>
+                            </li>`).join('')}
+                        </ul>
+                    </div>`;
                 }
 
-                return `<p class="mb-6 text-lg leading-relaxed text-gray-600 font-medium">${trimmed}</p>`;
+                // Special treatment for paragraphs that look like highlights
+                if (trimmed.toLowerCase().startsWith('note:') || trimmed.toLowerCase().startsWith('important:')) {
+                    return `<div class="relative pl-8 pr-6 py-6 mb-8 bg-blue-50/30 border-l-4 border-[#0088ff] rounded-r-2xl">
+                        <p class="text-blue-900 font-semibold leading-relaxed">${trimmed}</p>
+                    </div>`;
+                }
+
+                return `<p class="mb-8 text-lg leading-[1.8] text-gray-600 font-medium tracking-tight">${trimmed}</p>`;
             })
             .join("");
     };
@@ -125,25 +158,39 @@ export default function ServiceDetail() {
                 </div>
             </header>
 
-            <div className="max-w-7xl mx-auto px-6 -mt-5 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     
                     {/* Left Column: Service Details */}
                     <div className="lg:col-span-8">
-                        <div className="bg-white rounded-[48px] p-8 md:p-16 shadow-xl shadow-black/5 border border-gray-100">
+                        <div className="bg-white rounded-[64px] p-8 md:p-20 shadow-[0_32px_120px_rgba(0,0,0,0.06)] border border-gray-100/50">
                             
-                            {/* Service Overview */}
-                            <section className="mb-20">
-                                <div className="flex items-center gap-4 mb-8">
-                                    <div className="w-12 h-12 rounded-2xl bg-[#0088ff]/10 flex items-center justify-center text-[#0088ff]">
-                                        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            {/* Service Overview Section */}
+                            <section className="mb-24 relative">
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+                                    <div className="flex items-center gap-5">
+                                        <div className="w-14 h-14 rounded-[22px] bg-[#0088ff] flex items-center justify-center text-white shadow-lg shadow-[#0088ff]/30">
+                                            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        </div>
+                                        <div>
+                                            <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-[#0088ff] mb-1">Service Intelligence</h2>
+                                            <p className="text-3xl font-black text-[#1a1a2e] tracking-tight uppercase">Technical Overview</p>
+                                        </div>
                                     </div>
-                                    <h2 className="text-xs font-black uppercase tracking-[0.3em] text-gray-400">Service Overview</h2>
+                                    
+                                    <div className="hidden md:flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-100">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Active Solutions</span>
+                                    </div>
                                 </div>
-                                <div 
-                                    className="service-content select-text"
-                                    dangerouslySetInnerHTML={{ __html: formatContent(service.description) }}
-                                />
+
+                                <div className="relative">
+                                    <div className="absolute -left-12 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#0088ff]/20 via-transparent to-transparent hidden xl:block"></div>
+                                    <div 
+                                        className="service-content select-text prose prose-lg max-w-none"
+                                        dangerouslySetInnerHTML={{ __html: formatContent(service.description) }}
+                                    />
+                                </div>
                             </section>
 
                             {/* Features Grid */}
@@ -182,7 +229,7 @@ export default function ServiceDetail() {
                                         {service.photos.map((photo, i) => (
                                             <div 
                                                 key={i} 
-                                                onClick={() => setSelectedImage(photo)}
+                                                onClick={() => setSelectedIndex(i)}
                                                 className="relative aspect-[4/3] rounded-[32px] overflow-hidden group shadow-lg cursor-zoom-in"
                                             >
                                                 <Image src={photo} alt={`${service.title} ${i}`} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -200,7 +247,7 @@ export default function ServiceDetail() {
 
                         {/* FAQ Section Integrated below the main card */}
                         {service.faq?.length > 0 && (
-                            <section className="mt-12 bg-white rounded-[48px] p-8 md:p-16 shadow-xl shadow-black/5 border border-gray-100">
+                            <section className="mt-12 bg-white rounded-[48px] p-6 md:p-16 shadow-xl shadow-black/5 border border-gray-100">
                                 <div className="flex items-center gap-4 mb-12">
                                     <div className="w-12 h-12 rounded-2xl bg-[#0088ff]/10 flex items-center justify-center text-[#0088ff]">
                                         <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -211,11 +258,11 @@ export default function ServiceDetail() {
                                     {service.faq.map((item, i) => (
                                         <div 
                                             key={i} 
-                                            className="bg-[#fcfcfc] rounded-3xl p-8 border border-gray-100 transition-all hover:bg-white hover:shadow-lg hover:border-[#0088ff]/20 group cursor-pointer"
+                                            className="bg-[#fcfcfc] rounded-3xl p-5 md:p-8 border border-gray-100 transition-all hover:bg-white hover:shadow-lg hover:border-[#0088ff]/20 group cursor-pointer"
                                             onMouseEnter={() => setOpenFaq(i)}
                                         >
                                             <div className="flex items-center justify-between">
-                                                <h4 className={`text-lg font-black uppercase tracking-tight flex gap-4 transition-colors ${openFaq === i ? 'text-[#0088ff]' : 'text-[#111] group-hover:text-[#0088ff]'}`}>
+                                                <h4 className={`text-base md:text-lg font-black uppercase tracking-tight flex gap-3 transition-colors ${openFaq === i ? 'text-[#0088ff]' : 'text-[#111] group-hover:text-[#0088ff]'}`}>
                                                     <span className="text-[#0088ff]">Q.</span> {item.question}
                                                 </h4>
                                                 <div className={`transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`}>
@@ -227,7 +274,7 @@ export default function ServiceDetail() {
                                             <div 
                                                 className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === i ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'}`}
                                             >
-                                                <p className="text-gray-500 font-medium leading-relaxed pl-8 border-l-2 border-[#0088ff]/30">
+                                                <p className="text-gray-500 font-medium leading-relaxed pl-5 md:pl-8 border-l-2 border-[#0088ff]/30 text-sm md:text-base">
                                                     {item.answer}
                                                 </p>
                                             </div>
@@ -293,24 +340,58 @@ export default function ServiceDetail() {
                 </div>
             </div>
 
-            {/* Lightbox Modal */}
-            {selectedImage && (
+            {/* Lightbox Modal with Navigation */}
+            {selectedIndex !== null && (
                 <div 
                     className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 md:p-12 animate-in fade-in duration-300"
-                    onClick={() => setSelectedImage(null)}
                 >
+                    {/* Backdrop for closing */}
+                    <div 
+                        className="absolute inset-0 z-0" 
+                        onClick={() => setSelectedIndex(null)} 
+                    />
+
+                    {/* Close Button */}
                     <button 
-                        className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"
-                        onClick={() => setSelectedImage(null)}
+                        className="absolute top-8 right-8 z-[110] text-white/50 hover:text-white transition-all hover:scale-110 p-2"
+                        onClick={() => setSelectedIndex(null)}
                     >
                         <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
-                    <div className="relative w-full h-full max-w-6xl max-h-[85vh]">
+
+                    {/* Navigation Arrows */}
+                    {service.photos?.length > 1 && (
+                        <>
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
+                                className="absolute left-4 md:left-12 z-[110] w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-white flex items-center justify-center transition-all hover:scale-110 group"
+                            >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </button>
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
+                                className="absolute right-4 md:right-12 z-[110] w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-white flex items-center justify-center transition-all hover:scale-110 group"
+                            >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </>
+                    )}
+
+                    {/* Image Counter */}
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[110] bg-white/10 backdrop-blur-md border border-white/10 px-6 py-2 rounded-full text-white text-xs font-black tracking-[0.2em] uppercase">
+                        {selectedIndex + 1} / {service.photos?.length}
+                    </div>
+
+                    <div className="relative w-full h-full max-w-6xl max-h-[85vh] z-[105] pointer-events-none">
                         <Image 
-                            src={selectedImage} 
-                            alt="Expanded project view" 
+                            src={service.photos[selectedIndex]} 
+                            alt={`Expanded view ${selectedIndex}`} 
                             fill 
-                            className="object-contain"
+                            className="object-contain pointer-events-auto"
                         />
                     </div>
                 </div>
@@ -319,13 +400,21 @@ export default function ServiceDetail() {
             {/* Custom Global Styles for the parsed content */}
             <style jsx global>{`
                 .service-content h3 {
-                    line-height: 1.2;
+                    line-height: 1.1;
+                    letter-spacing: -0.02em;
                 }
                 .service-content p {
-                    margin-bottom: 1.5rem;
+                    margin-bottom: 2rem;
                 }
-                .service-content ul li {
-                    line-height: 1.6;
+                .service-content ul {
+                    margin-bottom: 2.5rem;
+                }
+                .service-content li {
+                    letter-spacing: -0.01em;
+                }
+                .service-content strong {
+                    color: #1a1a2e;
+                    font-weight: 800;
                 }
             `}</style>
         </main>

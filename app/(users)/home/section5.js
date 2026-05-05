@@ -107,7 +107,7 @@ const Section5 = () => {
           }}
         ></div>
 
-        <div className="relative z-20 flex flex-col justify-center gap-6 px-6 py-10 max-w-[1400px] mx-auto w-full">
+        <div className="relative z-20 flex flex-col justify-center gap-6 px-6 pr-20 md:pr-6 py-10 max-w-[1400px] mx-auto w-full">
           <div ref={contentRef} className="flex flex-col gap-6">
             <div className="flex items-center gap-2 w-fit px-4 py-1.5 rounded-full text-[11px] font-medium tracking-widest uppercase text-[#3fa9f5] bg-[rgba(63,169,245,0.12)] border border-[rgba(63,169,245,0.35)]">
               <span className="badge-dot w-1.5 h-1.5 rounded-full bg-[#3fa9f5]"></span>
@@ -218,7 +218,7 @@ const Section5 = () => {
             </svg>
           </a>
           <span className="writing-vertical text-[12px] font-medium text-[#1a1a2e] tracking-wide">
-            {adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}
+            {adminDetails?.numbers?.[0]?.trim() || CONTACT_CONFIG.phone}
           </span>
         </div>
       </div>

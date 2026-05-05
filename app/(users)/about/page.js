@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CONTACT_CONFIG } from "@/app/config";
@@ -107,6 +107,7 @@ const TESTIMONIALS = [
 ];
 
 export default function About() {
+  const formRef = useRef(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [dynamicServices, setDynamicServices] = useState([]);
@@ -138,6 +139,14 @@ export default function About() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (isQuoteOpen && formRef.current) {
+      setTimeout(() => {
+        formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 100);
+    }
+  }, [isQuoteOpen]);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -217,6 +226,7 @@ export default function About() {
 
           {/* ── EXPANDABLE QUOTE FORM ── */}
           <div
+            ref={formRef}
             className={`w-full max-w-3xl transition-all duration-700 ease-in-out overflow-hidden ${
               isQuoteOpen
                 ? "max-h-[1200px] opacity-100 mt-16"
@@ -370,7 +380,7 @@ export default function About() {
               <br />
               JOURNEY
             </h2>
-            <div className="rounded-3xl overflow-hidden shadow-2xl relative">
+            <div className="rounded-3xl  w-xs md:w-xl overflow-hidden shadow-2xl relative">
               <Swiper
                 modules={[Autoplay, EffectFade]}
                 effect="fade"
@@ -379,7 +389,7 @@ export default function About() {
                   delay: 3000,
                   disableOnInteraction: false,
                 }}
-                className="w-full h-[500px] aspect-[16/9] lg:aspect-[4/5]"
+                className="w-full h-[300px] md:h-[500px] aspect-[16/9] lg:aspect-[4/5]"
               >
                 {[
                   "/about/office1.webp",
@@ -392,7 +402,7 @@ export default function About() {
                       alt={`Milestone phase ${idx + 1}`}
                       width={1920}
                       height={1080}
-                      className="w-full h-[500px] object-cover"
+                      className="w-full h-[300px] md:h-[500px] object-cover"
                     />
                   </SwiperSlide>
                 ))}
