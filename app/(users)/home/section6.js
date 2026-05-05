@@ -39,11 +39,11 @@ const PricingSection = () => {
       name: "BASIC PLAN",
       price: "399",
       features: [
-        "Custom schedules everyday.",
-        "Desks workstations cleaning.",
-        "Washrooms cleaning.",
-        "Floor cleaning.",
-        "Waiting area cleaning."
+        "Free Site Inspection.",
+        "Moisture Level Check.",
+        "Basic Terrace Sealing.",
+        "Material Consultation.",
+        "1-Year Service Warranty."
       ],
       active: false
     },
@@ -51,11 +51,11 @@ const PricingSection = () => {
       name: "STANDARD PLAN",
       price: "450",
       features: [
-        "Custom schedules everyday.",
-        "Desks workstations cleaning.",
-        "Washrooms cleaning.",
-        "Floor cleaning.",
-        "Waiting area cleaning."
+        "Thermal Imaging Detection.",
+        "Advanced Grouting Work.",
+        "Wall Seepage Treatment.",
+        "Monsoon Protection Kit.",
+        "5-Year Service Warranty."
       ],
       active: true
     },
@@ -63,11 +63,11 @@ const PricingSection = () => {
       name: "EXCLUSIVE PLAN",
       price: "600",
       features: [
-        "Custom schedules everyday.",
-        "Desks workstations cleaning.",
-        "Washrooms cleaning.",
-        "Floor cleaning.",
-        "Waiting area cleaning."
+        "Full Structural Audit.",
+        "PU Injection Grouting.",
+        "Basement Tank Sealing.",
+        "Premium Nano Coatings.",
+        "10-Year Service Warranty."
       ],
       active: false
     }

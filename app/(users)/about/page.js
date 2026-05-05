@@ -50,28 +50,28 @@ const WORK_STEPS = [
     step: "1",
     title: "Highly skilled team",
     description:
-      "Proin et convallis tincidunt tincidunt Viverra ut ullamcorp faucibus dictum Integer in egestas volutpat.",
+      "Our specialized engineers bring over 20 years of expertise in handling Delhi's extreme weather challenges and structural seepage.",
     image: "/about/icon-01.svg",
   },
   {
     step: "2",
     title: "Positive reputation",
     description:
-      "Proin et convallis tincidunt tincidunt Viverra ut ullamcorp faucibus dictum Integer in egestas volutpat.",
+      "Trusted by thousands of homeowners across Noida and Ghaziabad for delivering long-lasting, leak-free results with a 100% success rate.",
     image: "/about/icon-02.svg",
   },
   {
     step: "3",
     title: "Fast and reliable",
     description:
-      "Proin et convallis tincidunt tincidunt Viverra ut ullamcorp faucibus dictum Integer in egestas volutpat.",
+      "Quick response time and efficient execution. We ensure minimal disruption to your daily life while fixing even the most complex leakages.",
     image: "/about/icon-06.svg",
   },
   {
     step: "4",
     title: "24/7 availability",
     description:
-      "Proin et convallis tincidunt tincidunt Viverra ut ullamcorp faucibus dictum Integer in egestas volutpat.",
+      "Emergency leak detection and structural repair services available across the NCR region, ensuring your home stays protected day and night.",
     image: "/about/icon-03.svg",
   },
 ];
@@ -523,12 +523,12 @@ export default function About() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8 md:gap-x-12 mb-12 w-full max-w-lg lg:max-w-none">
               {[
-                "Highly-trained",
-                "Highly-trained",
-                "No extra charges",
-                "No extra charges",
-                "Same-day services",
-                "Same-day services",
+                "Certified Experts",
+                "Advanced Technology",
+                "Cost-Effective",
+                "Warranty Backed",
+                "On-Time Completion",
+                "Eco-Friendly Materials",
               ].map((text, idx) => (
                 <div
                   key={idx}

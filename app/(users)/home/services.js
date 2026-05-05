@@ -6,6 +6,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const CATEGORY_ICONS = {
@@ -130,66 +137,104 @@ const Services = () => {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 services-grid">
-        {services.map((service, index) => (
-          <div
-            key={service._id || index}
-            className="bg-white p-10 rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50 service-card"
-          >
-            {/* Logo SVG & Title */}
-            <div className="flex items-start gap-5 mb-8">
-              <div className="shrink-0 w-20 h-20 bg-[#f0f7ff] rounded-[24px] flex items-center justify-center transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">
-                <div className="transition-colors duration-500 group-hover:text-[#0089FF]">
-                  {CATEGORY_ICONS[service.category] || (
-                    <svg className="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  )}
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words break-all pt-2">
-                {service.title}
-              </h3>
-            </div>
-
-            {/* Description - Limited to 3 lines */}
-            <p className="text-gray-500 text-base leading-relaxed mb-16 max-w-[85%] font-medium line-clamp-3 break-words break-all">
-              {service.description}
-            </p>
-
-            {/* Button Pocket positioned at bottom right */}
-            <div className="absolute bottom-0 right-0 w-[90px] h-[90px] bg-[#f0f4f8] z-10 flex items-center justify-center rounded-tl-[40px]">
-              
-              {/* Top Inverted Curve */}
-              <div className="absolute -top-[24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
-              
-              {/* Left Inverted Curve */}
-              <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
-
-              <Link 
-                href={`/services/${service.slug}`}
-                className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn mt-2 ml-2"
+      <div className="relative w-full">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          navigation={{
+            nextEl: ".services-next",
+            prevEl: ".services-prev",
+          }}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+          }}
+          className="!pb-14"
+        >
+          {services.map((service, index) => (
+            <SwiperSlide key={service._id || index} className="h-auto">
+              <div
+                className="bg-white p-10 h-full rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-50 service-card"
               >
-                <svg
-                  className="w-6 h-6 text-white transition-transform duration-500 group-hover/btn:rotate-45"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    d="M7 17L17 7M17 7H7M17 7V17"
-                  />
-                </svg>
-              </Link>
-            </div>
+                {/* Logo SVG & Title */}
+                <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-5 mb-8">
+                  <div className="shrink-0 w-20 h-20 bg-[#f0f7ff] rounded-[24px] flex items-center justify-center transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">
+                    <div className="transition-colors duration-500 group-hover:text-[#0089FF]">
+                      {CATEGORY_ICONS[service.category] || (
+                        <svg className="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words pt-2">
+                    {service.title}
+                  </h3>
+                </div>
 
-            {/* Subtle background glow on hover */}
-            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-          </div>
-        ))}
+                {/* Description - Limited to 3 lines */}
+                <p className="text-gray-500 text-base leading-relaxed mb-16 max-w-full md:max-w-[85%] font-medium line-clamp-3 break-words text-center md:text-left">
+                  {service.description}
+                </p>
+
+                {/* Button Pocket positioned at bottom right */}
+                <div className="absolute bottom-0 right-0 w-[90px] h-[90px] bg-[#f0f4f8] z-10 flex items-center justify-center rounded-tl-[40px]">
+                  
+                  {/* Top Inverted Curve */}
+                  <div className="absolute -top-[24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+                  
+                  {/* Left Inverted Curve */}
+                  <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+
+                  <Link 
+                    href={`/services/${service.slug}`}
+                    className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn mt-2 ml-2"
+                  >
+                    <svg
+                      className="w-6 h-6 text-white transition-transform duration-500 group-hover/btn:rotate-45"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2.5"
+                        d="M7 17L17 7M17 7H7M17 7V17"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+
+                {/* Subtle background glow on hover */}
+                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Custom Navigation Buttons */}
+        <div className="absolute top-1/2 -left-4 -right-4 flex justify-between pointer-events-none z-10 -translate-y-1/2">
+          <button className="services-prev pointer-events-auto w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button className="services-next pointer-events-auto w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
 
       {/* View More Button below the section */}
