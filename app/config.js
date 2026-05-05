@@ -1,8 +1,8 @@
 export const CONTACT_CONFIG = {
     email: "contact@pbminfotech.com",
-    phone: "+91 91234 56789",
-    whatsapp: "919123456789",
-    address: "123 Main St, New Delhi, India 110001",
-    companyTitle: "Feexaro",
-    mapQuery: "123 Main St, New Delhi, India 110001"
+    phone: "91234 56789",
+    whatsapp: "9123456789",
+    address: "PLOT NO B-63, BLOCK-B, SECTOR-1, VANDANA VIHAR, KHORA COLONY GHAZIABAD, U.P-201309",
+    companyTitle: "RWPC RAS CARE",
+    mapQuery: "PLOT NO B-63, BLOCK-B, SECTOR-1, VANDANA VIHAR, KHORA COLONY GHAZIABAD, U.P-201309"
 };

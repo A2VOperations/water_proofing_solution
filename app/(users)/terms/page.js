@@ -15,7 +15,7 @@ export default function TermsAndConditions() {
     fetchAdmin();
   }, []);
 
-  const companyName = adminDetails?.companyTitle || "Feexaro Waterproofing Solutions";
+  const companyName = adminDetails?.companyTitle || "RWPC RAS CARE Waterproofing Solutions";
 
   return (
     <main className="min-h-screen bg-white pt-32 pb-24 font-sans text-gray-800">

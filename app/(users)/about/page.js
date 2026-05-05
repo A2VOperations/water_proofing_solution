@@ -10,7 +10,7 @@ const MILESTONES = [
     year: "2002",
     title: "Founding in Mumbai",
     description:
-      "Feexaro was established as a specialized terrace leakage consultancy in Mumbai, providing expert guidance on monsoon protection for high-rise residential buildings.",
+      "RWPC RAS CARE was established as a specialized terrace leakage consultancy in Mumbai, providing expert guidance on monsoon protection for high-rise residential buildings.",
   },
   {
     year: "2005",
@@ -72,7 +72,7 @@ const WORK_STEPS = [
 const TESTIMONIALS = [
   {
     quote:
-      "Feexaro's terrace waterproofing saved our home from the heavy Mumbai rains. Their team was professional and the results are flawless!",
+      "RWPC RAS CARE's terrace waterproofing saved our home from the heavy Mumbai rains. Their team was professional and the results are flawless!",
     name: "Rajesh Kumar",
     title: "HOMEOWNER, MUMBAI",
     rating: 5,
@@ -81,7 +81,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "We had persistent seepage issues in our office basement for years. Feexaro's PU grouting solution fixed it in just two days.",
+      "We had persistent seepage issues in our office basement for years. RWPC RAS CARE's PU grouting solution fixed it in just two days.",
     name: "Sneha Sharma",
     title: "FACILITY MANAGER, DELHI",
     rating: 5,
@@ -375,7 +375,7 @@ export default function About() {
           {/* Right Scrolling Column */}
           <div className="lg:w-1/2 flex flex-col gap-16 mt-4 lg:mt-0">
             <p className="text-gray-500 text-md md:text-lg font-medium leading-relaxed mb-2">
-              Waterproofing technology has evolved rapidly. At Feexaro, we lead
+              Waterproofing technology has evolved rapidly. At RWPC RAS CARE, we lead
               that evolution—adapting, improving, and delivering structural
               protection that matches our clients&apos; needs.
             </p>
