@@ -63,6 +63,11 @@ const FALLBACK_SERVICES = [
 const Services = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const containerRef = useRef(null);
   const titleRef = useRef(null);
 
@@ -121,7 +126,7 @@ const Services = () => {
     fetchServices();
   }, []);
 
-  if (loading) return null;
+  if (!mounted || loading) return null;
 
   return (
     <section ref={containerRef} className="bg-[#f0f4f8] py-24 w-full">
@@ -166,9 +171,10 @@ const Services = () => {
         >
           {services.map((service, index) => (
             <SwiperSlide key={service._id || index} className="h-auto">
-              <div
-                className="bg-white p-10 h-full rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-50 service-card"
-              >
+                <div
+                  onClick={() => window.location.href = `/services/${service.slug}`}
+                  className="bg-white p-10 h-full rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-50 service-card cursor-pointer"
+                >
                 {/* Logo SVG & Title */}
                 <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-5 mb-8">
                   <div className="shrink-0 w-20 h-20 bg-[#f0f7ff] rounded-[24px] flex items-center justify-center transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">

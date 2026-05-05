@@ -54,7 +54,7 @@ export default function Hero() {
     lastName: "",
     email: "",
     phone: "",
-    zip: "",
+    address: "",
     service: "",
   });
 
@@ -167,7 +167,7 @@ export default function Hero() {
     const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp; // Fallback
 
     const cleanNumber = number.replace(/\D/g, "");
-    const message = `*New Quote Request*\n\n*Name:* ${form.firstName} ${form.lastName}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Zip Code:* ${form.zip}\n*Service:* ${form.service}`;
+    const message = `*New Quote Request*\n\n*Name:* ${form.firstName} ${form.lastName}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*address:* ${form.address}\n*Service:* ${form.service}`;
     window.open(
       `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`,
       "_blank",
@@ -288,10 +288,9 @@ export default function Hero() {
                 <input
                   type="text"
                   name="lastName"
-                  placeholder="Last name*"
+                  placeholder="Last name"
                   value={form.lastName}
                   onChange={handleChange}
-                  required
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-4 py-3 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
                 <input
@@ -314,9 +313,9 @@ export default function Hero() {
                 />
                 <input
                   type="text"
-                  name="zip"
-                  placeholder="Zip code"
-                  value={form.zip}
+                  name="address"
+                  placeholder="address"
+                  value={form.address}
                   onChange={handleChange}
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-4 py-3 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
