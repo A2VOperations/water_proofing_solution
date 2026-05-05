@@ -1,6 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://operationa2vgroups_db_user:pl8lnOO74Ei9LVTU@ac-6duqcqa-shard-00-00.fg8xboe.mongodb.net:27017,ac-6duqcqa-shard-00-01.fg8xboe.mongodb.net:27017,ac-6duqcqa-shard-00-02.fg8xboe.mongodb.net:27017/water-proofing-admin?replicaSet=atlas-bo8knz-shard-0&tls=true&authSource=admin&retryWrites=true&w=majority";
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  "mongodb://rascarewaterproofing_db_user:F6SnJRVtsFH2FB0I@ac-3jsckvi-shard-00-00.waur7um.mongodb.net:27017,ac-3jsckvi-shard-00-01.waur7um.mongodb.net:27017,ac-3jsckvi-shard-00-02.waur7um.mongodb.net:27017/YOUR_DB_NAME?replicaSet=atlas-jx7a53-shard-0&tls=true&authSource=admin&retryWrites=true&w=majority";
 
 let cached = global.mongoose;
 
@@ -20,18 +22,26 @@ async function dbConnect() {
       socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log("Successfully connected to MongoDB:", MONGODB_URI.includes("mongodb.net") ? "ATLAS" : "LOCAL/OTHER");
-      return mongoose;
-    }).catch((error) => {
-      console.error("❌ MongoDB Connection Error:", error.message);
-      if (error.message.includes('IP isn\'t whitelisted')) {
-          console.error("👉 TIP: Make sure your current IP address is whitelisted in MongoDB Atlas.");
-      }
-      throw error;
-    });
+    cached.promise = mongoose
+      .connect(MONGODB_URI, opts)
+      .then((mongoose) => {
+        console.log(
+          "Successfully connected to MongoDB:",
+          MONGODB_URI.includes("mongodb.net") ? "ATLAS" : "LOCAL/OTHER",
+        );
+        return mongoose;
+      })
+      .catch((error) => {
+        console.error("❌ MongoDB Connection Error:", error.message);
+        if (error.message.includes("IP isn't whitelisted")) {
+          console.error(
+            "👉 TIP: Make sure your current IP address is whitelisted in MongoDB Atlas.",
+          );
+        }
+        throw error;
+      });
   }
-  
+
   try {
     cached.conn = await cached.promise;
   } catch (e) {
