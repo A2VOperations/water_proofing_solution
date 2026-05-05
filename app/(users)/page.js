@@ -7,6 +7,7 @@ import Services from "./home/services";
 import Section5 from "./home/section5";
 import Section6 from "./home/section6";
 import Section7 from "./home/section7";
+import IsHeroProduct from "@/app/components/isHeroProduct";
 import ProductCards from "../components/productCards";
 import BlogSection from "./home/section8";
 import InfiniteMarquee from "../components/InfiniteMarquee";
@@ -15,7 +16,11 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Section2 />
+      <IsHeroProduct
+        title="Our Featured Solutions"
+        subtitle="Handpicked premium waterproofing systems for maximum protection."
+      />
+      <Section2 />  
       <InfiniteMarquee />
       <ProductCards solution="RESIDENTIAL SOLUTIONS" />
       <ProductCards solution="COMMERCIAL SOLUTIONS" />
