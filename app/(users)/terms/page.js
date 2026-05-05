@@ -85,9 +85,48 @@ export default function TermsAndConditions() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-[#0A1A2F] mb-4 uppercase tracking-tight">7. Changes to Terms</h2>
+            <h2 className="text-2xl font-bold text-[#0A1A2F] mb-4 uppercase tracking-tight">8. Payment Terms</h2>
             <p className="leading-relaxed text-gray-600 mb-4">
-              We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect.
+              Our standard payment structure is as follows:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-gray-600">
+              <li><strong>60% Advance:</strong> Against confirmed order for purchase of material.</li>
+              <li><strong>30% Progress Payment:</strong> Will be made according to running bills as work progresses.</li>
+              <li><strong>10% Balance:</strong> To be paid after final completion of the work.</li>
+              <li><strong>Final Settlement:</strong> Final payment should be released within 3-4 days after completion of work.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-[#0A1A2F] mb-4 uppercase tracking-tight">9. Taxes and GST</h2>
+            <p className="leading-relaxed text-gray-600 mb-4">
+              GST tax will be paid to us extra as applicable. Original bills will be provided upon request as required for compliance.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-[#0A1A2F] mb-4 uppercase tracking-tight">10. Site Requirements</h2>
+            <p className="leading-relaxed text-gray-600 mb-4">
+              The client is responsible for providing essential utilities at the site, including but not limited to:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-gray-600">
+              <li>Uninterrupted Water and Electricity supply.</li>
+              <li>Secure Store-room for materials and equipment.</li>
+              <li>Safe access to all work areas.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-[#0A1A2F] mb-4 uppercase tracking-tight">11. Work Schedule and Measurement</h2>
+            <p className="leading-relaxed text-gray-600 mb-4">
+              The work will be mobilized and started within 7 days once the formal order is placed and advance payment is received. Actual measurement for billing will be considered as per application after site completion.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-[#0A1A2F] mb-4 uppercase tracking-tight">12. Warranty</h2>
+            <p className="leading-relaxed text-gray-600 mb-4">
+              A 10-Years performance warranty will be issued by us upon final completion and full settlement of dues.
             </p>
           </div>
 

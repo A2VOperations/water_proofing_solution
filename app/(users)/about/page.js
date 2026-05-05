@@ -8,9 +8,9 @@ import { CONTACT_CONFIG } from "@/app/config";
 const MILESTONES = [
   {
     year: "2002",
-    title: "Founding in Mumbai",
+    title: "Founding in Delhi",
     description:
-      "RWPC RAS CARE was established as a specialized terrace leakage consultancy in Mumbai, providing expert guidance on monsoon protection for high-rise residential buildings.",
+      "RWPC RAS CARE was established as a specialized terrace leakage consultancy in Delhi, providing expert guidance on monsoon protection for high-rise residential buildings.",
   },
   {
     year: "2005",
@@ -72,9 +72,9 @@ const WORK_STEPS = [
 const TESTIMONIALS = [
   {
     quote:
-      "RWPC RAS CARE's terrace waterproofing saved our home from the heavy Mumbai rains. Their team was professional and the results are flawless!",
+      "RWPC RAS CARE's terrace waterproofing saved our home from the heavy Delhii rains. Their team was professional and the results are flawless!",
     name: "Rajesh Kumar",
-    title: "HOMEOWNER, MUMBAI",
+    title: "HOMEOWNER, DelhiI",
     rating: 5,
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80",
@@ -92,7 +92,7 @@ const TESTIMONIALS = [
     quote:
       "Highly recommend their water tank sealing service. Very clean work and the team followed all safety protocols strictly.",
     name: "Arjun Reddy",
-    title: "SOCIETY PRESIDENT, BANGALORE",
+    title: "SOCIETY PRESIDENT, Noida",
     rating: 4,
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80",
@@ -456,11 +456,11 @@ export default function About() {
                   Actually, let's use a simpler but visually identical approach. */}
               <div className="absolute top-0 right-0 w-15 h-50 bg-white rounded-bl-[10px] z-10"></div>
 
-              {/* 25+ years badge */}
+              {/* 10+ years badge */}
               <div className="bg-white absolute bottom-0 left-0 p-3 sm:p-4 rounded-tr-[10px]">
                 <div className="bg-[#0088ff] text-white p-4 sm:p-6 rounded-[20px] z-10">
                   <h3 className="text-3xl sm:text-5xl font-black mb-1 flex items-center leading-none">
-                    25
+                    10
                     <span className="text-2xl sm:text-3xl ml-1 text-black">
                       +
                     </span>

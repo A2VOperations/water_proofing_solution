@@ -154,11 +154,11 @@ const IsHeroProduct = ({
 
                   {/* Content Section */}
                   <div className="p-5 pt-4 flex flex-col grow">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors break-words whitespace-normal">
                       {item.title}
                     </h3>
 
-                    <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2 break-words whitespace-normal">
                       {item.description}
                     </p>
 

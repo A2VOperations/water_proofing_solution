@@ -80,7 +80,7 @@ const Section2 = () => {
 
   const checklistItems = [
     { text: "Certified Waterproofing Expert", iconColor: "bg-blue-600" },
-    { text: "15+ Years Industry Experience", iconColor: "bg-blue-600" },
+    { text: "10+ Years Industry Experience", iconColor: "bg-blue-600" },
     { text: "Trusted By 5000+ Clients", iconColor: "bg-blue-600" },
     { text: "Advanced Thermal Imaging Use", iconColor: "bg-blue-600" },
   ];
