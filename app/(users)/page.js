@@ -23,8 +23,8 @@ export default function Home() {
       <Section2 />  
       <InfiniteMarquee />
       <ProductCards solution="RESIDENTIAL SOLUTIONS" />
-      <ProductCards solution="COMMERCIAL SOLUTIONS" />
-      <ProductCards solution="INDUSTRIAL SOLUTIONS" />
+      <ProductCards solution="SPECIALIZED SOLUTIONS" />
+      <ProductCards solution="TECHNICAL SOLUTIONS" />
       <ProductCards solution="PREMIUM FINISHES" />
       <Services />
       <Section5 />
