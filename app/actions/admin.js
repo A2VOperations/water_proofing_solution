@@ -134,7 +134,13 @@ export async function createServiceAction(serviceData) {
                 .trim();
         }
 
-        const newService = await Service.create(serviceData);
+        // Clean up data
+        const { _id, __v, createdAt, updatedAt, ...cleanedData } = serviceData;
+
+        const newService = await Service.create({
+            ...cleanedData,
+            isHeroProduct: cleanedData.isHeroProduct || "no"
+        });
         return { success: true, service: JSON.parse(JSON.stringify(newService)) };
     } catch (error) {
         console.error("Create Service Error:", error);
@@ -249,9 +255,15 @@ export async function updateServiceAction(serviceId, serviceData) {
                 .trim();
         }
 
+        // Clean up data
+        const { _id, __v, createdAt, updatedAt, ...cleanedData } = serviceData;
+
         const updatedService = await Service.findByIdAndUpdate(
             serviceId,
-            { $set: serviceData },
+            { $set: {
+                ...cleanedData,
+                isHeroProduct: cleanedData.isHeroProduct || "no"
+            } },
             { returnDocument: 'after' }
         );
         if (!updatedService) return { error: "Service not found" };

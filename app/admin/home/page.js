@@ -134,6 +134,51 @@ export default function AdminHome() {
         </div>
       </div>
 
+      {/* Hero Products Section */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-black uppercase tracking-tight text-[#111]">Hero Products</h2>
+            <span className="bg-[#0088ff] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">Featured</span>
+          </div>
+          <Link href="/admin/services" className="text-[#0088ff] text-xs font-black uppercase tracking-widest hover:underline">Manage All</Link>
+        </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {loading ? (
+            [1, 2, 3, 4].map(i => <div key={i} className="h-48 bg-gray-100 rounded-[32px] animate-pulse"></div>)
+          ) : services.filter(s => s.isHeroProduct === "yes").length === 0 ? (
+            <div className="col-span-full py-12 bg-white rounded-[32px] border border-dashed border-gray-200 flex flex-col items-center justify-center gap-2">
+              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">No hero products selected.</p>
+              <p className="text-gray-400 text-[10px] font-medium">Mark a service as "Hero Product" to see it here.</p>
+            </div>
+          ) : (
+            services.filter(s => s.isHeroProduct === "yes").map((s) => (
+              <div key={s._id} className="bg-white p-2 rounded-[32px] shadow-sm border border-gray-100 group hover:border-[#0088ff] transition-all">
+                <div className="relative aspect-square rounded-[26px] overflow-hidden bg-gray-50 mb-4">
+                  {s.photos?.[0] && (
+                    <img 
+                      src={s.photos[0]} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      alt={s.title}
+                    />
+                  )}
+                  <div className="absolute top-3 right-3">
+                    <div className="bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-sm text-[#0088ff]">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                  </div>
+                </div>
+                <div className="px-4 pb-4">
+                  <p className="text-[10px] font-bold text-[#0088ff] uppercase tracking-widest mb-1">{s.category}</p>
+                  <h3 className="font-black text-sm text-[#111] truncate">{s.title}</h3>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
       {/* Recent Works with Images Section */}
       <section className="space-y-6">
         <div className="flex items-center justify-between">

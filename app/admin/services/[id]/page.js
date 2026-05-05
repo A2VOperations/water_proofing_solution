@@ -158,10 +158,10 @@ export default function EditService() {
                   className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-[#0088ff] focus:bg-white transition-all font-bold text-[#111]"
                   required
                 >
-                  <option value="Residential solutions">Residential solutions</option>
-                  <option value="Specialized solutions">Specialized solutions</option>
-                  <option value="Technical solutions">Technical solutions</option>
-                  <option value="Premium finishes">Premium finishes</option>
+                  <option value="Residential Solutions">Residential Solutions</option>
+                  <option value="Specialized Solutions">Specialized Solutions</option>
+                  <option value="Technical Solutions">Technical Solutions</option>
+                  <option value="Premium Finishes">Premium Finishes</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2">
@@ -172,6 +172,19 @@ export default function EditService() {
                   className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-[#0088ff] focus:bg-white transition-all font-medium text-gray-600 h-40 resize-none leading-relaxed"
                   required
                 />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Hero Product <span className="text-red-500">*</span></label>
+                <select 
+                  value={formData.isHeroProduct || "no"}
+                  onChange={(e) => setFormData({...formData, isHeroProduct: e.target.value})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-[#0088ff] focus:bg-white transition-all font-bold text-[#111]"
+                  required
+                >
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <p className="text-[10px] text-gray-400 font-medium pl-1 italic">Selecting "Yes" will feature this product on the dashboard.</p>
               </div>
             </div>
           </section>

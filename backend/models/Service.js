@@ -27,10 +27,18 @@ const ServiceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isHeroProduct: {
+    type: String,
+    default: "no",
+  },
   faq: {
     type: [FaqSchema],
     default: [],
   }
 }, { timestamps: true });
 
-export default mongoose.models.Service || mongoose.model('Service', ServiceSchema);
+if (mongoose.models.Service) {
+  delete mongoose.models.Service;
+}
+
+export default mongoose.model('Service', ServiceSchema);

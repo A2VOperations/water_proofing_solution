@@ -10,6 +10,7 @@ export default function AddServices() {
     title: "",
     category: "Residential Solutions",
     description: "",
+    isHeroProduct: "no",
     photos: [""],
     faq: [{ question: "", answer: "" }],
   });
@@ -145,6 +146,19 @@ export default function AddServices() {
                   placeholder="Describe the service in detail..."
                   required
                 />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Hero Product <span className="text-red-500">*</span></label>
+                <select 
+                  value={formData.isHeroProduct}
+                  onChange={(e) => setFormData({...formData, isHeroProduct: e.target.value})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
+                  required
+                >
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <p className="text-[10px] text-gray-400 font-medium pl-1 italic">Selecting "Yes" will feature this product on the dashboard.</p>
               </div>
             </div>
           </section>
