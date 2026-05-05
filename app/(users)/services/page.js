@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { getAllServicesAction } from "@/app/actions/admin";
 
 const ServiceCard = ({ service }) => {
@@ -16,44 +17,64 @@ const ServiceCard = ({ service }) => {
   }, [service.photos]);
 
   return (
-    <div
-      className="bg-white p-10 rounded-[48px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50 flex flex-col h-full"
-    >
+    <div className="bg-white rounded-[30px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50 flex flex-col h-full">
       {/* Image Slider at Top */}
-      <div className="relative w-full h-48 mb-8 rounded-3xl overflow-hidden shadow-inner bg-gray-50">
+      <div className="relative w-full h-48 rounded-xl overflow-hidden shadow-inner bg-gray-50">
         {service.photos && service.photos.length > 0 ? (
           service.photos.map((photo, idx) => (
-            <img
+            <Image
               key={idx}
               src={photo}
               alt={`${service.title} ${idx}`}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                idx === currentImageIndex ? "opacity-100" : "opacity-0"
-              }`}
+              fill
+              className={`object-cover transition-opacity duration-1000 ${idx === currentImageIndex ? "opacity-100" : "opacity-0"
+                }`}
             />
           ))
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-300">
-             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <svg
+              className="w-12 h-12"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
           </div>
         )}
       </div>
 
       {/* Title & Icon Area */}
-      <div className="flex items-start gap-5 mb-8 mt-6">
-        <div className="w-16 h-16 bg-[#f0f7ff] rounded-[20px] flex items-center justify-center shrink-0 transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">
-          <svg className="w-8 h-8 text-[#0089FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
+      <div className="px-6">
+        <div className="flex items-start gap-5 mb-8 mt-6">
+          <div className="w-16 h-16 bg-[#f0f7ff] rounded-[20px] flex items-center justify-center shrink-0 transition-all duration-700 group-hover:scale-105 shadow-sm group-hover:shadow-blue-200">
+            <svg
+              className="w-8 h-8 text-[#0089FF]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words break-all pt-1">
+            {service.title}
+          </h3>
         </div>
-        <h3 className="text-xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words break-all pt-1">
-          {service.title}
-        </h3>
-      </div>
 
-      {/* Description */}
-      <p className="text-gray-500 text-sm leading-relaxed mb-16 font-medium break-words break-all line-clamp-3">
-        {service.description.substring(0, 100)}...
+      <p className="text-gray-500 text-sm leading-relaxed mb-10 pr-20 font-medium break-words break-all line-clamp-3">
+        {service.description.substring(0, 80)}...
       </p>
 
       {/* Button Pocket positioned at bottom right */}
@@ -63,7 +84,7 @@ const ServiceCard = ({ service }) => {
         {/* Left Inverted Curve */}
         <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
 
-        <Link 
+        <Link
           href={`/services/${service.slug}`}
           className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn mt-2 ml-2"
         >
@@ -73,9 +94,15 @@ const ServiceCard = ({ service }) => {
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M7 17L17 7M17 7H7M17 7V17" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.5"
+              d="M7 17L17 7M17 7H7M17 7V17"
+            />
           </svg>
         </Link>
+      </div>
       </div>
     </div>
   );
@@ -89,16 +116,16 @@ export default function ServicesPage() {
     "Residential Solutions",
     "Specialized Solutions",
     "Technical Solutions",
-    "Premium Finishes"
+    "Premium Finishes",
   ];
 
   useEffect(() => {
     const fetchServices = async () => {
       const result = await getAllServicesAction();
       if (result.success) {
-        const grouped = CATEGORY_LIST.map(cat => ({
+        const grouped = CATEGORY_LIST.map((cat) => ({
           name: cat,
-          services: result.services.filter(s => s.category === cat)
+          services: result.services.filter((s) => s.category === cat),
         }));
         setCategories(grouped);
       }
@@ -107,11 +134,12 @@ export default function ServicesPage() {
     fetchServices();
   }, []);
 
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="w-12 h-12 border-4 border-[#0089FF] border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  );
+      </div>
+    );
 
   return (
     <main className="bg-white min-h-screen pt-32 pb-24">
@@ -124,7 +152,9 @@ export default function ServicesPage() {
             Every Waterproofing <br /> Service You Need
           </h1>
           <p className="text-gray-500 text-lg font-medium leading-relaxed max-w-2xl mx-auto">
-            From specialized injection grouting to premium aesthetic coatings, we provide engineering-grade protection for every corner of your property across India.
+            From specialized injection grouting to premium aesthetic coatings,
+            we provide engineering-grade protection for every corner of your
+            property across India.
           </p>
         </header>
 
@@ -142,21 +172,25 @@ export default function ServicesPage() {
                 </div>
                 <div className="text-right hidden md:block">
                   <span className="text-5xl font-black text-gray-50 block leading-none -mb-2">
-                    {cat.services.length.toString().padStart(2, '0')}
+                    {cat.services.length.toString().padStart(2, "0")}
                   </span>
-                  <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Available Services</span>
+                  <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">
+                    Available Services
+                  </span>
                 </div>
               </div>
 
               {cat.services.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                   {cat.services.map((service, sIdx) => (
                     <ServiceCard key={service._id || sIdx} service={service} />
                   ))}
                 </div>
               ) : (
                 <div className="bg-gray-50 rounded-[48px] py-20 text-center border-2 border-dashed border-gray-100">
-                  <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">No services listed in this category yet.</p>
+                  <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">
+                    No services listed in this category yet.
+                  </p>
                 </div>
               )}
             </section>
@@ -166,18 +200,22 @@ export default function ServicesPage() {
 
       {/* Final CTA */}
       <section className="mt-32 container mx-auto px-6">
-          <div className="bg-[#0A1A2F] rounded-[64px] p-16 md:p-24 text-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-[#0089FF]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter leading-tight mb-8 relative z-10">
-                  Can't find what <br /> you're looking for?
-              </h3>
-              <p className="text-gray-400 text-lg font-medium mb-12 max-w-xl mx-auto relative z-10">
-                  Our experts can design custom waterproofing solutions for unique architectural challenges.
-              </p>
-              <Link href="/contact" className="inline-block bg-[#0089FF] text-white px-12 py-6 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-[#0A1A2F] transition-all relative z-10 shadow-2xl">
-                  Free Consultation
-              </Link>
-          </div>
+        <div className="bg-[#0A1A2F] rounded-[64px] p-16 md:p-24 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#0089FF]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter leading-tight mb-8 relative z-10">
+            Can&apos;t find what <br /> you&apos;re looking for?
+          </h3>
+          <p className="text-gray-400 text-lg font-medium mb-12 max-w-xl mx-auto relative z-10">
+            Our experts can design custom waterproofing solutions for unique
+            architectural challenges.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block bg-[#0089FF] text-white px-12 py-6 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-[#0A1A2F] transition-all relative z-10 shadow-2xl"
+          >
+            Free Consultation
+          </Link>
+        </div>
       </section>
     </main>
   );

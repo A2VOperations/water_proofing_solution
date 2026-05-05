@@ -100,14 +100,14 @@ const Section5 = () => {
           }}
         ></div>
 
-        <div className="relative z-20 flex flex-col justify-center gap-6 px-6 py-16 max-w-7xl mx-auto w-full">
-          <div ref={contentRef} className="max-w-xl flex flex-col gap-6">
+        <div className="relative z-20 flex flex-col justify-center gap-6 px-6 py-10 max-w-[1400px] mx-auto w-full">
+          <div ref={contentRef} className="flex flex-col gap-6">
           <div className="flex items-center gap-2 w-fit px-4 py-1.5 rounded-full text-[11px] font-medium tracking-widest uppercase text-[#3fa9f5] bg-[rgba(63,169,245,0.12)] border border-[rgba(63,169,245,0.35)]">
             <span className="badge-dot w-1.5 h-1.5 rounded-full bg-[#3fa9f5]"></span>
             Limited Period Offer
           </div>
 
-          <h1 className="font-syne font-extrabold text-white leading-tight text-4xl lg:text-[44px]">
+          <h1 className="font-syne font-extrabold text-white leading-tight text-4xl lg:text-[70px]">
             Expert Seepage
             <br />
             Control &amp;
@@ -115,7 +115,7 @@ const Section5 = () => {
             <span className="text-[#3fa9f5]">Emergency Leak Fixes</span>
           </h1>
 
-          <p className="text-sm text-white/50 leading-relaxed max-w-sm">
+          <p className="text-md text-white/50 leading-relaxed max-w-sm">
             Specialized seepage control for terraces, bathrooms, and external walls. 
             24/7 emergency leak detection and same-day structural repairs.
           </p>

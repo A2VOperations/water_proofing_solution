@@ -111,7 +111,7 @@ export default function Blog() {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0088ff]"></div>
           </div>
         ) : blogs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {blogs.map((post, i) => (
               <BlogCard key={post._id} post={post} index={i} />
             ))}
