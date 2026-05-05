@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 
@@ -63,7 +64,7 @@ const section3 = () => {
               alt="Testimonial Focus"
               key={currentTestimonial}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent"></div>
           </div>
 
           <div className="bg-[#031b33] rounded-[32px] p-6 sm:p-12 md:p-16 relative overflow-hidden flex flex-col justify-between min-h-[500px] lg:min-h-[550px] order-1 lg:order-2 text-center lg:text-left items-center lg:items-start">

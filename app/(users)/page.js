@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Hero from "./home/hero";
 import Section2 from "./home/section2";
@@ -7,21 +7,26 @@ import Services from "./home/services";
 import Section5 from "./home/section5";
 import Section6 from "./home/section6";
 import Section7 from "./home/section7";
+import ProductCards from "../components/productCards";
 import BlogSection from "./home/section8";
 import InfiniteMarquee from "../components/InfiniteMarquee";
 
-export default function Home(){
-    return(
-        <>
-           <Hero/>
-           <Section2/>
-           <InfiniteMarquee />
-           <Services />
-           <Section5 />
-           <Section6 />
-           <Section3/>
-           <Section7 />
-           <BlogSection />
-        </>
-    )
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <Section2 />
+      <InfiniteMarquee />
+      <ProductCards solution="RESIDENTIAL SOLUTIONS" />
+      <ProductCards solution="COMMERCIAL SOLUTIONS" />
+      <ProductCards solution="INDUSTRIAL SOLUTIONS" />
+      <ProductCards solution="PREMIUM FINISHES" />
+      <Services />
+      <Section5 />
+      <Section6 />
+      <Section3 />
+      <Section7 />
+      <BlogSection />
+    </>
+  );
 }
