@@ -19,24 +19,24 @@ export default function BeforeAfterSlider() {
   return (
     <section className="pt-24 bg-white overflow-hidden">
       <div className="w-full mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center">
           <p className="text-[#0088ff] text-sm font-bold tracking-[0.3em] uppercase mb-4">
             VISIBLE RESULTS
           </p>
-          <h2 className="text-[40px] md:text-[64px] font-black text-[#111] uppercase leading-tight tracking-tight">
+          <h2 className="text-[36px] md:text-[64px] font-black text-[#111] uppercase leading-tight tracking-tight">
             THE TRANSFORMATION
           </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto mt-4 font-medium">
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto mt-6 font-medium">
             From structural decay to engineering-grade protection. Slide to see
             how we restore and seal compromised surfaces.
           </p>
         </div>
 
         {/* Macro Beading Shot with CTA */}
-        <div className="mt-24 relative overflow-hidden  bg-[#031b33] text-white">
-          <div className="grid md:grid-cols-2 items-stretch">
+        <div className="mt-24 relative overflow-hidden bg-[#031b33] text-white">
+          <div className="grid md:grid-cols-2 items-stretch md:min-h-[650px]">
             <div className="p-12 lg:p-20 relative z-10">
-              <span className="bg-[#0088ff] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6 inline-block">
+              <span className="bg-[#0088ff] text-white px-4 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6 inline-block">
                 THE LOTUS EFFECT
               </span>
               <h2 className="text-[32px] md:text-[48px] font-black uppercase leading-tight tracking-tight mb-6">
@@ -49,7 +49,7 @@ export default function BeforeAfterSlider() {
               </p>
               <button
                 onClick={() => (window.location.href = "/contact")}
-                className="bg-white text-[#031b33] px-8 py-5 rounded-xl font-black uppercase tracking-widest text-sm hover:bg-[#0088ff] hover:text-white transition-all shadow-xl"
+                className="bg-white text-[#031b33] px-8 py-5 md:mt-10 rounded-lg font-bold uppercase tracking-widest text-sm hover:bg-[#0088ff] hover:text-white transition-all shadow-xl"
               >
                 Book a Dampness Audit
               </button>
@@ -61,16 +61,19 @@ export default function BeforeAfterSlider() {
                 onMouseMove={handleMove}
                 onTouchMove={handleMove}
               >
+                {/* Left Edge Soft Blur/Fade Overlay */}
+                <div className="absolute top-0 bottom-0 left-0 w-20 bg-gradient-to-r from-[#031b33] via-[#031b33]/40 to-transparent z-30 pointer-events-none hidden md:block backdrop-blur-[1px]" />
+
                 {/* Before Image */}
                 <div className="absolute inset-0 w-full h-full">
                   <Image
-                    src="/assets/industry/before_after.png"
+                    src="/assets/industry/before.png"
                     alt="Before Waterproofing"
                     width={1300}
                     height={900}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-8 left-8 bg-black/60 backdrop-blur-md text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase">
+                  <div className="absolute top-8 left-120 bg-black/60 backdrop-blur-md text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase">
                     BEFORE: COMPROMISED
                   </div>
                 </div>
@@ -81,14 +84,14 @@ export default function BeforeAfterSlider() {
                   style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
                 >
                   <Image
-                    src="/assets/industry/before_after.png"
+                    src="/assets/industry/after.png"
                     alt="After Waterproofing"
                     className="w-full h-full object-cover grayscale-0"
                     width={1300}
                     height={900}
                     style={{ filter: "brightness(1.1) contrast(1.05)" }}
                   />
-                  <div className="absolute top-8 right-8 bg-[#0088ff] text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase">
+                  <div className="absolute top-8 right-120 bg-[#0088ff] text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase">
                     AFTER: PROTECTED
                   </div>
                 </div>

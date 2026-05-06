@@ -405,7 +405,7 @@ export default function Hero() {
             ref={servicesHeadlineRef}
             className="flex justify-center mb-14 w-full"
           >
-            <h2 className="font-black uppercase leading-tight text-white text-4xl md:text-5xl text-center py-10 max-w-3xl mx-auto">
+            <h2 className="font-black uppercase leading-tight text-white text-4xl md:text-5xl text-center py-10 max-w-3xl md:max-w-4xl mx-auto">
               Protect your home with industry-leading quality{" "}
               <span className="text-white/50">
                 backed by a superior warranty.
