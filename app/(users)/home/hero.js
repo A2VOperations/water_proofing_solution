@@ -418,7 +418,7 @@ export default function Hero() {
             {SERVICE_CARDS.map((item, i) => (
               <div
                 key={i}
-                className="group relative bg-[#151515] rounded-xl overflow-hidden border border-white/10 p-8 hover:border-[#0088ff]/50 transition-all duration-500 service-card-hero"
+                className="group relative bg-[#151515] rounded-xl overflow-hidden border border-white/10 p-8 hover:border-[#0088ff]/50 transition-all duration-500 service-card-hero py-15"
               >
                 {/* Background Image */}
                 <Image
@@ -431,10 +431,8 @@ export default function Hero() {
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <div className="w-12 h-12 bg-[#0088ff] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#0088ff] transition-all duration-500">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-black uppercase tracking-wide text-white text-lg mb-3 group-hover:text-[#0088ff] transition-colors duration-300">
+                  
+                  <h3 className="font-black uppercase tracking-wide text-white text-4xl mb-3 group-hover:text-[#0088ff] transition-colors duration-300">
                     {item.title}
                   </h3>
                   <p className="text-white/70 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
