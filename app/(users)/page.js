@@ -19,24 +19,26 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <BeforeAfterSlider />
-      <TrustBadges />
       <IsHeroProduct
-        title="Engineering-Grade Solutions"
+        title="Hero Solutions"
         subtitle="Technical waterproofing systems designed for maximum structural longevity."
       />
+      <BeforeAfterSlider />
+      <TrustBadges />
       <Section2 />  
-      <TechnicalProof />
+      
       <InfiniteMarquee />
       <ProductCards solution="RESIDENTIAL SOLUTIONS" />
       <ProductCards solution="SPECIALIZED SOLUTIONS" />
+      <TechnicalProof />
       <ProductCards solution="TECHNICAL SOLUTIONS" />
       <ProductCards solution="PREMIUM FINISHES" />
       <Services />
       <Section5 />
-      <Section6 />
-      <Section3 />
+      {/* <Section6 /> */}
       <Section7 />
+      <Section3 />
+      
       <BlogSection />
     </>
   );

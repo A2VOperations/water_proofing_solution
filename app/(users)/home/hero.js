@@ -6,6 +6,14 @@ import { CONTACT_CONFIG } from "@/app/config";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade, Navigation } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,6 +57,12 @@ const SERVICE_CARDS = [
     desc: "From basements to balconies, we provide end-to-end sealing solutions that add lasting value to your home.",
     img: "/home/cards3.webp",
   },
+];
+
+const HERO_IMAGES = [
+  "/home/hero-image.png",
+  "/home/hero-image2.png",
+  "/home/hero-image3.png",
 ];
 
 export default function Hero() {
@@ -185,24 +199,34 @@ export default function Hero() {
       {/* â”€â”€ HERO â”€â”€ */}
       <section className="relative min-h-screen flex flex-col justify-center pt-5 md:pt-16">
         {/* Background image */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* <Image
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=80"
-            alt="Aerial view of rooftops"
-            fill
-            className="object-cover"
-            unoptimized
-            priority
-          /> */}
-          <Image
-            src="/home/hero-image.png"
-            alt="Aerial view of rooftops"
-            fill
-            className="object-cover"
-            unoptimized
-            priority
-          />
-          <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 z-0">
+          <Swiper
+            modules={[Autoplay, EffectFade]}
+            effect="fade"
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            className="w-full h-full"
+          >
+            {HERO_IMAGES.map((src, index) => (
+              <SwiperSlide key={index}>
+                <div className="relative w-full h-full">
+                  <Image
+                    src={src}
+                    alt={`Waterproofing excellence ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    unoptimized={src.startsWith("/")}
+                    priority={index === 0}
+                  />
+                  {/* Individual overlay to ensure consistency during fade */}
+                  <div className="absolute inset-0 bg-black/55" />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         {/* Hero content */}
@@ -217,16 +241,16 @@ export default function Hero() {
             ref={heroTitleRef}
             className="text-5xl md:text-6xl lg:text-7xl  uppercase leading-none tracking-tight max-w-5xl font-semibold"
           >
-            Shield Your Home
+            Your home deserves
             <br />
-            From Monsoon Damage
+            the best monsoon protection
           </h1>
           <p
             ref={heroTextRef}
             className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed"
           >
-            From terrace seepage to basement leaks, RWPC RAS CARE provides
-            expert waterproofing for every Indian home.
+            From the roof over your head to the foundation below, RWPC RAS CARE
+            provides end-to-end waterproofing for every Indian home
           </p>
         </div>
 
@@ -405,10 +429,10 @@ export default function Hero() {
             ref={servicesHeadlineRef}
             className="flex justify-center mb-14 w-full"
           >
-            <h2 className="font-black uppercase leading-tight text-white text-4xl md:text-5xl text-center py-10 max-w-3xl md:max-w-4xl mx-auto">
-              Protect your home with industry-leading quality{" "}
+            <h2 className="font-black uppercase leading-tight text-white text-4xl md:text-5xl pt-10 text-center max-w-3xl md:max-w-4xl mx-auto">
+              Keep your dream home safe with the best quality <br />
               <span className="text-white/50">
-                backed by a superior warranty.
+                and a long warranty that lasts for years.
               </span>
             </h2>
           </div>
@@ -431,7 +455,6 @@ export default function Hero() {
 
                 {/* Content */}
                 <div className="relative z-10">
-                  
                   <h3 className="font-black uppercase tracking-wide text-white text-4xl mb-3 group-hover:text-[#0088ff] transition-colors duration-300">
                     {item.title}
                   </h3>

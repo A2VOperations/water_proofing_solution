@@ -73,9 +73,9 @@ const ProductCards = ({ solution, initialItems }) => {
   if (!mounted) return null;
 
   return (
-    <section className="w-full max-w-[1400px] mx-auto px-6 py-20 overflow-hidden">
+    <section className="w-full max-w-[1400px] mx-auto px-6 py-10 overflow-hidden">
       {solution && (
-        <div className="flex flex-col items-center mb-16 text-center">
+        <div className="flex flex-col items-center mb-5 text-center">
           <p className="text-blue-500 font-bold tracking-[0.2em] uppercase text-xs mb-4">
             OUR SOLUTIONS
           </p>
@@ -88,7 +88,7 @@ const ProductCards = ({ solution, initialItems }) => {
           </p>
           <Link
             href={"/services"}
-            className="group relative inline-flex h-12 w-fit overflow-hidden rounded-full bg-blue-500 px-6 py-3 mt-5 font-bold text-white shadow-[0_0_20px_rgba(148,163,184,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-400/50"
+            className="group relative inline-flex h-12 w-fit overflow-hidden rounded-full bg-blue-500 px-6 py-1 mt-5 font-bold text-white shadow-[0_0_20px_rgba(148,163,184,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-400/50"
           >
             {/* Illuminate Glow */}
             <span className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.3)_0%,transparent_70%)] translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></span>
@@ -115,7 +115,7 @@ const ProductCards = ({ solution, initialItems }) => {
       )}
 
       {loading ? (
-        <div className="flex justify-center items-center py-20">
+        <div className="flex justify-center items-center py-5">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
       ) : (

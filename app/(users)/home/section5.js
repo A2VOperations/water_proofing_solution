@@ -94,7 +94,7 @@ const Section5 = () => {
         className="relative w-full min-h-[400px] overflow-hidden bg-[#0d1117] flex items-stretch"
         style={{
           backgroundImage:
-            "url('/home/worker-holding-trowel-wall.jpg')",
+            "url('/home/worker-holding-trowel.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -114,12 +114,12 @@ const Section5 = () => {
               Limited Period Offer
             </div>
 
-            <h1 className="font-syne font-extrabold text-white leading-tight text-4xl lg:text-[70px]">
-              Expert Seepage
+            <h1 className="font-syne font-extrabold text-white leading-tight text-4xl lg:text-[60px] uppercase">
+              Get expert fixes for
               <br />
-              Control &amp;
+              leaky walls with 
               <br />
-              <span className="text-[#3fa9f5]">Emergency Leak Fixes</span>
+              <span className="text-[#3fa9f5]">RWPC RAS Care</span>
             </h1>
 
             <p className="text-md text-white/50 leading-relaxed max-w-sm">
