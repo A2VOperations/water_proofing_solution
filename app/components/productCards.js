@@ -75,7 +75,7 @@ const ProductCards = ({ solution, initialItems }) => {
   return (
     <section className="w-full max-w-[1400px] mx-auto px-6 py-10 overflow-hidden">
       {solution && (
-        <div className="flex flex-col items-center mb-16 text-center">
+        <div className="flex flex-col items-center mb-5 text-center">
           <p className="text-blue-500 font-bold tracking-[0.2em] uppercase text-xs mb-4">
             OUR SOLUTIONS
           </p>

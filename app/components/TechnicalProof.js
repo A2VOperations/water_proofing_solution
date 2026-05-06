@@ -37,7 +37,7 @@ export default function TechnicalProof() {
   return (
     <section className="py-24 bg-[#f8fafc]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-10">
           <div>
             <p className="text-[#0088ff] text-sm font-bold tracking-[0.3em] uppercase mb-4">THE SCIENCE OF SEALING</p>
             <h2 className="text-[40px] md:text-[56px] font-black text-[#111] uppercase leading-tight tracking-tight mb-8">
@@ -94,9 +94,9 @@ export default function TechnicalProof() {
         </div>
 
         {/* Action Shots */}
-        <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="mt-15 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="relative group overflow-hidden rounded-[32px] h-[400px]">
-            <img src="/assets/industry/technician_1.png" alt="Moisture Audit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <img src="/home/card1.webp" alt="Moisture Audit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-10">
               <div>
                 <span className="bg-[#0088ff] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">ON-SITE AUDIT</span>
@@ -105,7 +105,7 @@ export default function TechnicalProof() {
             </div>
           </div>
           <div className="relative group overflow-hidden rounded-[32px] h-[400px]">
-            <img src="/assets/industry/technician_2.png" alt="Membrane Application" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <img src="/home/cards3.webp" alt="Membrane Application" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-10">
               <div>
                 <span className="bg-[#0088ff] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">APPLICATION</span>

@@ -43,15 +43,18 @@ export default function BeforeAfterSlider() {
                 WATER BEADING TECHNOLOGY
               </h2>
               <p className="text-gray-300 text-lg mb-10 leading-relaxed">
-                Our treated surfaces exhibit high contact angles, causing water
-                to bead perfectly and roll off, carrying dust with it. This is
-                the hallmark of a high-performance seal.
+                <span className="text-[#0088ff]">
+                  Are you tired of seeing your expensive paint peel off or white
+                  salty powder ruining your walls every rainy season?
+                </span>
+                At RAS Care, we give your home a complete recovery using our
+                special Water-Beading Technology.
               </p>
               <button
                 onClick={() => (window.location.href = "/contact")}
                 className="bg-white text-[#031b33] px-8 py-5 md:mt-10 rounded-lg font-bold uppercase tracking-widest text-sm hover:bg-[#0088ff] hover:text-white transition-all shadow-xl"
               >
-                Book a Dampness Audit
+                Book Transformation
               </button>
             </div>
             <div className="relative h-full">

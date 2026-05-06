@@ -486,7 +486,7 @@ export default function About() {
                   <path d="M0 0 Q20 0 20 20 V0 Z" />
                 </svg>
                 <Image
-                  src="/about/About-Img.jpg"
+                  src="/about/About-Image.png"
                   alt="Professional worker"
                   fill
                   className="object-cover"
