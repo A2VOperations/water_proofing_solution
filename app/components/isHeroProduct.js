@@ -93,7 +93,7 @@ const IsHeroProduct = ({
           className="group relative inline-flex h-12 w-fit overflow-hidden rounded-full bg-blue-500 px-6 py-3 mt-5 font-bold text-white shadow-[0_0_20px_rgba(148,163,184,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-400/50"
         >
           {/* Illuminate Glow */}
-          <span className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.3)_0%,transparent_70%)] translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></span>
+          <span className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.3)_0%,transparent_70%)] -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></span>
 
           {/* Button Text */}
           <span className="relative flex items-center gap-2 transition-colors duration-300 group-hover:text-white">
@@ -162,7 +162,7 @@ const IsHeroProduct = ({
                 return (
                   <SwiperSlide
                     key={index}
-                    className="h-auto pb-4 flex-shrink-0"
+                    className="h-auto pb-4 shrink-0"
                   >
                     <div
                       onClick={() => (window.location.href = item.link || "#")}

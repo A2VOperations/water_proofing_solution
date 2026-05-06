@@ -6,7 +6,7 @@ export default function TrustBadges() {
   const LOGOS = [
     { name: "Dr. Fixit", color: "#eab308", img: "/home/Dr.-Fix-It-logo.png" },
     { name: "Fosroc", color: "#2563eb", img: "/home/fosroc-logo.png" },
-    { name: "Asian Paints", color: "#dc2626", img: "/home/kisspng-logo.webp" },
+    { name: "Asian Paints", color: "#dc2626", img: "/home/asian-logo.jpg" },
     { name: "BASF", color: "#1d4ed8", img: "/home/Basf-logo.png" },
     { name: "Berger", color: "#9333ea", img: "/home/berger-paints-logo.png" },
     { name: "Sika", color: "#ea580c", img: "/home/sika-logo.png" },
@@ -20,14 +20,9 @@ export default function TrustBadges() {
     <section className=" bg-white">
       <div className=" mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 border-y border-gray-100 py-16">
-
-
           <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-center gap-4 items-center justify-items-center">
             {LOGOS.map((logo) => (
-              <div
-                key={logo.name}
-                className="flex flex-col items-center gap-2"
-              >
+              <div key={logo.name} className="flex flex-col items-center gap-2">
                 <Image
                   src={logo.img}
                   alt={logo.name}
