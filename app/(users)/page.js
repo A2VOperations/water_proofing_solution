@@ -2,10 +2,9 @@
 
 import Hero from "./home/hero";
 import Section2 from "./home/section2";
-import Section3 from "./home/section3";
+import Section3 from "@/app/components/Testimonials";
 import Services from "./home/services";
 import Section5 from "./home/section5";
-import Section6 from "./home/section6";
 import Section7 from "./home/section7";
 import IsHeroProduct from "@/app/components/isHeroProduct";
 import ProductCards from "../components/productCards";
@@ -25,8 +24,8 @@ export default function Home() {
       />
       <BeforeAfterSlider />
       <TrustBadges />
-      <Section2 />  
-      
+      <Section2 />
+
       <InfiniteMarquee />
       <ProductCards solution="RESIDENTIAL SOLUTIONS" />
       <ProductCards solution="SPECIALIZED SOLUTIONS" />
@@ -35,10 +34,10 @@ export default function Home() {
       <ProductCards solution="PREMIUM FINISHES" />
       <Services />
       <Section5 />
-      {/* <Section6 /> */}
+
       <Section7 />
       <Section3 />
-      
+
       <BlogSection />
     </>
   );

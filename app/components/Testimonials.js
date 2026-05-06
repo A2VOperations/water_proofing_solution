@@ -1,20 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
 
-export default function Reviews() {
-  const [mounted, setMounted] = useState(false);
+import Script from "next/script";
+import { ThemeProvider } from "styled-components";
+import { StyledComponent } from "./StyledComponent";
+import { theme } from "./theme";
 
-  useEffect(() => {
-    setMounted(true);
-    const script = document.createElement("script");
-    script.src = "https://elfsightcdn.com/platform.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
-
-  if (!mounted) return <div className="min-h-[400px] flex items-center justify-center bg-gray-50 rounded-3xl animate-pulse text-gray-400 font-bold uppercase tracking-widest text-sm">Loading Reviews...</div>;
-
+const Testimonials = () => {
   return (
-    <div className="elfsight-app-76cced13-196a-4907-9605-5a5159551101" />
+    <ThemeProvider theme={theme}>
+      <StyledComponent>
+        <div className="p-30">
+          <Script src="https://elfsightcdn.com/platform.js" async></Script>
+          <div
+            className="elfsight-app-8ef167b7-93f5-404e-bb8a-0f5f91cb2ba4"
+            data-elfsight-app-lazy
+          ></div>
+        </div>
+      </StyledComponent>
+    </ThemeProvider>
   );
-}
+};
+
+export default Testimonials;
+

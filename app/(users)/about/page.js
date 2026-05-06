@@ -4,10 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CONTACT_CONFIG } from "@/app/config";
-
+import TestimonialsSection from "@/app/components/Testimonials";
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
@@ -732,7 +732,7 @@ export default function About() {
       </section>
 
       {/* ── TESTIMONIALS SECTION ── */}
-      <section className="max-w-7xl mx-auto px-6 pb-40">
+      {/* <section className="max-w-7xl mx-auto px-6 pb-40">
         <div className="grid lg:grid-cols-2 gap-6">
           <div className="relative h-[400px] lg:h-auto rounded-[32px] overflow-hidden group">
             <Swiper
@@ -760,7 +760,6 @@ export default function About() {
                     className="object-cover transition-transform duration-[4000ms] group-hover:scale-110"
                     alt={`Project Gallery ${idx + 1}`}
                   />
-                  {/* Subtle overlay for better consistency with the dark theme */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#031b33]/40 to-transparent"></div>
                 </SwiperSlide>
               ))}
@@ -768,7 +767,6 @@ export default function About() {
           </div>
 
           <div className="bg-[#031b33] rounded-[32px] p-10 md:p-16 relative overflow-hidden flex flex-col justify-between min-h-[500px]">
-            {/* Background quote mark */}
             <div className="absolute top-10 right-10 text-white/5 font-serif text-[400px] leading-none pointer-events-none select-none">
               &quot;
             </div>
@@ -867,7 +865,8 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      <TestimonialsSection />
     </main>
   );
 }

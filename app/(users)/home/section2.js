@@ -114,7 +114,7 @@ const Section2 = () => {
               Our Experience
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0A1A2F] leading-[1.1] tracking-tight">
+          <h2 className="text-3xl md:text-6xl font-bold text-[#0A1A2F] leading-[1.1] tracking-tight">
             Complete Waterproofing <br className="hidden md:block" /> Solutions
             for Every Surface
           </h2>

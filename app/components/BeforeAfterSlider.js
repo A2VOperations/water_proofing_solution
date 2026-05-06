@@ -17,7 +17,7 @@ export default function BeforeAfterSlider() {
   };
 
   return (
-    <section className="pt-24 bg-white overflow-hidden">
+    <section className="pt-10 bg-white overflow-hidden">
       <div className="w-full mx-auto">
         <div className="text-center">
           <p className="text-[#0088ff] text-sm font-bold tracking-[0.3em] uppercase mb-4">
