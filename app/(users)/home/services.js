@@ -167,7 +167,7 @@ const Services = () => {
               slidesPerView: 3,
             },
           }}
-          className="!pb-14"
+          className="pb-14!"
         >
           {services.map((service, index) => (
             <SwiperSlide key={service._id || index} className="h-auto">
@@ -200,10 +200,10 @@ const Services = () => {
                 <div className="absolute bottom-0 right-0 w-[90px] h-[90px] bg-[#f0f4f8] z-10 flex items-center justify-center rounded-tl-[40px]">
                   
                   {/* Top Inverted Curve */}
-                  <div className="absolute -top-[24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+                  <div className="absolute top-[-24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
                   
                   {/* Left Inverted Curve */}
-                  <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+                  <div className="absolute bottom-0 left-[-24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
 
                   <Link 
                     href={`/services/${service.slug}`}

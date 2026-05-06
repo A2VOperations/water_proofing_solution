@@ -109,10 +109,10 @@ const PricingSection = () => {
 
                 <div className="h-px bg-gray-200 w-4/5 mb-8"></div>
 
-                <ul className="space-y-5 mb-10 flex-grow">
+                <ul className="space-y-5 mb-10 grow">
                   {plan.features.map((feature, fIndex) => (
                     <li key={fIndex} className="flex items-start text-[#0B2238] text-[15px] leading-relaxed">
-                      <span className="mr-3 mt-1 flex-shrink-0 text-[#0B2238]">
+                      <span className="mr-3 mt-1 shrink-0 text-[#0B2238]">
                         <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M1 5.5L4.66667 9.5L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
@@ -136,7 +136,7 @@ const PricingSection = () => {
 
               {/* Blue accent strip on the right */}
               <div className="absolute top-0 right-0 bottom-0 w-10 bg-[#0088FF] rounded-r-[20px] z-10 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent"></div>
               </div>
             </div>
           ))}

@@ -133,7 +133,7 @@ const Section5 = () => {
                 onClick={handleWhatsAppRedirect}
                 className="flex items-center gap-2.5 bg-white text-[#0d1117] text-[13px] font-medium tracking-wide uppercase rounded-full px-7 py-3.5 hover:bg-blue-50 transition-all hover:-translate-y-0.5 no-underline"
               >
-                <span className="w-[30px] h-[30px] rounded-full bg-[#3fa9f5] flex items-center justify-center flex-shrink-0">
+                <span className="w-[30px] h-[30px] rounded-full bg-[#3fa9f5] flex items-center justify-center shrink-0">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path
                       d="M2 7h10M8 3l4 4-4 4"

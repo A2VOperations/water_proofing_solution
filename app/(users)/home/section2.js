@@ -329,7 +329,7 @@ const Section2 = () => {
             </svg>
 
             {/* Bottom Right Notch & Circle Button */}
-            <div className="absolute bottom-0 right-0 translate-x-[1px] translate-y-[1px]">
+            <div className="absolute bottom-0 right-0 translate-x-px translate-y-px">
               {/* The "Notch" background - white circle that cuts out the blue */}
               <div className="w-24 h-24 bg-white rounded-tl-[50px] flex items-center justify-center">
                 {/* The WhatsApp Circle Button */}

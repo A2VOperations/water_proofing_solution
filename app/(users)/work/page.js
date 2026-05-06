@@ -213,7 +213,7 @@ export default function Work() {
         <div className="inline-block border border-gray-200 rounded-full px-4 py-1.5 text-[9px] sm:text-[10px] font-black tracking-[0.2em] text-[#0088ff] mb-4 sm:mb-6 uppercase bg-gray-50/50">
           Portfolio
         </div>
-        <h1 className="text-[32px] sm:text-[54px] md:text-[72px] font-black uppercase tracking-tight leading-[1.0] mb-6 sm:mb-8 text-[#111]">
+        <h1 className="text-[32px] sm:text-[54px] md:text-[72px] font-black uppercase tracking-tight leading-none mb-6 sm:mb-8 text-[#111]">
           DISCOVER OUR
           <br />
           <span className="text-[#0088ff]">RECENT PROJECTS.</span>
@@ -235,7 +235,7 @@ export default function Work() {
               {[...row1Images, ...row1Images, ...row1Images].map((src, i) => (
                 <div
                   key={i}
-                  className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white"
+                  className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-4/3 rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white"
                 >
                   <Image
                     src={src}
@@ -248,7 +248,7 @@ export default function Work() {
             </div>
           </div>
           <div className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-            <div className="bg-[#0088ff] text-white w-[90px] h-[90px] sm:w-[160px] sm:h-[160px] rounded-full flex flex-col items-center justify-center text-center p-3 sm:p-4 shadow-2xl border-[3px] sm:border-[4px] border-white">
+            <div className="bg-[#0088ff] text-white w-[90px] h-[90px] sm:w-[160px] sm:h-[160px] rounded-full flex flex-col items-center justify-center text-center p-3 sm:p-4 shadow-2xl border-[3px] sm:border-4 border-white">
               <span className="font-bold text-[8px] sm:text-[14px] leading-tight tracking-wide uppercase">
                 Expertise
                 <br />
@@ -257,7 +257,7 @@ export default function Work() {
             </div>
           </div>
           <div className="absolute left-1/2 top-[65%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-            <div className="bg-[#111] text-white w-[90px] h-[90px] sm:w-[160px] sm:h-[160px] rounded-full flex flex-col items-center justify-center text-center p-3 sm:p-4 shadow-2xl border-[3px] sm:border-[4px] border-white">
+            <div className="bg-[#111] text-white w-[90px] h-[90px] sm:w-[160px] sm:h-[160px] rounded-full flex flex-col items-center justify-center text-center p-3 sm:p-4 shadow-2xl border-[3px] sm:border-4 border-white">
               <span className="font-bold text-[8px] sm:text-[14px] leading-tight tracking-wide uppercase">
                 Premium
                 <br />
@@ -273,7 +273,7 @@ export default function Work() {
               {[...row2Images, ...row2Images, ...row2Images].map((src, i) => (
                 <div
                   key={i}
-                  className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white"
+                  className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-4/3 rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white"
                 >
                   <Image
                     src={src}
@@ -293,7 +293,7 @@ export default function Work() {
               {[...row3Images, ...row3Images, ...row3Images].map((src, i) => (
                 <div
                   key={i}
-                  className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white"
+                  className="relative w-[240px] sm:w-[320px] md:w-[420px] aspect-4/3 rounded-2xl overflow-hidden shrink-0 shadow-sm border border-gray-200 bg-white"
                 >
                   <Image
                     src={src}
@@ -316,7 +316,7 @@ export default function Work() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16 sm:mb-24 font-display">
               <div className="max-w-2xl">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-[1px] bg-[#0088ff]" />
+                  <div className="w-12 h-px bg-[#0088ff]" />
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#0088ff]">
                     WHY CHOOSE US
                   </span>
@@ -358,7 +358,7 @@ export default function Work() {
                 />
                 <BentoItem 
                   work={works[1]} 
-                  className="aspect-[3/4]" 
+                  className="aspect-3/4" 
                   placeholder="/home/hero-image2.png"
                 />
               </div>
@@ -367,7 +367,7 @@ export default function Work() {
               <div className="flex flex-col gap-3 sm:gap-6">
                 <BentoItem 
                   work={works[2]} 
-                  className="aspect-[3/5] md:aspect-[3/6] flex-1" 
+                  className="aspect-3/5 md:aspect-3/6 flex-1" 
                   placeholder="/home/hero-image3.png"
                   featured={true}
                 />
@@ -379,11 +379,11 @@ export default function Work() {
               </div>
 
               {/* Col 3 */}
-              <div className="flex flex-col gap-3 sm:gap-6 col-span-2 md:col-span-1 grid grid-cols-2 md:grid-cols-1">
+              <div className="col-span-2 md:col-span-1 grid grid-cols-2 md:grid-cols-1">
                 <div className="flex flex-col gap-3 sm:gap-6">
                   <BentoItem 
                     work={works[3]} 
-                    className="aspect-[4/3]" 
+                    className="aspect-4/3" 
                     placeholder="/home/hero-image2.png"
                   />
                   <BentoItem 

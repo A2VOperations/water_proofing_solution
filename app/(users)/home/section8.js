@@ -79,7 +79,7 @@ export default function BlogSection() {
       <Link href={`/blog/${post.slug}`} className="h-full blog-card">
         <div className="bg-white rounded-[24px] border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden group flex flex-col h-full transform">
           {/* Image Container */}
-          <div className="relative w-full aspect-[4/3] rounded-[24px] overflow-hidden bg-gray-100">
+          <div className="relative w-full aspect-4/3 rounded-[24px] overflow-hidden bg-gray-100">
             <Image
               src={post.image}
               alt={post.title}
@@ -91,10 +91,10 @@ export default function BlogSection() {
             {/* Date Badge with Inverted Curves */}
             <div className="absolute bottom-0 right-10 bg-white px-6 py-3 rounded-t-[20px] z-10 flex items-center justify-center">
               {/* Left Inverted Curve */}
-              <div className="absolute bottom-0 -left-[20px] w-[20px] h-[20px] bg-transparent rounded-br-[20px] shadow-[10px_10px_0_10px_white] pointer-events-none"></div>
+              <div className="absolute bottom-0 left-[-20px] w-[20px] h-[20px] bg-transparent rounded-br-[20px] shadow-[10px_10px_0_10px_white] pointer-events-none"></div>
 
               {/* Right Inverted Curve */}
-              <div className="absolute bottom-0 -right-[20px] w-[20px] h-[20px] bg-transparent rounded-bl-[20px] shadow-[-10px_10px_0_10px_white] pointer-events-none"></div>
+              <div className="absolute bottom-0 right-[-20px] w-[20px] h-[20px] bg-transparent rounded-bl-[20px] shadow-[-10px_10px_0_10px_white] pointer-events-none"></div>
 
               <span className="text-[#0088ff] text-[11px] font-bold tracking-widest uppercase">
                 {formatDate(post.date)}
@@ -103,8 +103,8 @@ export default function BlogSection() {
           </div>
 
           {/* Text Content */}
-          <div className="p-8 flex flex-col flex-grow">
-            <h3 className="text-[#111] text-[22px] font-bold leading-[1.3] mb-6 group-hover:text-[#0088ff] transition-colors duration-300 break-words break-all line-clamp-3">
+          <div className="p-8 flex flex-col grow">
+            <h3 className="text-[#111] text-[22px] font-bold leading-[1.3] mb-6 group-hover:text-[#0088ff] transition-colors duration-300 wrap-break-word break-all line-clamp-3">
               {post.title}
             </h3>
 
