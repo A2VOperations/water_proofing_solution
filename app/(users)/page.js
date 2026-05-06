@@ -34,9 +34,10 @@ export default function Home() {
       <ProductCards solution="PREMIUM FINISHES" />
       <Services />
       <Section5 />
-      <Section6 />
-      <Section3 />
+      {/* <Section6 /> */}
       <Section7 />
+      <Section3 />
+      
       <BlogSection />
     </>
   );
