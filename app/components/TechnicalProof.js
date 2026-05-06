@@ -121,12 +121,10 @@ export default function TechnicalProof() {
 
           <div className="relative">
             <div className="bg-white p-8 rounded-[40px] shadow-2xl border border-gray-100">
-              <Image
+              <img
                 src="/assets/industry/layers_diagram.png"
                 alt="Waterproofing Layers Diagram"
                 className="w-full h-auto rounded-2xl"
-                width={100}
-                height={100}
               />
             </div>
             {/* Decorative elements */}
@@ -157,11 +155,9 @@ export default function TechnicalProof() {
         {/* Action Shots */}
         <div className="mt-15 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="relative group overflow-hidden rounded-[32px] h-[400px]">
-            <Image
+            <img
               src="/home/card1.webp"
               alt="Moisture Audit"
-              width={100}
-              height={100}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent flex items-end p-10">
@@ -176,11 +172,9 @@ export default function TechnicalProof() {
             </div>
           </div>
           <div className="relative group overflow-hidden rounded-[32px] h-[400px]">
-            <Image
+            <img
               src="/home/cards3.webp"
               alt="Membrane Application"
-              width={100}
-              height={100}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent flex items-end p-10">
