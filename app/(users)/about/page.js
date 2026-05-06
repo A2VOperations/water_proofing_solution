@@ -200,7 +200,7 @@ export default function About() {
           className="object-cover opacity-40 z-0"
         />
         <div className="relative z-10 flex flex-col items-center w-full">
-          <p className="text-[#0088ff] text-[24px] font-bold tracking-[0.1em] uppercase mb-6">
+          <p className="text-[#0088ff] text-[24px] font-bold tracking-widest uppercase mb-6">
             WATERPROOFING JOURNEY
           </p>
           <h1 className="text-[32px] sm:text-5xl md:text-6xl lg:text-[76px] font-bold uppercase tracking-tight max-w-5xl leading-[1.1] mb-8">
@@ -239,7 +239,7 @@ export default function About() {
           >
             <div className="bg-[#141414] rounded-xl shadow-2xl p-8 md:p-12 border border-white/10 text-left">
               <div className="text-center mb-10">
-                <p className="text-[#0088ff] text-sm font-bold tracking-[0.1em] uppercase mb-2">
+                <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-2">
                   GET A FREE QUOTE
                 </p>
                 <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.1]">
@@ -350,7 +350,7 @@ export default function About() {
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-3 bg-[#0088ff] hover:bg-[#0088ffb6] transition-colors text-white text-[13px] font-bold tracking-[0.1em] px-8 py-5 uppercase rounded-md"
+                  className="w-full flex items-center justify-center gap-3 bg-[#0088ff] hover:bg-[#0088ffb6] transition-colors text-white text-[13px] font-bold tracking-widest px-8 py-5 uppercase rounded-md"
                 >
                   GET A FREE QUOTE
                   <svg
@@ -393,7 +393,7 @@ export default function About() {
                   delay: 3000,
                   disableOnInteraction: false,
                 }}
-                className="w-full h-[300px] md:h-[500px] aspect-[16/9] lg:aspect-[4/5]"
+                className="w-full h-[300px] md:h-[500px] aspect-video lg:aspect-4/5"
               >
                 {[
                   "/about/office1.webp",
@@ -412,7 +412,7 @@ export default function About() {
                 ))}
               </Swiper>
               {/* Decorative overlay */}
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent"></div>
+              <div className="absolute inset-0 pointer-events-none bg-linear-to-t from-black/20 to-transparent"></div>
             </div>
           </div>
 
@@ -546,7 +546,7 @@ export default function About() {
                   key={idx}
                   className="flex items-center justify-center lg:justify-start gap-4"
                 >
-                  <div className="flex-shrink-0 bg-[#0088ff] text-white rounded-[4px] w-6 h-6 flex items-center justify-center">
+                  <div className="shrink-0 bg-[#0088ff] text-white rounded-[4px] w-6 h-6 flex items-center justify-center">
                     <svg
                       width="14"
                       height="14"

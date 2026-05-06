@@ -33,7 +33,7 @@ const BlogCard = ({ post, index }) => {
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/3] rounded-[24px] overflow-hidden bg-gray-100">
+      <div className="relative w-full aspect-4/3 rounded-[24px] overflow-hidden bg-gray-100">
         <Image 
           src={post.image} 
           alt={post.title} 
@@ -46,10 +46,10 @@ const BlogCard = ({ post, index }) => {
         <div className="absolute bottom-0 right-10 bg-white px-6 py-3 rounded-t-[20px] z-10 flex items-center justify-center">
           
           {/* Left Inverted Curve */}
-          <div className="absolute bottom-0 -left-[20px] w-[20px] h-[20px] bg-transparent rounded-br-[20px] shadow-[10px_10px_0_10px_white] pointer-events-none"></div>
+          <div className="absolute bottom-0 left-[-20px] w-[20px] h-[20px] bg-transparent rounded-br-[20px] shadow-[10px_10px_0_10px_white] pointer-events-none"></div>
 
           {/* Right Inverted Curve */}
-          <div className="absolute bottom-0 -right-[20px] w-[20px] h-[20px] bg-transparent rounded-bl-[20px] shadow-[-10px_10px_0_10px_white] pointer-events-none"></div>
+          <div className="absolute bottom-0 right-[-20px] w-[20px] h-[20px] bg-transparent rounded-bl-[20px] shadow-[-10px_10px_0_10px_white] pointer-events-none"></div>
 
           <span className="text-[#0088ff] text-[11px] font-bold tracking-widest uppercase">
             {new Date(post.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' })}
@@ -58,7 +58,7 @@ const BlogCard = ({ post, index }) => {
       </div>
 
       {/* Text Content */}
-      <div className="p-8 flex flex-col flex-grow">
+      <div className="p-8 flex flex-col grow">
         <h3 className="text-[#111] text-[22px] font-bold leading-[1.3] mb-6 group-hover:text-[#0088ff] transition-colors duration-300 line-clamp-3">
           {post.title}
         </h3>

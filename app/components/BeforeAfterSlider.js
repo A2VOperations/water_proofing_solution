@@ -65,7 +65,7 @@ export default function BeforeAfterSlider() {
                 onTouchMove={handleMove}
               >
                 {/* Left Edge Soft Blur/Fade Overlay */}
-                <div className="absolute top-0 bottom-0 left-0 w-20 bg-gradient-to-r from-[#031b33] via-[#031b33]/40 to-transparent z-30 pointer-events-none hidden md:block backdrop-blur-[1px]" />
+                <div className="absolute top-0 bottom-0 left-0 w-20 bg-linear-to-r from-[#031b33] via-[#031b33]/40 to-transparent z-30 pointer-events-none hidden md:block backdrop-blur-[1px]" />
 
                 {/* Before Image */}
                 <div className="absolute inset-0 w-full h-full">

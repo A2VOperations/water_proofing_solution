@@ -579,7 +579,7 @@ function BentoItem({ work, className, placeholder, featured = false }) {
       ))}
       
       {/* Overlay */}
-      <div className={`absolute inset-0 z-20 flex flex-col justify-end p-6 sm:p-8 transition-all duration-500 bg-gradient-to-t from-black/90 via-black/20 to-transparent ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className={`absolute inset-0 z-20 flex flex-col justify-end p-6 sm:p-8 transition-all duration-500 bg-linear-to-t from-black/90 via-black/20 to-transparent ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <p className="text-[9px] sm:text-[10px] font-black text-[#D4AF37] tracking-[0.3em] uppercase mb-2 font-display">
           {work?.category || "WATERPROOFING"}
         </p>

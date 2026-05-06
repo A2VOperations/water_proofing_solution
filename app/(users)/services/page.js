@@ -83,9 +83,9 @@ const ServiceCard = ({ service }) => {
       {/* Button Pocket positioned at bottom right */}
       <div className="absolute bottom-0 right-0 w-[90px] h-[90px] bg-[#f0f4f8] z-10 flex items-center justify-center rounded-tl-[40px]">
         {/* Top Inverted Curve */}
-        <div className="absolute -top-[24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+        <div className="absolute top-[-24px] right-0 w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
         {/* Left Inverted Curve */}
-        <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-[-24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
 
         <div className="bg-[#041F38] group-hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 group-hover:scale-110 mt-2 ml-2">
           <svg
