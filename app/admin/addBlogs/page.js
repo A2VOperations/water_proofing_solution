@@ -58,7 +58,7 @@ export default function AddBlogs() {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-4 sm:p-8 max-w-4xl mx-auto">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
@@ -67,7 +67,7 @@ export default function AddBlogs() {
         </div>
       )}
 
-      <header className="mb-10 flex justify-between items-start gap-4">
+      <header className="mb-10 flex flex-col sm:flex-row justify-between items-start gap-4">
         <div>
           <h1 className="text-3xl font-black uppercase tracking-tight text-[#111]">Add Blog Post</h1>
           <p className="text-gray-500 font-medium mt-2">Publish a new article to your blog.</p>
@@ -89,7 +89,7 @@ export default function AddBlogs() {
       </header>
 
       <div className="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
-        <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-8">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-10 flex flex-col gap-8">
           
           {/* Cover Image */}
           <div className="flex flex-col gap-2">

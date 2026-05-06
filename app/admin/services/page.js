@@ -11,12 +11,23 @@ export default function ViewServices() {
   const [deleteId, setDeleteId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  const fetchServices = async () => {
-    const result = await getAllServicesAction();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    fetchServices(debouncedSearch);
+  }, [debouncedSearch]);
+
+  const fetchServices = async (query = "") => {
+    setLoading(true);
+    const result = await getAllServicesAction(query);
     if (result.success) {
       setServices(result.services);
     }
@@ -44,17 +55,35 @@ export default function ViewServices() {
 
   return (
     <div className="p-4 sm:p-8 max-w-7xl mx-auto">
-      <header className="mb-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <header className="mb-12 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
         <div>
           <h1 className="text-3xl font-black uppercase tracking-tight text-[#111]">All Services</h1>
           <p className="text-gray-500 font-medium mt-2">Manage and edit your existing service offerings.</p>
         </div>
-        <Link 
-          href="/admin/addServices" 
-          className="bg-[#0088ff] text-white px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-[#0070d6] transition-all shadow-lg shadow-[#0088ff]/20 text-center"
-        >
-          Add New Service
-        </Link>
+        
+        <div className="flex flex-col md:flex-row gap-4 flex-1 max-w-3xl xl:justify-end">
+            <div className="relative flex-1">
+                <input 
+                    type="text" 
+                    placeholder="Search services by title..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full bg-white border border-gray-200 rounded-2xl px-12 py-4 outline-none focus:border-[#0088ff] focus:ring-4 focus:ring-[#0088ff]/5 transition-all font-medium text-sm"
+                />
+                <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                {searchTerm && (
+                    <button onClick={() => setSearchTerm("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                )}
+            </div>
+            <Link 
+              href="/admin/addServices" 
+              className="bg-[#0088ff] text-white px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-[#0070d6] transition-all shadow-lg shadow-[#0088ff]/20 text-center whitespace-nowrap"
+            >
+              Add New Service
+            </Link>
+        </div>
       </header>
 
       {loading ? (
@@ -65,7 +94,12 @@ export default function ViewServices() {
         </div>
       ) : services.length === 0 ? (
         <div className="text-center py-24 bg-white rounded-[40px] border border-dashed border-gray-200">
-          <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">No services found in database.</p>
+          <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">
+            {debouncedSearch ? `No services matching "${debouncedSearch}"` : "No services found in database."}
+          </p>
+          {debouncedSearch && (
+            <button onClick={() => setSearchTerm("")} className="mt-4 text-[#0088ff] font-bold text-xs uppercase tracking-widest">Clear Search</button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

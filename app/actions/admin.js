@@ -194,10 +194,14 @@ export async function createBlogAction(blogData) {
     }
 }
 
-export async function getAllServicesAction() {
+export async function getAllServicesAction(searchQuery = "") {
     try {
         await dbConnect();
-        const services = await Service.find({}).sort({ createdAt: -1 });
+        let query = {};
+        if (searchQuery) {
+            query = { title: { $regex: searchQuery, $options: "i" } };
+        }
+        const services = await Service.find(query).sort({ createdAt: -1 });
         return { success: true, services: JSON.parse(JSON.stringify(services)) };
     } catch (error) {
         console.error("Get All Services Error:", error);
@@ -302,10 +306,14 @@ export async function getAdminDetailsAction() {
     }
 }
 
-export async function getAllBlogsAction() {
+export async function getAllBlogsAction(searchQuery = "") {
     try {
         await dbConnect();
-        const blogs = await Blog.find({}).sort({ date: -1 });
+        let query = {};
+        if (searchQuery) {
+            query = { title: { $regex: searchQuery, $options: "i" } };
+        }
+        const blogs = await Blog.find(query).sort({ date: -1 });
         return { success: true, blogs: JSON.parse(JSON.stringify(blogs)) };
     } catch (error) {
         console.error("Get All Blogs Error:", error);
@@ -381,10 +389,14 @@ export async function updateBlogAction(blogId, blogData) {
         return { error: "Failed to update blog post" };
     }
 }
-export async function getAllWorksAction() {
+export async function getAllWorksAction(searchQuery = "") {
     try {
         await dbConnect();
-        const works = await Work.find({}).sort({ createdAt: -1 });
+        let query = {};
+        if (searchQuery) {
+            query = { title: { $regex: searchQuery, $options: "i" } };
+        }
+        const works = await Work.find(query).sort({ createdAt: -1 });
         return { success: true, works: JSON.parse(JSON.stringify(works)) };
     } catch (error) {
         console.error("Get All Works Error:", error);

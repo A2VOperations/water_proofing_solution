@@ -180,7 +180,7 @@ export default function Footer() {
             Terms and conditions
           </Link>
           <p className="m-0 mb-2 sm:mb-0">
-            © 2024 {adminDetails?.companyTitle || CONTACT_CONFIG.companyTitle}
+            © 2026 {adminDetails?.companyTitle || CONTACT_CONFIG.companyTitle}
           </p>
           <Link href="/privacy" className="hover:text-gray-900 transition-colors">
             Privacy policy

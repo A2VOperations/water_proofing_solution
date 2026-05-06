@@ -89,7 +89,7 @@ export default function EditWork() {
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto relative">
+    <div className="p-4 sm:p-8 max-w-4xl mx-auto relative">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
@@ -98,7 +98,7 @@ export default function EditWork() {
         </div>
       )}
 
-      <header className="mb-10 flex justify-between items-end">
+      <header className="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
         <div>
           <h1 className="text-3xl font-black uppercase tracking-tight text-[#111]">Edit Project</h1>
           <p className="text-gray-500 font-medium mt-2">Update your portfolio project details.</p>
@@ -112,7 +112,7 @@ export default function EditWork() {
       </header>
 
       <div className="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
-        <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-10">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-10 flex flex-col gap-10">
           
           <section>
             <div className="flex flex-col gap-6">
@@ -148,14 +148,10 @@ export default function EditWork() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {formData.images.map((img, i) => (
                 <div key={i} className="relative group">
-                    {img && (
-                        <div className="absolute top-4 left-4 z-10">
-                            <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black text-[#0088ff] shadow-sm border border-[#0088ff]/10 uppercase">Current Image</span>
-                        </div>
-                    )}
                   <ImageUpload 
                     folder="works"
                     onUploadSuccess={(url) => handleImageSuccess(i, url)}
+                    initialImage={img}
                   />
                   <button 
                     type="button" 
@@ -184,15 +180,15 @@ export default function EditWork() {
             </div>
           )}
 
-          <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
-            <Link href="/admin/works" className="text-gray-400 hover:text-[#111] font-bold text-xs uppercase tracking-widest transition-colors">Discard Changes</Link>
+          <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-6">
             <button 
               type="submit"
               disabled={isLoading}
-              className="bg-[#0088ff] hover:bg-[#0070d6] text-white font-bold px-10 py-5 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,136,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,136,255,0.23)] hover:-translate-y-0.5 uppercase tracking-widest text-sm w-full sm:w-auto disabled:opacity-50"
+              className="bg-[#0088ff] hover:bg-[#0070d6] text-white font-bold px-10 py-5 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,136,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,136,255,0.23)] hover:-translate-y-0.5 uppercase tracking-widest text-sm w-full sm:w-auto disabled:opacity-50 order-1 sm:order-2"
             >
               {isLoading ? "Saving..." : "Update Project"}
             </button>
+            <Link href="/admin/works" className="text-gray-400 hover:text-[#111] font-bold text-xs uppercase tracking-widest transition-colors order-2 sm:order-1">Discard Changes</Link>
           </div>
 
         </form>

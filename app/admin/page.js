@@ -81,9 +81,6 @@ export default function AdminLogin() {
             >
               {isLoading ? "Authenticating..." : "Sign In to Dashboard"}
             </button>
-            <p className="text-center text-xs text-gray-400 mt-2">
-              Use admin@waterproofing.com / admin123
-            </p>
           </form>
         </div>
       </div>

@@ -206,7 +206,7 @@ export default function ServiceDetail() {
                                         { t: "Expert Inspection", d: "Thorough analysis of your property using advanced detection tools." },
                                         { t: "Premium Materials", d: "We use industrial-grade chemicals and membranes for lasting results." },
                                         { t: "5-Year Warranty", d: "All our specialized waterproofing solutions come with a written guarantee." },
-                                        { t: "Certified Team", d: "Handled by professionals with over 10+ years of technical experience." }
+                                        { t: "Certified Team", d: "Handled by professionals with over 15+ years of technical experience." }
                                     ].map((f, i) => (
                                         <div key={i} className="p-8 rounded-[32px] bg-[#fcfcfc] border border-gray-100 hover:border-[#0088ff]/30 transition-all group">
                                             <h4 className="text-lg font-black text-[#111] mb-2 uppercase tracking-tight group-hover:text-[#0088ff] transition-colors">{f.t}</h4>
