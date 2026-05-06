@@ -3,7 +3,7 @@ import AdminLayoutContent from "./components/AdminLayoutContent";
 import "../globals.css";
 
 export const metadata = {
-  title: "Admin Panel | WP Solutions",
+  title: "Admin Panel | ",
 };
 
 export default function AdminLayout({ children }) {

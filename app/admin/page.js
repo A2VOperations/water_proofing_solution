@@ -36,7 +36,7 @@ export default function AdminLogin() {
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#0088ff] rounded-full opacity-20 blur-2xl"></div>
           <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#0088ff] rounded-full opacity-20 blur-2xl"></div>
           
-          <h1 className="text-3xl font-black uppercase tracking-tight text-white mb-2 relative z-10">WP Solutions</h1>
+          <h1 className="text-3xl font-black uppercase tracking-tight text-white mb-2 relative z-10">RWPC Ras Care</h1>
           <p className="text-[#0088ff] font-bold tracking-[0.2em] uppercase text-xs relative z-10">Admin Portal</p>
         </div>
         
