@@ -34,7 +34,7 @@ export default function BeforeAfterSlider() {
 
         {/* Macro Beading Shot with CTA */}
         <div className="mt-24 relative overflow-hidden  bg-[#031b33] text-white">
-          <div className="grid md:grid-cols-2 items-center">
+          <div className="grid md:grid-cols-2 items-stretch">
             <div className="p-12 lg:p-20 relative z-10">
               <span className="bg-[#0088ff] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6 inline-block">
                 THE LOTUS EFFECT
@@ -54,10 +54,10 @@ export default function BeforeAfterSlider() {
                 Book a Dampness Audit
               </button>
             </div>
-            <div className="relative">
+            <div className="relative h-full">
               <div
                 ref={containerRef}
-                className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[32px] overflow-hidden shadow-2xl cursor-ew-resize group"
+                className="relative w-full h-full min-h-[400px] md:min-h-full overflow-hidden shadow-2xl cursor-ew-resize group"
                 onMouseMove={handleMove}
                 onTouchMove={handleMove}
               >

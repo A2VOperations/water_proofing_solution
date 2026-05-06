@@ -457,7 +457,7 @@ export default function Navbar() {
                       cursor: "default",
                     }}
                   >
-                    <div className="flex items-center gap-2.5">
+                    <span className="flex items-center gap-2.5">
                       <span
                         className="w-2.5 h-2.5 rounded-full shrink-0 transition-all duration-150"
                         style={{
@@ -476,18 +476,18 @@ export default function Navbar() {
                       >
                         {col.category}
                       </span>
-                    </div>
-                    <p className="text-[12px] text-gray-400 mt-1 pl-5 leading-snug">
+                    </span>
+                    <span className="block text-[12px] text-gray-400 mt-1 pl-5 leading-snug">
                       {col.description}
-                    </p>
-                    <p
-                      className="text-[11px] font-semibold mt-1 pl-5"
+                    </span>
+                    <span
+                      className="block text-[11px] font-semibold mt-1 pl-5"
                       style={{
                         color: activeCol === i ? col.accent : "#9ca3af",
                       }}
                     >
                       {col.items.length} services
-                    </p>
+                    </span>
                   </button>
                 ))}
 

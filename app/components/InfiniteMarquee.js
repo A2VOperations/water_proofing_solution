@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
 import Image from "next/image";
@@ -9,6 +10,11 @@ import "swiper/css";
 import "swiper/css/free-mode";
 
 const InfiniteMarquee = ({ speed = 8000 }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const items = [
     "Dampness Audit™", 
     "Thermal Imaging", 
@@ -18,6 +24,8 @@ const InfiniteMarquee = ({ speed = 8000 }) => {
     "Terrace Specialist",
     "10 Year Warranty"
   ];
+
+  if (!mounted) return <div className="h-[150px] bg-white border-y border-gray-100" />;
 
   return (
     <div className="relative w-full bg-white py-8 md:py-12 border-y border-gray-100 select-none overflow-hidden">
