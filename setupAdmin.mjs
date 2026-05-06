@@ -52,7 +52,7 @@ async function setup() {
       email: adminEmail,
       password: hashedPassword,
       name: adminName,
-      companyTitle: "WP Solutions Inc.",
+      companyTitle: " Inc.",
       numbers: [],
     });
 

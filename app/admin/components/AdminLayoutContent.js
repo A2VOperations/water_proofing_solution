@@ -89,7 +89,7 @@ export default function AdminLayoutContent({ children }) {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Mobile Header */}
         <header className="lg:hidden bg-white border-b border-gray-200 p-4 flex items-center justify-between">
-          <h1 className="text-lg font-black text-[#111] uppercase tracking-wider">WP Solutions</h1>
+          <h1 className="text-lg font-black text-[#111] uppercase tracking-wider">RWPC RAS CARE</h1>
           <button 
             onClick={() => setSidebarOpen(true)}
             className="p-2 rounded-lg bg-gray-100 text-gray-600"
