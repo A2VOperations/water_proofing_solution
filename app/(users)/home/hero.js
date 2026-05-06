@@ -43,7 +43,7 @@ const SERVICE_CARDS = [
         <path d="M17.66 8L12 2.35 6.34 8C4.78 9.56 4 11.64 4 13.64s.78 4.08 2.34 5.64c1.56 1.56 3.64 2.34 5.66 2.34s4.08-.78 5.66-2.34c1.56-1.56 2.34-3.64 2.34-5.64s-.78-4.08-2.34-5.64zM12 19c-3.11 0-5.66-2.55-5.66-5.66 0-1.51.62-2.92 1.71-4.02l3.95-3.95 3.95 3.95c1.09 1.1 1.71 2.51 1.71 4.02 0 3.11-2.55 5.66-5.66 5.66z" />
       </svg>
     ),
-    title: "Instant Seepage Fixes",
+    title: "Instant Leakage Fixes",
     desc: "Stop wall dampness and paint peeling instantly with our engineering-grade injection grouting systems.",
     img: "/home/card2.webp",
   },
@@ -427,14 +427,14 @@ export default function Hero() {
           {/* Top row: headline left, tagline right */}
           <div
             ref={servicesHeadlineRef}
-            className="flex justify-center mb-14 w-full"
+            className="flex justify-center w-full py-10 mb-20"
           >
-            <h2 className="font-bold uppercase leading-tight text-white text-4xl md:text-5xl pt-10 text-center max-w-3xl md:max-w-4xl mx-auto">
+            <div className="font-bold uppercase leading-tight text-white text-2xl md:text-5xl pt-10 text-center max-w-3xl md:max-w-4xl mx-auto">
               Keep your dream home safe with the best quality <br />
               <span className="text-white/50">
                 and a long warranty that lasts for years.
               </span>
-            </h2>
+            </div>
           </div>
 
           {/* Cards */}
@@ -455,10 +455,10 @@ export default function Hero() {
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <h3 className="font-black uppercase tracking-wide text-white text-4xl mb-3 group-hover:text-[#0088ff] transition-colors duration-300">
+                  <h3 className="font-extrabold uppercase tracking-wide text-white text-4xl mb-3 group-hover:text-[#0088ff] transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <p className="text-white/70 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
+                  <p className="text-white/70 text-md leading-relaxed group-hover:text-white transition-colors duration-300">
                     {item.desc}
                   </p>
                 </div>
