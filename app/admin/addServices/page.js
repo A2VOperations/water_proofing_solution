@@ -85,7 +85,7 @@ export default function AddServices() {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto relative">
+    <div className="p-4 sm:p-8 max-w-4xl mx-auto relative">
       {/* Loading Overlay */}
       {isLoading && !isSaved && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm transition-all">
@@ -94,7 +94,7 @@ export default function AddServices() {
         </div>
       )}
 
-      <header className="mb-10 flex justify-between items-end">
+      <header className="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
         <div>
           <h1 className="text-3xl font-black uppercase tracking-tight text-[#111]">Add Service</h1>
           <p className="text-gray-500 font-medium mt-2">Create a new service offering with FAQs.</p>
@@ -108,7 +108,7 @@ export default function AddServices() {
       </header>
 
       <div className="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
-        <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-10">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-10 flex flex-col gap-10">
           
           <section>
             <div className="flex flex-col gap-6">

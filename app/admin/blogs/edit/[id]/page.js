@@ -85,7 +85,7 @@ export default function EditBlog() {
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-4 sm:p-8 max-w-4xl mx-auto">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
@@ -94,7 +94,7 @@ export default function EditBlog() {
         </div>
       )}
 
-      <header className="mb-10 flex justify-between items-start gap-4">
+      <header className="mb-10 flex flex-col sm:flex-row justify-between items-start gap-4">
         <div>
           <h1 className="text-3xl font-black uppercase tracking-tight text-[#111]">Edit Blog Post</h1>
           <p className="text-gray-500 font-medium mt-2">Update your published article details.</p>
@@ -116,7 +116,7 @@ export default function EditBlog() {
       </header>
 
       <div className="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
-        <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-8">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-10 flex flex-col gap-8">
           
           {/* Cover Image */}
           <div className="flex flex-col gap-2">
@@ -124,12 +124,7 @@ export default function EditBlog() {
               Cover Image <span className="text-red-500">*</span> {imageUploaded && <span className="text-green-500 ml-2">✓ Ready</span>}
             </label>
             <div className="relative group">
-                {formData.image && (
-                    <div className="absolute top-4 left-4 z-10">
-                        <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black text-[#0088ff] shadow-sm border border-[#0088ff]/10">CURRENT IMAGE</span>
-                    </div>
-                )}
-                <ImageUpload folder="blogs" onUploadSuccess={handleImageSuccess} />
+                <ImageUpload folder="blogs" onUploadSuccess={handleImageSuccess} initialImage={formData.image} />
             </div>
           </div>
 
@@ -179,15 +174,15 @@ export default function EditBlog() {
             />
           </div>
 
-          <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
-            <Link href="/admin/blogs" className="text-gray-400 hover:text-[#111] font-bold text-xs uppercase tracking-widest transition-colors">Discard Changes</Link>
+          <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-6">
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-[#0088ff] hover:bg-[#0070d6] text-white font-bold px-10 py-5 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,136,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,136,255,0.23)] hover:-translate-y-0.5 uppercase tracking-widest text-sm w-full sm:w-auto disabled:opacity-50"
+              className="bg-[#0088ff] hover:bg-[#0070d6] text-white font-bold px-10 py-5 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,136,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,136,255,0.23)] hover:-translate-y-0.5 uppercase tracking-widest text-sm w-full sm:w-auto disabled:opacity-50 order-1 sm:order-2"
             >
               {isLoading ? "Saving..." : "Update Post"}
             </button>
+            <Link href="/admin/blogs" className="text-gray-400 hover:text-[#111] font-bold text-xs uppercase tracking-widest transition-colors order-2 sm:order-1">Discard Changes</Link>
           </div>
 
         </form>

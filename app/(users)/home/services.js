@@ -186,13 +186,13 @@ const Services = () => {
                       )}
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words pt-2">
+                  <h3 className="text-2xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 pt-2">
                     {service.title}
                   </h3>
                 </div>
 
                 {/* Description - Limited to 3 lines */}
-                <p className="text-gray-500 text-base leading-relaxed mb-16 max-w-full md:max-w-[85%] font-medium line-clamp-3 break-words text-center md:text-left">
+                <p className="text-gray-500 text-base leading-relaxed mb-16 max-w-full md:max-w-[85%] font-medium line-clamp-3 text-center md:text-left">
                   {service.description}
                 </p>
 

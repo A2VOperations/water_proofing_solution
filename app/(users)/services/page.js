@@ -17,7 +17,10 @@ const ServiceCard = ({ service }) => {
   }, [service.photos]);
 
   return (
-    <div className="bg-white rounded-[30px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50 flex flex-col h-full">
+    <Link 
+      href={`/services/${service.slug}`}
+      className="bg-white rounded-[30px] relative overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:-translate-y-2 border border-gray-50 flex flex-col h-full"
+    >
       {/* Image Slider at Top */}
       <div className="relative w-full h-48 rounded-xl overflow-hidden shadow-inner bg-gray-50">
         {service.photos && service.photos.length > 0 ? (
@@ -68,12 +71,12 @@ const ServiceCard = ({ service }) => {
               />
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 break-words break-all pt-1">
+          <h3 className="text-xl font-bold text-[#0A1A2F] leading-tight tracking-tight group-hover:text-[#0089FF] transition-colors duration-300 pt-1">
             {service.title}
           </h3>
         </div>
 
-      <p className="text-gray-500 text-sm leading-relaxed mb-10 pr-20 font-medium break-words break-all line-clamp-3">
+      <p className="text-gray-500 text-sm leading-relaxed mb-10 pr-20 font-medium line-clamp-3">
         {service.description.substring(0, 80)}...
       </p>
 
@@ -84,12 +87,9 @@ const ServiceCard = ({ service }) => {
         {/* Left Inverted Curve */}
         <div className="absolute bottom-0 -left-[24px] w-[24px] h-[24px] bg-transparent rounded-br-[24px] shadow-[10px_10px_0_10px_#f0f4f8] pointer-events-none"></div>
 
-        <Link
-          href={`/services/${service.slug}`}
-          className="bg-[#041F38] hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 hover:scale-110 group/btn mt-2 ml-2"
-        >
+        <div className="bg-[#041F38] group-hover:bg-[#0089FF] w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 group-hover:scale-110 mt-2 ml-2">
           <svg
-            className="w-6 h-6 text-white transition-transform duration-500 group-hover/btn:rotate-45"
+            className="w-6 h-6 text-white transition-transform duration-500 group-hover:rotate-45"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -101,16 +101,18 @@ const ServiceCard = ({ service }) => {
               d="M7 17L17 7M17 7H7M17 7V17"
             />
           </svg>
-        </Link>
+        </div>
       </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
 export default function ServicesPage() {
   const [categories, setCategories] = useState([]);
+  const [allServices, setAllServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const CATEGORY_LIST = [
     "Residential Solutions",
@@ -123,6 +125,7 @@ export default function ServicesPage() {
     const fetchServices = async () => {
       const result = await getAllServicesAction();
       if (result.success) {
+        setAllServices(result.services);
         const grouped = CATEGORY_LIST.map((cat) => ({
           name: cat,
           services: result.services.filter((s) => s.category === cat),
@@ -134,6 +137,12 @@ export default function ServicesPage() {
     fetchServices();
   }, []);
 
+  const filteredServices = allServices.filter(s => 
+    s.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    s.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    s.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -144,58 +153,97 @@ export default function ServicesPage() {
   return (
     <main className="bg-white min-h-screen pt-32 pb-24">
       <div className="container mx-auto px-6">
-        <header className="text-center mb-24 max-w-4xl mx-auto">
+        <header className="text-center mb-16 max-w-4xl mx-auto">
           <span className="inline-block px-6 py-2.5 rounded-full bg-[#f0f7ff] text-[#0089FF] text-[12px] font-black uppercase tracking-[0.3em] mb-8">
             Complete Solutions
           </span>
-          <h1 className="text-5xl md:text-7xl font-black text-[#0A1A2F] tracking-tighter leading-[0.9] mb-8 uppercase">
+          <h1 className="text-4xl md:text-7xl font-black text-[#0A1A2F] tracking-tighter leading-[0.9] mb-8 uppercase">
             Every Waterproofing <br /> Service You Need
           </h1>
-          <p className="text-gray-500 text-lg font-medium leading-relaxed max-w-2xl mx-auto">
-            From specialized injection grouting to premium aesthetic coatings,
-            we provide engineering-grade protection for every corner of your
-            property across India.
-          </p>
+          
+          <div className="max-w-xl mx-auto relative mt-12 mb-10">
+            <input 
+                type="text"
+                placeholder="Search for services (e.g. Roof, Grouting...)"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-gray-50 border border-gray-100 rounded-full px-10 py-6 outline-none focus:bg-white focus:ring-4 focus:ring-[#0089FF]/5 focus:border-[#0089FF] transition-all font-bold text-[#0A1A2F] shadow-sm"
+            />
+            <div className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+            </div>
+          </div>
+
+          {!searchTerm && (
+            <p className="text-gray-500 text-lg font-medium leading-relaxed max-w-2xl mx-auto">
+                From specialized injection grouting to premium aesthetic coatings,
+                we provide engineering-grade protection for every corner of your
+                property across India.
+            </p>
+          )}
         </header>
 
-        <div className="space-y-32">
-          {categories.map((cat, idx) => (
-            <section key={idx} className="relative">
-              <div className="flex items-end justify-between mb-12 border-b border-gray-100 pb-8">
-                <div>
-                  <span className="text-[#0089FF] text-xs font-black tracking-[0.4em] uppercase block mb-3">
-                    Category 0{idx + 1}
-                  </span>
-                  <h2 className="text-4xl font-black text-[#0A1A2F] uppercase tracking-tight">
-                    {cat.name}
-                  </h2>
+        {searchTerm ? (
+            <div className="space-y-12">
+                <div className="flex items-center justify-between border-b border-gray-100 pb-8">
+                    <div>
+                        <h2 className="text-3xl font-black text-[#0A1A2F] uppercase tracking-tight">Search Results</h2>
+                        <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px] mt-1">Found {filteredServices.length} matching services</p>
+                    </div>
                 </div>
-                <div className="text-right hidden md:block">
-                  <span className="text-5xl font-black text-gray-50 block leading-none -mb-2">
-                    {cat.services.length.toString().padStart(2, "0")}
-                  </span>
-                  <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">
-                    Available Services
-                  </span>
-                </div>
-              </div>
+                {filteredServices.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                        {filteredServices.map((service, sIdx) => (
+                            <ServiceCard key={service._id || sIdx} service={service} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="bg-gray-50 rounded-[48px] py-32 text-center border-2 border-dashed border-gray-100">
+                        <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">No services matched your search.</p>
+                        <button onClick={() => setSearchTerm("")} className="text-[#0089FF] font-black uppercase text-xs tracking-widest mt-4 hover:underline">Clear Search</button>
+                    </div>
+                )}
+            </div>
+        ) : (
+            <div className="space-y-32">
+                {categories.map((cat, idx) => (
+                    <section key={idx} className="relative">
+                    <div className="flex items-end justify-between mb-12 border-b border-gray-100 pb-8">
+                        <div>
+                        <span className="text-[#0089FF] text-xs font-black tracking-[0.4em] uppercase block mb-3">
+                            Category 0{idx + 1}
+                        </span>
+                        <h2 className="text-4xl font-black text-[#0A1A2F] uppercase tracking-tight">
+                            {cat.name}
+                        </h2>
+                        </div>
+                        <div className="text-right hidden md:block">
+                        <span className="text-5xl font-black text-gray-50 block leading-none -mb-2">
+                            {cat.services.length.toString().padStart(2, "0")}
+                        </span>
+                        <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">
+                            Available Services
+                        </span>
+                        </div>
+                    </div>
 
-              {cat.services.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                  {cat.services.map((service, sIdx) => (
-                    <ServiceCard key={service._id || sIdx} service={service} />
-                  ))}
-                </div>
-              ) : (
-                <div className="bg-gray-50 rounded-[48px] py-20 text-center border-2 border-dashed border-gray-100">
-                  <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">
-                    No services listed in this category yet.
-                  </p>
-                </div>
-              )}
-            </section>
-          ))}
-        </div>
+                    {cat.services.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                        {cat.services.map((service, sIdx) => (
+                            <ServiceCard key={service._id || sIdx} service={service} />
+                        ))}
+                        </div>
+                    ) : (
+                        <div className="bg-gray-50 rounded-[48px] py-20 text-center border-2 border-dashed border-gray-100">
+                        <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">
+                            No services listed in this category yet.
+                        </p>
+                        </div>
+                    )}
+                    </section>
+                ))}
+            </div>
+        )}
       </div>
 
       {/* Final CTA */}

@@ -14,34 +14,40 @@ import "swiper/css/pagination";
 
 const MILESTONES = [
   {
-    year: "2002",
-    title: "Founding in Mumbai",
+    year: "2010",
+    title: "Foundation of RWPC RAS CARE",
     description:
-      "RWPC RAS CARE was established as a specialized terrace leakage consultancy in Mumbai, providing expert guidance on monsoon protection for high-rise residential buildings.",
+      "RWPC RAS CARE started its journey in 2010 with a clear vision to provide dependable waterproofing and leakage treatment solutions. The company began by handling residential and small commercial projects with a strong focus on quality workmanship and customer satisfaction.",
   },
   {
-    year: "2005",
-    title: "Pan-India Expansion",
+    year: "2014",
+    title: "Expansion in Waterproofing Services",
     description:
-      "Expanded operations to major Indian metros, specializing in structural waterproofing for large-scale commercial complexes and hospitality projects.",
+      "With growing client trust, we expanded our services into terrace waterproofing, bathroom leakage treatment, basement waterproofing, wall dampness solutions, and structural repair support. This phase helped us build stronger technical expertise across different waterproofing requirements.",
   },
   {
-    year: "2013",
-    title: "Nano-Tech Innovation",
+    year: "2017",
+    title: "Advanced Material & Application Techniques",
     description:
-      "Pioneered the use of nano-technology based water repellent coatings, offering superior protection for luxury villas and heritage structures across the country.",
+      "We started adopting improved waterproofing chemicals, membrane systems, coating solutions, and modern application methods to deliver better durability and long-term protection. Our focus shifted from temporary leakage repair to complete protection-based solutions.",
   },
   {
-    year: "2018",
-    title: "Infrastructure Partnerships",
+    year: "2020",
+    title: "Serving Residential & Commercial Projects",
     description:
-      "Collaborated with major infrastructure firms for advanced basement and podium sealing in metro stations and underground transit systems.",
+      "By 2020, RWPC RAS CARE had successfully worked on a wide range of residential buildings, commercial spaces, offices, and property maintenance projects. Our practical experience helped us understand different site conditions and provide customized solutions for every client.",
   },
   {
-    year: "2022",
-    title: "Eco-Friendly Solutions",
+    year: "2024",
+    title: "15+ Years of Trusted Experience",
     description:
-      "Adopted sustainable, heat-reflective waterproofing membranes specifically designed for the tropical Indian climate, reducing energy costs for our clients.",
+      "Today, RWPC RAS CARE stands as a trusted name with over 15 years of experience in the waterproofing industry. We continue to provide reliable, cost-effective, and quality-driven waterproofing solutions designed to protect buildings for the long term.",
+  },
+  {
+    year: "2026",
+    title: "Moving Towards Smarter Protection Solutions",
+    description:
+      "We are continuously improving our service quality by using better materials, skilled workmanship, proper inspection methods, and customer-focused support. Our goal is to deliver waterproofing solutions that are not only effective but also durable, sustainable, and suitable for modern construction needs.",
   },
 ];
 
@@ -50,7 +56,7 @@ const WORK_STEPS = [
     step: "1",
     title: "Highly skilled team",
     description:
-      "Our specialized engineers bring over 20 years of expertise in handling Delhi's extreme weather challenges and structural seepage.",
+      "Our specialized engineers bring over 15+ years of expertise in handling Delhi's extreme weather challenges and structural seepage.",
     image: "/about/icon-01.svg",
   },
   {
@@ -194,7 +200,7 @@ export default function About() {
           className="object-cover opacity-40 z-0"
         />
         <div className="relative z-10 flex flex-col items-center w-full">
-          <p className="text-[#0088ff] text-[13px] font-bold tracking-[0.1em] uppercase mb-6">
+          <p className="text-[#0088ff] text-[24px] font-bold tracking-[0.1em] uppercase mb-6">
             WATERPROOFING JOURNEY
           </p>
           <h1 className="text-[32px] sm:text-5xl md:text-6xl lg:text-[76px] font-bold uppercase tracking-tight max-w-5xl leading-[1.1] mb-8">
@@ -202,12 +208,10 @@ export default function About() {
             <br />
             HOMES FROM SEEPAGE
             <br />
-            SINCE 2002
+            SINCE 2010
           </h1>
           <p className="text-gray-300 max-w-2xl text-[17px] font-medium leading-relaxed mb-12">
-            Expert structural protection and advanced leak detection
-            <br className="hidden md:block" /> through an engineering-centered
-            approach.
+            With<span className="text-2xl font-bold"> 15+ years </span> of industry experience, our journey reflects continuous improvement, technical expertise, and a strong commitment to protect structures.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button
@@ -415,9 +419,7 @@ export default function About() {
           {/* Right Scrolling Column */}
           <div className="lg:w-1/2 flex flex-col gap-16 mt-4 lg:mt-0">
             <p className="text-gray-500 text-md md:text-lg font-medium leading-relaxed mb-2">
-              Waterproofing technology has evolved rapidly. At RWPC RAS CARE, we lead
-              that evolution—adapting, improving, and delivering structural
-              protection that matches our clients&apos; needs.
+              Waterproofing technology has evolved rapidly over the years, and at <strong>RWPC RAS CARE,</strong> we have grown with the same pace of innovation and quality. Since 2010, we have been working in the waterproofing and structural protection industry, delivering reliable, long-lasting, and need-based solutions for residential, commercial, and industrial clients.
             </p>
 
             <div className="flex flex-col gap-14">
@@ -496,11 +498,11 @@ export default function About() {
                   Actually, let's use a simpler but visually identical approach. */}
               <div className="absolute top-0 right-0 w-15 h-50 bg-white rounded-bl-[10px] z-10"></div>
 
-              {/* 25+ years badge */}
+              {/* 15+ years badge */}
               <div className="bg-white absolute bottom-0 left-0 p-3 sm:p-4 rounded-tr-[10px]">
                 <div className="bg-[#0088ff] text-white p-4 sm:p-6 rounded-[20px] z-10">
                   <h3 className="text-3xl sm:text-5xl font-black mb-1 flex items-center leading-none">
-                    25
+                    15
                     <span className="text-2xl sm:text-3xl ml-1 text-black">
                       +
                     </span>

@@ -7,6 +7,11 @@ import {
   getAllWorksAction 
 } from "@/app/actions/admin";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 export default function AdminHome() {
   const [services, setServices] = useState([]);
   const [blogs, setBlogs] = useState([]);
@@ -37,6 +42,8 @@ export default function AdminHome() {
     { name: "Active Services", value: services.length.toString(), icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", link: "/admin/services" },
     { name: "Blog Posts", value: blogs.length.toString(), icon: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z", link: "/admin/blogs" },
   ];
+
+  const heroProducts = services.filter(s => s.isHeroProduct === "yes");
 
   return (
     <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-12 pb-20">
@@ -136,73 +143,131 @@ export default function AdminHome() {
 
       {/* Hero Products Section */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl font-black uppercase tracking-tight text-[#111]">Hero Products</h2>
             <span className="bg-[#0088ff] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">Featured</span>
           </div>
-          <Link href="/admin/services" className="text-[#0088ff] text-xs font-black uppercase tracking-widest hover:underline">Manage All</Link>
+          <div className="flex items-center gap-4">
+            <div className="flex gap-2">
+                <button className="hero-prev w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-[#111] hover:bg-[#0088ff] hover:text-white hover:border-[#0088ff] transition-all shadow-sm">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button className="hero-next w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-[#111] hover:bg-[#0088ff] hover:text-white hover:border-[#0088ff] transition-all shadow-sm">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+            <Link href="/admin/services" className="text-[#0088ff] text-xs font-black uppercase tracking-widest hover:underline">Manage All</Link>
+          </div>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {loading ? (
-            [1, 2, 3, 4].map(i => <div key={i} className="h-48 bg-gray-100 rounded-[32px] animate-pulse"></div>)
-          ) : services.filter(s => s.isHeroProduct === "yes").length === 0 ? (
-            <div className="col-span-full py-12 bg-white rounded-[32px] border border-dashed border-gray-200 flex flex-col items-center justify-center gap-2">
-              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">No hero products selected.</p>
-              <p className="text-gray-400 text-[10px] font-medium">Mark a service as "Hero Product" to see it here.</p>
+        {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {[1, 2, 3, 4].map(i => <div key={i} className="h-48 bg-gray-100 rounded-[32px] animate-pulse"></div>)}
             </div>
-          ) : (
-            services.filter(s => s.isHeroProduct === "yes").map((s) => (
-              <div key={s._id} className="bg-white p-2 rounded-[32px] shadow-sm border border-gray-100 group hover:border-[#0088ff] transition-all">
-                <div className="relative aspect-square rounded-[26px] overflow-hidden bg-gray-50 mb-4">
-                  {s.photos?.[0] && (
-                    <img 
-                      src={s.photos[0]} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                      alt={s.title}
-                    />
-                  )}
-                  <div className="absolute top-3 right-3">
-                    <div className="bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-sm text-[#0088ff]">
-                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        ) : heroProducts.length === 0 ? (
+          <div className="py-12 bg-white rounded-[32px] border border-dashed border-gray-200 flex flex-col items-center justify-center gap-2">
+            <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">No hero products selected.</p>
+            <p className="text-gray-400 text-[10px] font-medium">Mark a service as "Hero Product" to see it here.</p>
+          </div>
+        ) : (
+          <Swiper
+            modules={[Navigation, Autoplay]}
+            spaceBetween={24}
+            slidesPerView={1}
+            navigation={{
+                prevEl: '.hero-prev',
+                nextEl: '.hero-next',
+            }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+            }}
+            className="hero-swiper"
+          >
+            {heroProducts.map((s) => (
+              <SwiperSlide key={s._id}>
+                <div className="bg-white p-2 rounded-[32px] shadow-sm border border-gray-100 group hover:border-[#0088ff] transition-all h-full">
+                  <div className="relative aspect-square rounded-[26px] overflow-hidden bg-gray-50 mb-4">
+                    {s.photos?.[0] && (
+                      <img 
+                        src={s.photos[0]} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                        alt={s.title}
+                      />
+                    )}
+                    <div className="absolute top-3 right-3">
+                      <div className="bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-sm text-[#0088ff]">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      </div>
                     </div>
                   </div>
+                  <div className="px-4 pb-4 text-center sm:text-left">
+                    <p className="text-[10px] font-bold text-[#0088ff] uppercase tracking-widest mb-1">{s.category}</p>
+                    <h3 className="font-black text-sm text-[#111] truncate">{s.title}</h3>
+                  </div>
                 </div>
-                <div className="px-4 pb-4">
-                  <p className="text-[10px] font-bold text-[#0088ff] uppercase tracking-widest mb-1">{s.category}</p>
-                  <h3 className="font-black text-sm text-[#111] truncate">{s.title}</h3>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </section>
 
       {/* Recent Works with Images Section */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h2 className="text-2xl font-black uppercase tracking-tight text-[#111]">Recent Projects Portfolio</h2>
-          <Link href="/admin/works" className="text-[#0088ff] text-xs font-black uppercase tracking-widest hover:underline">View All Projects</Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {loading ? (
-            [1, 2, 3, 4].map(i => <div key={i} className="aspect-video bg-gray-100 rounded-[24px] animate-pulse"></div>)
-          ) : works.length === 0 ? (
-            <div className="col-span-full py-12 bg-white rounded-[32px] border border-dashed border-gray-200 text-center">
-              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">No projects added yet.</p>
+          <div className="flex items-center gap-4">
+            <div className="flex gap-2">
+                <button className="work-prev w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-[#111] hover:bg-[#0088ff] hover:text-white hover:border-[#0088ff] transition-all shadow-sm">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button className="work-next w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-[#111] hover:bg-[#0088ff] hover:text-white hover:border-[#0088ff] transition-all shadow-sm">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+                </button>
             </div>
-          ) : (
-            works.slice(0, 4).map((w) => (
-              <div key={w._id} className="relative aspect-video rounded-[24px] overflow-hidden group shadow-sm border border-gray-100">
-                {w.images?.[0] && <img src={w.images[0]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
-                  <p className="text-white font-bold text-xs truncate">{w.title}</p>
-                </div>
-              </div>
-            ))
-          )}
+            <Link href="/admin/works" className="text-[#0088ff] text-xs font-black uppercase tracking-widest hover:underline">View All Projects</Link>
+          </div>
         </div>
+        
+        {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                {[1, 2, 3, 4].map(i => <div key={i} className="aspect-video bg-gray-100 rounded-[24px] animate-pulse"></div>)}
+            </div>
+        ) : works.length === 0 ? (
+          <div className="py-12 bg-white rounded-[32px] border border-dashed border-gray-200 text-center">
+            <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">No projects added yet.</p>
+          </div>
+        ) : (
+          <Swiper
+            modules={[Navigation, Autoplay]}
+            spaceBetween={24}
+            slidesPerView={1}
+            navigation={{
+                prevEl: '.work-prev',
+                nextEl: '.work-next',
+            }}
+            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 4 },
+            }}
+            className="work-swiper"
+          >
+            {works.map((w) => (
+              <SwiperSlide key={w._id}>
+                <div className="relative aspect-video rounded-[24px] overflow-hidden group shadow-sm border border-gray-100 h-full">
+                  {w.images?.[0] && <img src={w.images[0]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={w.title} />}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                    <p className="text-white font-bold text-xs truncate">{w.title}</p>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </section>
     </div>
   );
