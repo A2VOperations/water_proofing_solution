@@ -243,7 +243,7 @@ export default function Hero() {
           >
             Your home deserves
             <br />
-            the best monsoon protection
+            the best water protection
           </h1>
           <p
             ref={heroTextRef}
@@ -429,7 +429,7 @@ export default function Hero() {
             ref={servicesHeadlineRef}
             className="flex justify-center mb-14 w-full"
           >
-            <h2 className="font-black uppercase leading-tight text-white text-4xl md:text-5xl pt-10 text-center max-w-3xl md:max-w-4xl mx-auto">
+            <h2 className="font-bold uppercase leading-tight text-white text-4xl md:text-5xl pt-10 text-center max-w-3xl md:max-w-4xl mx-auto">
               Keep your dream home safe with the best quality <br />
               <span className="text-white/50">
                 and a long warranty that lasts for years.

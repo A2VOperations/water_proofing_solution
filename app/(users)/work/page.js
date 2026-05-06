@@ -322,7 +322,7 @@ export default function Work() {
                   </span>
                 </div>
                 <h2 className="text-[28px] sm:text-6xl font-black uppercase text-[#111] leading-none tracking-tighter mb-8">
-                  Artistic <span className="font-serif italic font-normal text-[#D4AF37] normal-case tracking-normal">Excellence</span>
+                  Waterproofing <span className="font-serif italic font-normal text-[#0088ff] normal-case tracking-normal">Experts</span>
                 </h2>
                 <p className="text-gray-500 text-lg sm:text-xl font-medium leading-relaxed max-w-xl font-sans">
                   Our commitment to quality extends beyond the visible surfaces.

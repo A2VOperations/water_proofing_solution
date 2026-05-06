@@ -385,7 +385,7 @@ export default function Navbar() {
             {/* CTA */}
             <Link
               href="/contact"
-              className="hidden md:flex items-center gap-2 transition-all text-white font-bold tracking-[0.1em] px-5 py-5 uppercase rounded-lg"
+              className="hidden md:flex items-center gap-2 transition-all text-white font-bold tracking-widest px-5 py-5 uppercase rounded-lg"
               style={{
                 fontSize: "14px",
                 backgroundColor: "#0088ff",
