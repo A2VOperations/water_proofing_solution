@@ -27,6 +27,7 @@ const SERVICE_CARDS = [
     ),
     title: "Advanced Terrace Sealing",
     desc: "Our specialized liquid membranes ensure your terrace remains leak-proof through the heaviest monsoons.",
+    img: "/home/card1.webp",
   },
   {
     icon: (
@@ -36,6 +37,7 @@ const SERVICE_CARDS = [
     ),
     title: "Instant Seepage Fixes",
     desc: "Stop wall dampness and paint peeling instantly with our engineering-grade injection grouting systems.",
+    img: "/home/card2.webp",
   },
   {
     icon: (
@@ -45,6 +47,7 @@ const SERVICE_CARDS = [
     ),
     title: "Complete Home Protection",
     desc: "From basements to balconies, we provide end-to-end sealing solutions that add lasting value to your home.",
+    img: "/home/cards3.webp",
   },
 ];
 
@@ -415,20 +418,32 @@ export default function Hero() {
             {SERVICE_CARDS.map((item, i) => (
               <div
                 key={i}
-                className="group relative bg-white/10 rounded-xl overflow-hidden border border-white/15 p-8 hover:bg-white/[0.17] hover:border-white/30 transition-all duration-300 service-card-hero"
+                className="group relative bg-[#151515] rounded-xl overflow-hidden border border-white/10 p-8 hover:border-[#0088ff]/50 transition-all duration-500 service-card-hero"
               >
-                {/* Top accent bar on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[3px] bg-white/40 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+                {/* Background Image */}
+                <Image
+                  src={item.img}
+                  alt={item.title}
+                  fill
+                  className="object-cover opacity-40 group-hover:opacity-40 transition-opacity duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
-                <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {item.icon}
+                {/* Content */}
+                <div className="relative z-10">
+                  <div className="w-12 h-12 bg-[#0088ff] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#0088ff] transition-all duration-500">
+                    {item.icon}
+                  </div>
+                  <h3 className="font-black uppercase tracking-wide text-white text-lg mb-3 group-hover:text-[#0088ff] transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/70 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="font-black uppercase tracking-wide text-white text-base mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  {item.desc}
-                </p>
+
+                {/* Subtle bottom line */}
+                <div className="absolute bottom-0 left-0 h-[2px] bg-[#0088ff] w-0 group-hover:w-full transition-all duration-500" />
               </div>
             ))}
           </div>

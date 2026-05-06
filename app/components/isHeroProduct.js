@@ -4,7 +4,10 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CONTACT_CONFIG } from "@/app/config";
-import { getAllServicesAction, getAdminDetailsAction } from "@/app/actions/admin";
+import {
+  getAllServicesAction,
+  getAdminDetailsAction,
+} from "@/app/actions/admin";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -117,7 +120,7 @@ const IsHeroProduct = ({
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
       ) : (
-        <div className="relative w-full pb-12">
+        <div className="relative w-full">
           {items && items.length > 0 ? (
             <Swiper
               style={{ width: "100%" }}
@@ -148,7 +151,7 @@ const IsHeroProduct = ({
                   slidesPerView: 4,
                 },
               }}
-              className="w-full !pb-14"
+              className="w-full "
             >
               {items.map((item, index) => {
                 const whatsappMessage = encodeURIComponent(
@@ -157,9 +160,12 @@ const IsHeroProduct = ({
                 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
                 return (
-                  <SwiperSlide key={index} className="h-auto pb-4 flex-shrink-0">
-                    <div 
-                      onClick={() => window.location.href = item.link || "#"}
+                  <SwiperSlide
+                    key={index}
+                    className="h-auto pb-4 flex-shrink-0"
+                  >
+                    <div
+                      onClick={() => (window.location.href = item.link || "#")}
                       className="flex flex-col w-full h-full bg-white rounded-[2.5rem] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] group cursor-pointer"
                     >
                       {/* Image Section */}
@@ -174,7 +180,7 @@ const IsHeroProduct = ({
 
                         {/* Corner Inverted Curves for Date Badge */}
                         <svg
-                          className="absolute bottom-0 right-[40.7%] w-[20px] h-[20px] text-white"
+                          className="absolute bottom-0 right-[43%] w-[20px] h-[20px] text-white"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -182,17 +188,17 @@ const IsHeroProduct = ({
                           <path d="M0 20 H20 V0 C20 11.046 11.046 20 0 20 Z" />
                         </svg>
                         <svg
-                          className="absolute bottom-0 right-2 w-[20px] h-[20px] text-white"
+                          className="absolute bottom-0 right-[2.6%] w-[20px] h-[20px] text-white"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <path d="M20 20 H0 V0 C20 11.046 8.954 20 20 20 Z" />
+                          <path d="M20 20 H0 V0 C0 11.046 8.954 20 20 20 Z" />
                         </svg>
 
                         {/* Date Badge */}
                         <div className="absolute bottom-0 right-7 bg-white px-4 py-2 rounded-t-2xl shadow-lg">
-                          <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                          <span className="text-[11.5px] font-black text-blue-600 uppercase tracking-widest">
                             {item.date}
                           </span>
                         </div>
@@ -209,9 +215,7 @@ const IsHeroProduct = ({
                         </p>
 
                         <div className="mt-auto flex flex-col gap-3">
-                          <div
-                            className="flex items-center justify-between group/btn text-sm font-bold text-gray-900 py-2 border-b border-gray-100 hover:text-blue-600 hover:border-blue-200 transition-all"
-                          >
+                          <div className="flex items-center justify-between group/btn text-sm font-bold text-gray-900 py-2 border-b border-gray-100 hover:text-blue-600 hover:border-blue-200 transition-all">
                             Read More
                             <svg
                               width="18"
@@ -261,10 +265,32 @@ const IsHeroProduct = ({
           {/* Custom Navigation Buttons */}
           <div className="absolute top-1/2 -left-4 -right-4 flex justify-between pointer-events-none z-10 -translate-y-1/2">
             <button className="hero-prev pointer-events-auto w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-0">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
             </button>
             <button className="hero-next pointer-events-auto w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-0">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
             </button>
           </div>
         </div>

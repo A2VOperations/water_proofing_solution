@@ -8,9 +8,16 @@ import Image from "next/image";
 import "swiper/css";
 import "swiper/css/free-mode";
 
-const InfiniteMarquee = ({ text = "Changing roofs", speed = 5000 }) => {
-  // We repeat the text to ensure it fills the swiper container
-  const items = Array(10).fill(text);
+const InfiniteMarquee = ({ speed = 8000 }) => {
+  const items = [
+    "Dampness Audit™", 
+    "Thermal Imaging", 
+    "Liquid Membrane", 
+    "Crystal-Shield", 
+    "Basement Waterproofing", 
+    "Terrace Specialist",
+    "10 Year Warranty"
+  ];
 
   return (
     <div className="relative w-full bg-white py-8 md:py-12 border-y border-gray-100 select-none overflow-hidden">

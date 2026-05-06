@@ -39,6 +39,8 @@ export default function Contact() {
     lastName: "",
     email: "",
     phone: "",
+    location: "", // Where is the leak?
+    severity: "", // Severity level
     message: ""
   });
   
@@ -78,7 +80,7 @@ export default function Contact() {
     }
 
     // Format message for WhatsApp
-    const whatsappMessage = `Hello, I would like to request a quote.\n\nName: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nMessage: ${form.message}`;
+    const whatsappMessage = `Hello, I would like to request a leak report/quote.\n\nName: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nLocation of Leak: ${form.location}\nSeverity: ${form.severity}\nMessage: ${form.message}`;
     const encodedMessage = encodeURIComponent(whatsappMessage);
     
     // Show success popup
@@ -89,7 +91,7 @@ export default function Contact() {
     setTimeout(() => {
       window.open(`https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodedMessage}`, '_blank');
       setPopup(null);
-      setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" });
+      setForm({ firstName: "", lastName: "", email: "", phone: "", location: "", severity: "", message: "" });
     }, 1500);
   };
 
@@ -98,7 +100,19 @@ export default function Contact() {
   };
 
   return (
-    <main className="min-h-screen bg-white font-sans pt-32 pb-24 text-gray-900 relative">
+    <main className="min-h-screen bg-white font-sans pt-12 pb-24 text-gray-900 relative">
+      
+      {/* ── EMERGENCY HOTLINE BANNER ── */}
+      <div className="bg-red-600 text-white py-3 px-6 fixed top-24 left-0 right-0 z-40 flex items-center justify-center gap-4 animate-pulse">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        <p className="text-sm font-black tracking-widest uppercase">
+          24/7 EMERGENCY LEAK HOTLINE: <span className="underline ml-1">+{adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}</span>
+        </p>
+      </div>
+
+      <div className="pt-16"></div>
       
       {/* ── POPUP ALERT ── */}
       {popup && (
@@ -118,10 +132,10 @@ export default function Contact() {
           CONTACT US
         </p>
         <h1 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
-          EVERY LEAK, FULLY<br/>SEALED.
+          ENGINEERING SOLUTIONS FOR<br/>EVERY LEAK.
         </h1>
         <p className="text-gray-600 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-          We&apos;re here to help! Reach out with any questions or feedback you may have.
+          Don&apos;t wait for the damage to spread. Get a technical leak report and professional dampness audit today.
         </p>
       </section>
 
@@ -155,6 +169,34 @@ export default function Contact() {
                   value={form.phone} onChange={handleChange}
                   className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-5 py-4 placeholder:text-white/40 outline-none focus:border-[#0088ff] transition-colors"
                 />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <select 
+                  name="location" 
+                  value={form.location} 
+                  onChange={handleChange}
+                  className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-5 py-4 outline-none focus:border-[#0088ff] transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>Where is the leak?*</option>
+                  <option value="Terrace">Terrace</option>
+                  <option value="Bathroom">Bathroom / Toilet</option>
+                  <option value="Basement">Basement</option>
+                  <option value="External Walls">External Walls</option>
+                  <option value="Swimming Pool">Swimming Pool</option>
+                  <option value="Water Tank">Water Tank</option>
+                </select>
+                <select 
+                  name="severity" 
+                  value={form.severity} 
+                  onChange={handleChange}
+                  className="bg-[#2a2a2a] rounded-lg border border-white/10 text-white text-sm px-5 py-4 outline-none focus:border-[#0088ff] transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>Severity Level*</option>
+                  <option value="Dampness">Dampness / Seepage</option>
+                  <option value="Active Dripping">Active Dripping</option>
+                  <option value="Mold Growth">Mold & Fungus Growth</option>
+                  <option value="Structural Damage">Structural Cracks / Damage</option>
+                </select>
               </div>
               <textarea
                 name="message" placeholder="Write a message"
@@ -210,18 +252,12 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="mt-1">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0088ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
+              {/* Warranty Seal */}
+              <div className="pt-6 border-t border-gray-100 flex items-center gap-6">
+                <img src="/assets/industry/warranty_seal.png" alt="10 Year Warranty" className="w-24 h-24 object-contain" />
                 <div>
-                  <h4 className="text-xl font-medium text-gray-900 mb-1">Address:</h4>
-                  <p className="text-gray-600 text-[15px] max-w-[280px] leading-relaxed">
-                    {adminDetails?.address || CONTACT_ADDRESS}
-                  </p>
+                  <h4 className="text-lg font-bold text-gray-900 mb-1 uppercase tracking-tight">10-YEAR WARRANTY</h4>
+                  <p className="text-sm text-gray-500 leading-relaxed">Scientific waterproofing backed by our comprehensive performance guarantee.</p>
                 </div>
               </div>
             </div>

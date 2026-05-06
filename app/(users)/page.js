@@ -11,16 +11,22 @@ import IsHeroProduct from "@/app/components/isHeroProduct";
 import ProductCards from "../components/productCards";
 import BlogSection from "./home/section8";
 import InfiniteMarquee from "../components/InfiniteMarquee";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import TechnicalProof from "../components/TechnicalProof";
+import TrustBadges from "../components/TrustBadges";
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <BeforeAfterSlider />
+      <TrustBadges />
       <IsHeroProduct
-        title="Our Featured Solutions"
-        subtitle="Handpicked premium waterproofing systems for maximum protection."
+        title="Engineering-Grade Solutions"
+        subtitle="Technical waterproofing systems designed for maximum structural longevity."
       />
       <Section2 />  
+      <TechnicalProof />
       <InfiniteMarquee />
       <ProductCards solution="RESIDENTIAL SOLUTIONS" />
       <ProductCards solution="SPECIALIZED SOLUTIONS" />
