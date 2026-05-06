@@ -127,7 +127,7 @@ export default function Contact() {
       )}
 
       {/* ── HEADER ── */}
-      <section className="max-w-4xl mx-auto px-6 text-center mb-20 mt-10">
+      <section className="max-w-4xl mx-auto px-6 text-center mb-20 mt-20">
         <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
           CONTACT US
         </p>
