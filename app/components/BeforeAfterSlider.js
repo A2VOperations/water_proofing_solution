@@ -76,8 +76,8 @@ export default function BeforeAfterSlider() {
                     height={900}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-8 left-120 bg-black/60 backdrop-blur-md text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase">
-                    BEFORE: COMPROMISED
+                  <div className="absolute top-6 right-6 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-full text-[10px] md:text-xs font-black tracking-[0.2em] uppercase z-[35]">
+                    BEFORE
                   </div>
                 </div>
 
@@ -94,8 +94,8 @@ export default function BeforeAfterSlider() {
                     height={900}
                     style={{ filter: "brightness(1.1) contrast(1.05)" }}
                   />
-                  <div className="absolute top-8 right-120 bg-[#0088ff] text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase">
-                    AFTER: PROTECTED
+                  <div className="absolute top-6 left-6 bg-[#0088ff] text-white px-4 py-2 rounded-full text-[10px] md:text-xs font-black tracking-[0.2em] uppercase z-[35]">
+                    AFTER
                   </div>
                 </div>
 

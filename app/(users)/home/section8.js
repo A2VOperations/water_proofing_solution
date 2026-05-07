@@ -6,6 +6,13 @@ import { getAllBlogsAction } from "@/app/actions/admin";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+// Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,8 +56,8 @@ export default function BlogSection() {
     async function fetchBlogs() {
       const result = await getAllBlogsAction();
       if (result.success) {
-        // Show only latest 4 blogs on home page
-        setBlogs(result.blogs.slice(0, 4));
+        // Show latest 8 blogs on home page for the swiper
+        setBlogs(result.blogs.slice(0, 8));
       }
       setLoading(false);
     }
@@ -122,20 +129,20 @@ export default function BlogSection() {
   return (
     <main
       ref={containerRef}
-      className="min-h-screen bg-gray-50 font-sans pt-15 pb-15"
+      className="min-h-screen bg-gray-50 font-sans pt-2 pb-2"
     >
       {/* ── HEADER ── */}
       <section
         ref={headerRef}
-        className="max-w-7xl mx-auto px-6 text-center mb-20 mt-10"
+        className="max-w-7xl mx-auto px-6 text-center mb-1 mt-10"
       >
-        <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
+        <p className="text-[#0088ff] text-sm font-bold tracking-[0.3em] uppercase mb-4">
           STAY UPDATED
         </p>
-        <h1 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
+        <h2 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
           INSIGHTS &<br />
           ARTICLES.
-        </h1>
+        </h2>
         <p className="text-gray-600 text-lg md:text-xl font-medium max-w-2xl mx-auto">
           Read the latest news, tips, and professional advice from our experts
           to keep your home in perfect condition.
@@ -163,22 +170,58 @@ export default function BlogSection() {
         </div>
       </section>
 
-      {/* ── BLOG GRID ── */}
+      {/* ── BLOG CAROUSEL ── */}
       <section className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 blog-grid">
+        <div className="relative w-full pb-12">
+          {/* Navigation Buttons */}
+          <div className="flex justify-end gap-3 mb-8 pr-2">
+            <button className="blog-prev w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-800 hover:bg-[#0088ff] hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button className="blog-next w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-800 hover:bg-[#0088ff] hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+
           {loading ? (
-            [1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="h-[450px] bg-gray-100 animate-pulse rounded-[24px]"
-              ></div>
-            ))
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 blog-grid">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="h-[450px] bg-gray-100 animate-pulse rounded-[24px]"></div>
+              ))}
+            </div>
           ) : blogs.length === 0 ? (
             <div className="col-span-full text-center py-20 text-gray-400 font-bold uppercase tracking-widest">
               No blog posts available yet.
             </div>
           ) : (
-            blogs.map((post) => <BlogCard key={post._id} post={post} />)
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={24}
+              slidesPerView={1}
+              navigation={{
+                nextEl: ".blog-next",
+                prevEl: ".blog-prev",
+              }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              autoplay={{
+                delay: 4500,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 },
+              }}
+              className="w-full !pb-14"
+            >
+              {blogs.map((post) => (
+                <SwiperSlide key={post._id} className="h-auto pb-4">
+                  <BlogCard post={post} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           )}
         </div>
       </section>

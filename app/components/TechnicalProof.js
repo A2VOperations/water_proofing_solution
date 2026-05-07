@@ -1,5 +1,11 @@
 "use client";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+
+// Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 
 const TOOLS = [
   {
@@ -60,6 +66,20 @@ const TOOLS = [
     ),
   },
 ];
+
+const ToolCard = ({ tool }) => (
+  <div className="bg-white p-10 rounded-[40px] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group h-full">
+    <div className="w-16 h-16 bg-[#e8f4ff] rounded-2xl flex items-center justify-center text-[#0088ff] mb-8 group-hover:scale-110 transition-transform">
+      {tool.icon}
+    </div>
+    <h3 className="text-xl font-bold text-[#111] uppercase tracking-tight mb-3">
+      {tool.title}
+    </h3>
+    <p className="text-gray-500 text-[15px] leading-relaxed">
+      {tool.desc}
+    </p>
+  </div>
+);
 
 export default function TechnicalProof() {
   return (
@@ -133,23 +153,30 @@ export default function TechnicalProof() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-8">
           {TOOLS.map((tool) => (
-            <div
-              key={tool.title}
-              className="bg-white p-10 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group"
-            >
-              <div className="w-16 h-16 bg-[#e8f4ff] rounded-2xl flex items-center justify-center text-[#0088ff] mb-8 group-hover:scale-110 transition-transform">
-                {tool.icon}
-              </div>
-              <h3 className="text-xl font-bold text-[#111] uppercase tracking-tight mb-3">
-                {tool.title}
-              </h3>
-              <p className="text-gray-500 text-[15px] leading-relaxed">
-                {tool.desc}
-              </p>
-            </div>
+            <ToolCard key={tool.title} tool={tool} />
           ))}
+        </div>
+
+        {/* Mobile Swiper */}
+        <div className="block md:hidden">
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1.2}
+            centeredSlides={true}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            className="pb-12"
+          >
+            {TOOLS.map((tool) => (
+              <SwiperSlide key={tool.title}>
+                <ToolCard tool={tool} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         {/* Action Shots */}

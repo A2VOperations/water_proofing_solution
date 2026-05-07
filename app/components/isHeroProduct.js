@@ -121,6 +121,19 @@ const IsHeroProduct = ({
         </div>
       ) : (
         <div className="relative w-full">
+          {/* Custom Navigation Buttons - Moved above the cards to avoid overlap */}
+          <div className="flex justify-end gap-3 mb-6 pr-2">
+            <button className="hero-prev w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <button className="hero-next w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
           {items && items.length > 0 ? (
             <Swiper
               style={{ width: "100%" }}
@@ -262,37 +275,6 @@ const IsHeroProduct = ({
             </div>
           )}
 
-          {/* Custom Navigation Buttons */}
-          <div className="absolute top-1/2 -left-4 -right-4 flex justify-between pointer-events-none z-10 -translate-y-1/2">
-            <button className="hero-prev pointer-events-auto w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-0">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m15 18-6-6 6-6" />
-              </svg>
-            </button>
-            <button className="hero-next pointer-events-auto w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 disabled:opacity-0">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m9 18 6-6-6-6" />
-              </svg>
-            </button>
-          </div>
         </div>
       )}
     </section>
