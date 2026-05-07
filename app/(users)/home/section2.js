@@ -168,7 +168,7 @@ const Section2 = () => {
         >
           <video
             ref={videoRef}
-            src="/home/section2-video.mp4"
+            src="/home/Video Project 1.mp4"
             autoPlay
             loop
             muted
