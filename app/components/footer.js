@@ -8,27 +8,29 @@ import { CONTACT_CONFIG } from "@/app/config";
 const USEFUL_LINKS_COL1 = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Pricing", href: "/pricing" },
+   { label: "Contact", href: "/contact" },
+  { label: "Work", href: "/work" },
   { label: "Blog", href: "/blog" },
 ];
 
 const USEFUL_LINKS_COL2 = [
-  { label: "Contact", href: "/contact" },
-  { label: "Licenses", href: "/licenses" },
-  { label: "Style Guide", href: "/style-guide" },
-  { label: "Change Log", href: "/change-log" },
+  { label: "Guniting Waterproofing", href: "/services/guniting-waterproofing-service" },
+  { label: "Terrace Waterproofing", href: "/services/terrace-waterproofing-service" },
+  { label: "Flooring Waterproofing", href: "/services/flooring-waterproofing-service" },
+  { label: "Basement Waterproofing", href: "/services/basement-waterproofing-service" },
+  { label: "Exterior Wall Waterproofing", href: "/services/exterior-wall-waterproofing-services" },
 ];
 
-const WORKING_HOURS = [
-  { day: "Mon – Fri:", time: "9:00 AM – 5:00 PM" },
-  { day: "Saturday:", time: "10:00 AM – 6:00 PM" },
-  { day: "Sunday", time: "Closed" },
+const USEFUL_LINKS_COL3 = [
+  { label: "Chemical Waterproofing", href: "/services/chemical-waterproofing-service" },
+  { label: "Bathroom Sealing", href: "/services/bathroom-waterproofing-services" },
+  { label: "Polymer Waterproofing", href: "/services/polymer-waterproofing-services" },
+  { label: "Cementitious Waterproofing", href: "/services/cementitious-waterproofing-services" },
 ];
+
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+  const [name, setName] = useState("");
   const [adminDetails, setAdminDetails] = useState(null);
 
   useEffect(() => {
@@ -41,12 +43,14 @@ export default function Footer() {
     fetchAdmin();
   }, []);
 
-  const handleSubscribe = (e) => {
+  const handleWhatsApp = (e) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail("");
-      setTimeout(() => setSubscribed(false), 3000);
+    if (name.trim()) {
+      const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp;
+      const cleanNumber = number.replace(/\D/g, "");
+      const message = encodeURIComponent(`Hello! My name is ${name}. I'm interested in your waterproofing services.`);
+      window.open(`https://wa.me/${cleanNumber}?text=${message}`, "_blank");
+      setName("");
     }
   };
 
@@ -222,35 +226,31 @@ export default function Footer() {
 
               <div className="w-full lg:w-[55%]">
                 <form
-                  onSubmit={handleSubscribe}
+                  onSubmit={handleWhatsApp}
                   className="relative flex items-center w-full"
                 >
                   <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter Your Email Address"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter Your Name"
                     required
                     className="w-full bg-transparent border border-white/30 rounded-full py-[14px] pl-6 pr-[50px] sm:pr-[170px] text-white placeholder-gray-400 focus:outline-none focus:border-white/60 transition-colors text-sm"
                   />
                   <button
                     type="submit"
-                    className="absolute right-[4px] top-[4px] bottom-[4px] bg-white text-[#031b33] rounded-full px-4 sm:px-6 font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors whitespace-nowrap text-xs sm:text-sm"
+                    className="absolute right-[4px] top-[4px] bottom-[4px] bg-[#25D366] text-white rounded-full px-4 sm:px-6 font-bold flex items-center gap-2 hover:bg-[#1ebd5b] transition-colors whitespace-nowrap text-xs sm:text-sm shadow-lg"
                   >
                     <span className="hidden sm:inline">
-                      {subscribed ? "Subscribed ✓" : "Subscribe Now"}
+                      WhatsApp Me
                     </span>
                     <svg
-                      width="16"
-                      height="16"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      fill="currentColor"
                     >
-                      <path d="M5 12h14M12 5l7 7-7 7" />
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                     </svg>
                   </button>
                 </form>
@@ -258,49 +258,49 @@ export default function Footer() {
             </div>
 
             {/* Links Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 pt-10 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 lg:gap-20 pt-10 w-full">
               {/* Useful Link */}
-              <div className="flex flex-col items-center lg:items-start">
-                <h3 className="text-white text-[16px] font-semibold mb-6">
-                  Useful Link
+              <div className="flex flex-col lg:items-start">
+                <h3 className="text-white text-[16px] font-semibold mb-8 uppercase tracking-wider">
+                  Quick Links & Services
                 </h3>
-                <div className="grid grid-cols-2 gap-y-3 gap-x-8">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-8 gap-x-12">
                   <div className="flex flex-col gap-3">
+                    <p className="text-white/50 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Navigation</p>
                     {USEFUL_LINKS_COL1.map((link) => (
                       <Link
                         key={link.label}
                         href={link.href}
-                        className="text-gray-300 hover:text-white transition-colors text-[14px]"
+                        className="text-gray-300 hover:text-[#0088ff] transition-colors text-[14px] font-medium"
                       >
                         {link.label}
                       </Link>
                     ))}
                   </div>
                   <div className="flex flex-col gap-3">
+                    <p className="text-white/50 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Services</p>
                     {USEFUL_LINKS_COL2.map((link) => (
                       <Link
                         key={link.label}
                         href={link.href}
-                        className="text-gray-300 hover:text-white transition-colors text-[14px]"
+                        className="text-gray-300 hover:text-[#0088ff] transition-colors text-[14px] font-medium"
                       >
                         {link.label}
                       </Link>
                     ))}
                   </div>
-                </div>
-              </div>
-
-              {/* Working Time */}
-              <div className="flex flex-col items-center lg:items-start">
-                <h3 className="text-white text-[16px] font-semibold mb-6">
-                  Working Time
-                </h3>
-                <div className="flex flex-col gap-3">
-                  {WORKING_HOURS.map(({ day, time }) => (
-                    <p key={day} className="text-gray-300 text-[14px] m-0">
-                      {day} {time}
-                    </p>
-                  ))}
+                  <div className="flex flex-col gap-3">
+                    <p className="text-white/50 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">&nbsp;</p>
+                    {USEFUL_LINKS_COL3.map((link) => (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        className="text-gray-300 hover:text-[#0088ff] transition-colors text-[14px] font-medium"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
 
