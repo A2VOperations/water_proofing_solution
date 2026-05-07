@@ -190,11 +190,11 @@ export default function Contact() {
       )}
 
       {/* ── HEADER ── */}
-      <section className="max-w-4xl mx-auto px-6 text-center mb-20 mt-20">
+      <section className="max-w-4xl mx-auto px-6 text-center mb-15 mt-20">
         <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
           CONTACT US
         </p>
-        <h1 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
+        <h1 className="text-[32px] sm:text-[54px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
           ENGINEERING SOLUTIONS FOR
           <br />
           EVERY LEAK.

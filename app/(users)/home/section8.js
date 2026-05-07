@@ -131,57 +131,44 @@ export default function BlogSection() {
       ref={containerRef}
       className="min-h-screen bg-gray-50 font-sans pt-2 pb-2"
     >
-      {/* ── HEADER ── */}
+      {/* ── HEADER & NAVIGATION ── */}
       <section
         ref={headerRef}
-        className="max-w-7xl mx-auto px-6 text-center mb-1 mt-10"
+        className="max-w-[1400px] mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-8"
       >
-        <p className="text-[#0088ff] text-sm font-bold tracking-[0.3em] uppercase mb-4">
-          STAY UPDATED
-        </p>
-        <h2 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-6 text-[#111]">
-          INSIGHTS &<br />
-          ARTICLES.
-        </h2>
-        <p className="text-gray-600 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-          Read the latest news, tips, and professional advice from our experts
-          to keep your home in perfect condition.
-        </p>
-        <div className="w-full flex justify-center">
-          <Link href={"/blog"}>
-            <button className="mt-8 bg-[#0088ff] hover:bg-[#0073e6] text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 flex  gap-2">
-              View More
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
+        <div className="text-left">
+          <p className="text-[#0088ff] text-sm font-bold tracking-[0.3em] uppercase mb-4">
+            STAY UPDATED
+          </p>
+          <h2 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] text-[#111]">
+            INSIGHTS &<br />
+            ARTICLES.
+          </h2>
+        </div>
+
+        <div className="flex items-center gap-6">
+          <Link href={"/blog"} className="hidden sm:block">
+            <button className="bg-[#0088ff] hover:bg-[#0073e6] text-white font-bold py-3 px-6 rounded-full transition-colors duration-300 flex items-center gap-2 text-sm uppercase tracking-widest">
+              View All
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
           </Link>
+          <div className="flex gap-3">
+            <button className="blog-prev w-12 h-12 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-800 hover:bg-[#0088ff] hover:text-white transition-all duration-300 disabled:opacity-30">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button className="blog-next w-12 h-12 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-800 hover:bg-[#0088ff] hover:text-white transition-all duration-300 disabled:opacity-30">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
         </div>
       </section>
 
       {/* ── BLOG CAROUSEL ── */}
       <section className="max-w-[1400px] mx-auto px-6">
-        <div className="relative w-full pb-12">
-          {/* Navigation Buttons */}
-          <div className="flex justify-end gap-3 mb-8 pr-2">
-            <button className="blog-prev w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-800 hover:bg-[#0088ff] hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button className="blog-next w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-800 hover:bg-[#0088ff] hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-          </div>
+        <div className="relative w-full">
 
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 blog-grid">
@@ -214,7 +201,7 @@ export default function BlogSection() {
                 640: { slidesPerView: 2 },
                 1024: { slidesPerView: 4 },
               }}
-              className="w-full !pb-14"
+              className="w-full !pb-10"
             >
               {blogs.map((post) => (
                 <SwiperSlide key={post._id} className="h-auto pb-4">

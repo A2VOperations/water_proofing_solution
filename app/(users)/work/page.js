@@ -470,7 +470,7 @@ export default function Work() {
                   slidesPerView: 4,
                 },
               }}
-              className="pb-16"
+              className="w-full !pb-20"
             >
               {works.map((work, i) => (
                 <SwiperSlide key={work._id}>
@@ -488,8 +488,8 @@ export default function Work() {
                 background: #0088ff;
               }
               @media (max-width: 768px) {
-                .swiper-prev, .swiper-next {
-                  display: none;
+                .featured-swiper {
+                  padding-bottom: 20px;
                 }
               }
             `}</style>
