@@ -96,18 +96,18 @@ export default function Blog() {
   );
 
   return (
-    <main className="min-h-screen bg-gray-50 font-sans pt-32 pb-24">
+    <main className="min-h-screen bg-gray-50 font-sans pt-20 pb-24">
       
       {/* ── HEADER ── */}
       <section className="max-w-7xl mx-auto px-6 text-center mb-16 mt-10">
-        <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4">
+        <p className="text-[#0088ff] text-sm font-bold tracking-widest uppercase mb-4 ">
           STAY UPDATED
         </p>
-        <h1 className="text-[40px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-8 text-[#111]">
+        <h1 className="text-[32px] sm:text-[54px] md:text-[64px] font-black uppercase tracking-tight leading-[1.05] mb-4 text-[#111]">
           INSIGHTS &<br/>ARTICLES.
         </h1>
         
-        <div className="max-w-xl mx-auto relative mt-12 mb-6">
+        <div className="max-w-xl mx-auto relative mt-6 mb-6">
             <input 
                 type="text"
                 placeholder="Search articles, topics, authors..."
