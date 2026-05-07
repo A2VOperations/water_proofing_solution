@@ -207,7 +207,7 @@ export default function Work() {
 
 
   return (
-    <main className="bg-white font-sans text-gray-900 pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-x-hidden">
+    <main className="bg-white font-sans text-gray-900 pt-24 sm:pt-32 pb-5 sm:pb-24 overflow-x-hidden">
       {/* ── HEADER ── */}
       <section className="max-w-5xl mx-auto px-6 text-center  mt-4 sm:mt-10 font-display">
         <div className="inline-block border border-gray-200 rounded-full px-4 py-1.5 text-[9px] sm:text-[10px] font-black tracking-[0.2em] text-[#0088ff] mb-4 sm:mb-6 uppercase bg-gray-50/50">
@@ -310,10 +310,10 @@ export default function Work() {
 
       {/* ── STICKY CARD STASH ── */}
       <div className="relative w-full">
-        <section className="relative w-full py-16 sm:py-32 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section className="relative w-full py-12 sm:py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             {/* ── HEADER: ARTISTIC STYLE ── */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16 sm:mb-24 font-display">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 mb-10 sm:mb-24 font-display">
               <div className="max-w-2xl">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-px bg-[#0088ff]" />
@@ -353,7 +353,7 @@ export default function Work() {
               <div className="flex flex-col gap-3 sm:gap-6">
                 <BentoItem 
                   work={works[0]} 
-                  className="aspect-square" 
+                  className="aspect-3/4 md:aspect-square" 
                   placeholder="/home/hero-image.png"
                 />
                 <BentoItem 
@@ -379,24 +379,24 @@ export default function Work() {
               </div>
 
               {/* Col 3 */}
-              <div className="col-span-2 md:col-span-1 grid grid-cols-2 md:grid-cols-1">
-                <div className="flex flex-col gap-3 sm:gap-6">
-                  <BentoItem 
-                    work={works[3]} 
-                    className="aspect-4/3" 
-                    placeholder="/home/hero-image2.png"
-                  />
-                  <BentoItem 
-                    work={works[4]} 
-                    className="aspect-square" 
-                    placeholder="/home/hero-image3.png"
-                  />
-                </div>
+              <div className="col-span-2 md:col-span-1 grid grid-cols-2 md:grid-cols-1 gap-3 sm:gap-6">
+                <BentoItem 
+                  work={works[3]} 
+                  className="aspect-3/4 sm:aspect-4/3" 
+                  placeholder="/home/hero-image2.png"
+                />
                 <BentoItem 
                   work={works[6]} 
                   className="aspect-square" 
                   placeholder="/home/hero-image.png"
                 />
+                <div className="col-span-2 md:col-span-1">
+                  <BentoItem 
+                    work={works[4]} 
+                    className="aspect-video md:aspect-square" 
+                    placeholder="/home/hero-image3.png"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -404,7 +404,7 @@ export default function Work() {
       </div>
 
       {/* ── FEATURED PORTFOLIO GRID ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 mb-24">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:mb-18">
         {/* Section header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 sm:mb-12">
           <div className="max-w-2xl">
@@ -579,11 +579,11 @@ function BentoItem({ work, className, placeholder, featured = false }) {
       ))}
       
       {/* Overlay */}
-      <div className={`absolute inset-0 z-20 flex flex-col justify-end p-6 sm:p-8 transition-all duration-500 bg-linear-to-t from-black/90 via-black/20 to-transparent ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <p className="text-[9px] sm:text-[10px] font-black text-[#D4AF37] tracking-[0.3em] uppercase mb-2 font-display">
+      <div className={`absolute inset-0 z-20 flex flex-col justify-end p-4 sm:p-8 transition-all duration-500 bg-linear-to-t from-black/90 via-black/20 to-transparent ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <p className="text-[8px] sm:text-[10px] font-black text-[#D4AF37] tracking-[0.3em] uppercase mb-1 sm:mb-2 font-display">
           {work?.category || "WATERPROOFING"}
         </p>
-        <h4 className="text-xs sm:text-2xl font-serif text-white italic leading-tight font-display">
+        <h4 className="text-base sm:text-2xl font-serif text-white italic leading-tight font-display">
           {work?.title || "Excellence in Craft"}
         </h4>
         {isHovered && (
