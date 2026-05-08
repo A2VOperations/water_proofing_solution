@@ -437,10 +437,10 @@ export default function Navbar() {
               }}
             />
 
-            <div className="flex" style={{ height: "75vh" }}>
+            <div className="flex overflow-hidden" style={{ height: "min(650px, 70vh)" }}>
               {/* Left column — category tabs */}
-              <div className="w-64 border-r border-gray-100 bg-gray-50/70 py-6 px-4 flex flex-col gap-1 shrink-0">
-                <p className="text-[11px] font-black tracking-[0.2em] text-gray-400 px-3 pb-3 uppercase">
+              <div className="w-64 border-r border-gray-100 bg-gray-50/70 py-4 px-4 flex flex-col gap-0.5 shrink-0 overflow-y-auto custom-scrollbar">
+                <p className="text-[10px] font-black tracking-[0.2em] text-gray-400 px-3 pb-2 uppercase">
                   Categories
                 </p>
                 {dynamicMegaMenu.map((col, i) => (
@@ -448,46 +448,67 @@ export default function Navbar() {
                     key={col.category}
                     onMouseEnter={() => setActiveCol(i)}
                     onClick={() => setActiveCol(i)}
-                    className="text-left w-full px-4 py-3.5 rounded-xl transition-all duration-150 group"
+                    className={`text-left w-full px-4 py-2.5 rounded-xl transition-all duration-300 group relative border mb-2 ${
+                      activeCol === i 
+                        ? "bg-white border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.08)] scale-[1.02] z-10" 
+                        : "bg-transparent border-transparent hover:bg-white/50 hover:border-gray-200"
+                    }`}
                     style={{
-                      backgroundColor:
-                        activeCol === i ? "white" : "transparent",
-                      boxShadow:
-                        activeCol === i ? "0 1px 4px rgba(0,0,0,0.08)" : "none",
                       cursor: "default",
                     }}
                   >
+                    {/* Active Indicator Bar */}
+                    {activeCol === i && (
+                      <div 
+                        className="absolute left-0 top-3 bottom-3 w-1 rounded-r-full transition-all duration-300"
+                        style={{ backgroundColor: col.accent }}
+                      />
+                    )}
+
                     <span className="flex items-center gap-2.5">
                       <span
-                        className="w-2.5 h-2.5 rounded-full shrink-0 transition-all duration-150"
+                        className="w-2.5 h-2.5 rounded-full shrink-0 transition-all duration-300"
                         style={{
-                          backgroundColor:
-                            activeCol === i ? col.accent : "#d1d5db",
+                          backgroundColor: col.accent,
+                          opacity: activeCol === i ? 1 : 0.4,
                           transform:
-                            activeCol === i ? "scale(1.2)" : "scale(1)",
+                            activeCol === i ? "scale(1.1)" : "scale(1)",
+                          boxShadow: activeCol === i ? `0 0-10px ${col.accent}44` : "none"
                         }}
                       />
                       <span
-                        className="block font-bold leading-tight transition-colors duration-150"
+                        className="block font-black leading-tight transition-colors duration-300"
                         style={{
-                          fontSize: "13px",
-                          color: activeCol === i ? "#111827" : "#6b7280",
+                          fontSize: "13.5px",
+                          color: activeCol === i ? "#000" : "#374151",
                         }}
                       >
                         {col.category}
                       </span>
                     </span>
-                    <span className="block text-[12px] text-gray-400 mt-1 pl-5 leading-snug">
+                    
+                    <span className={`block text-[11.5px] mt-1 pl-5 leading-snug transition-colors duration-300 ${
+                      activeCol === i ? "text-gray-600 font-medium" : "text-gray-400"
+                    }`}>
                       {col.description}
                     </span>
-                    <span
-                      className="block text-[11px] font-semibold mt-1 pl-5"
-                      style={{
-                        color: activeCol === i ? col.accent : "#9ca3af",
-                      }}
-                    >
-                      {col.items.length} services
-                    </span>
+
+                    <div className="flex items-center gap-2 mt-1.5 pl-5">
+                      <span
+                        className="block text-[10.5px] font-black tracking-widest transition-colors duration-300 uppercase"
+                        style={{
+                          color: activeCol === i ? col.accent : "#94a3b8",
+                        }}
+                      >
+                        {col.items.length} services
+                      </span>
+                      {activeCol === i && (
+                        <div 
+                          className="w-1.5 h-1.5 rounded-full animate-ping"
+                          style={{ backgroundColor: col.accent }}
+                        />
+                      )}
+                    </div>
                   </button>
                 ))}
 
@@ -519,18 +540,18 @@ export default function Navbar() {
               </div>
 
               {/* Right pane — service items grid */}
-              <div className="flex-1 p-8 overflow-y-auto">
+              <div className="flex-1 flex flex-col overflow-hidden">
                 {dynamicMegaMenu.map((col, colIdx) => (
                   <div
                     key={col.category}
-                    className={`transition-all duration-200 ${
+                    className={`flex-1 flex flex-col p-8 transition-all duration-200 ${
                       activeCol === colIdx
-                        ? "opacity-100 block"
+                        ? "opacity-100 flex"
                         : "opacity-0 hidden"
                     }`}
                   >
                     {/* Pane header */}
-                    <div className="flex items-start justify-between mb-6 pb-4 border-b border-gray-100">
+                    <div className="flex items-start justify-between mb-6 pb-4 border-b border-gray-100 shrink-0">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span
@@ -583,70 +604,53 @@ export default function Navbar() {
                       </Link>
                     </div>
 
-                    {/* Items grid */}
-                    <div className="grid grid-cols-3 gap-2">
-                      {col.items.length > 0 ? (
-                        col.items.map((item, itemIdx) => {
-                          const active = isActive(item.href);
-                          return (
-                            <Link
-                              key={item.label}
-                              href={item.href}
-                              className="flex items-start gap-3.5 px-4 py-4 rounded-xl transition-all duration-150 group border"
-                              style={{
-                                borderColor: active
-                                  ? "transparent"
-                                  : "transparent",
-                                backgroundColor: active
-                                  ? "#e8f4ff"
-                                  : "transparent",
-                              }}
-                            >
-                              <span
-                                className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150"
+                    {/* Items grid - Scrollable Area */}
+                    <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+                        {col.items.length > 0 ? (
+                          col.items.map((item, itemIdx) => {
+                            const active = isActive(item.href);
+                            return (
+                              <Link
+                                key={item.label}
+                                href={item.href}
+                                className="flex items-start gap-4 px-4 py-4 rounded-xl transition-all duration-200 group border border-transparent hover:border-gray-100 hover:bg-gray-50/50"
                                 style={{
                                   backgroundColor: active
-                                    ? col.accent
-                                    : "#f1f5f9",
-                                  color: active ? "white" : "#64748b",
+                                    ? "#f3f4f6"
+                                    : "transparent",
                                 }}
                               >
-                                <span className="w-5 h-5">
-                                  {
-                                    SERVICE_ICONS[
-                                      (colIdx * 5 + itemIdx) %
-                                        SERVICE_ICONS.length
-                                    ]
-                                  }
-                                </span>
-                              </span>
-                              <div className="min-w-0 pt-0.5">
-                                <span
-                                  className="block font-semibold leading-tight truncate transition-colors duration-150"
+                                <div
+                                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110"
                                   style={{
-                                    fontSize: "14px",
-                                    color: active ? "#0088ff" : "#1e293b",
+                                    backgroundColor: active ? col.accent : `${col.accent}12`,
+                                    color: active ? "white" : col.accent,
                                   }}
                                 >
-                                  {item.label}
-                                </span>
-                                <span
-                                  className="block text-gray-400 mt-1"
-                                  style={{ fontSize: "12px" }}
-                                >
-                                  {item.desc}
-                                </span>
-                              </div>
-                            </Link>
-                          );
-                        })
-                      ) : (
-                        <div className="col-span-3 py-20 text-center">
-                          <p className="text-gray-400 font-bold uppercase tracking-widest text-xs italic">
-                            No services in this category yet
-                          </p>
-                        </div>
-                      )}
+                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                  </svg>
+                                </div>
+                                <div className="flex flex-col min-w-0">
+                                  <span className="text-[14px] font-bold text-gray-900 leading-tight group-hover:text-[#0088ff] transition-colors truncate">
+                                    {item.label}
+                                  </span>
+                                  <span className="text-[12px] text-gray-400 mt-1 line-clamp-1">
+                                    Professional {item.label.toLowerCase()} services
+                                  </span>
+                                </div>
+                              </Link>
+                            );
+                          })
+                        ) : (
+                          <div className="col-span-3 py-20 text-center">
+                            <p className="text-gray-400 font-bold uppercase tracking-widest text-xs italic">
+                              No services in this category yet
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}

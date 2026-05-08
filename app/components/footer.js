@@ -133,15 +133,15 @@ export default function Footer() {
               </Link>
             </div>
 
-            <div className="flex gap-5 mt-8 lg:mt-auto">
+            <div className="flex gap-4 mt-8 lg:mt-auto">
               {[
                 {
                   label: "Facebook",
                   href: "#",
                   icon: (
                     <svg
-                      width="20"
-                      height="20"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >
@@ -154,8 +154,8 @@ export default function Footer() {
                   href: "#",
                   icon: (
                     <svg
-                      width="20"
-                      height="20"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >
@@ -168,8 +168,8 @@ export default function Footer() {
                   href: "#",
                   icon: (
                     <svg
-                      width="20"
-                      height="20"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -194,8 +194,8 @@ export default function Footer() {
                   href: "#",
                   icon: (
                     <svg
-                      width="20"
-                      height="20"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >
@@ -208,12 +208,13 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="text-white hover:text-[#0088ff] transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#0088ff] hover:border-[#0088ff] hover:scale-110 transition-all duration-300 group"
                 >
                   {icon}
                 </a>
               ))}
             </div>
+
           </div>
 
           {/* ── RIGHT COLUMN ── */}
@@ -235,8 +236,9 @@ export default function Footer() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter Your Name"
                     required
-                    className="w-full bg-transparent border border-white/30 rounded-full py-[14px] pl-6 pr-[50px] sm:pr-[170px] text-white placeholder-gray-400 focus:outline-none focus:border-white/60 transition-colors text-sm"
+                    className="w-full bg-white/5 border border-white/10 rounded-full py-[16px] pl-6 pr-[50px] sm:pr-[170px] text-white placeholder-gray-500 focus:outline-none focus:border-[#0088ff]/50 focus:bg-white/10 transition-all duration-300 text-sm backdrop-blur-sm"
                   />
+
                   <button
                     type="submit"
                     className="absolute right-[4px] top-[4px] bottom-[4px] bg-[#25D366] text-white rounded-full px-4 sm:px-6 font-bold flex items-center gap-2 hover:bg-[#1ebd5b] transition-colors whitespace-nowrap text-xs sm:text-sm shadow-lg"
@@ -258,73 +260,94 @@ export default function Footer() {
             </div>
 
             {/* Links Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 lg:gap-20 pt-10 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-[4fr_1fr] gap-12 lg:gap-16 pt-12 w-full">
               {/* Useful Link */}
-              <div className="flex flex-col lg:items-start">
-                <h3 className="text-white text-[16px] font-semibold mb-8 uppercase tracking-wider">
-                  Quick Links & Services
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-8 gap-x-12">
-                  <div className="flex flex-col gap-3">
-                    <p className="text-white/50 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Navigation</p>
-                    {USEFUL_LINKS_COL1.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        className="text-gray-300 hover:text-[#0088ff] transition-colors text-[14px] font-medium"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
+              <div className="flex flex-col items-center lg:items-start">
+                <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-y-12 gap-x-12 w-full">
+                  <div className="flex flex-col items-center sm:items-start gap-4">
+                    <h4 className="text-white text-[14px] font-bold tracking-[0.1em] uppercase mb-2 flex items-center justify-center sm:justify-start gap-2">
+                      Navigation
+                    </h4>
+                    <div className="flex flex-col items-center sm:items-start gap-4">
+                      {USEFUL_LINKS_COL1.map((link) => (
+                        <Link
+                          key={link.label}
+                          href={link.href}
+                          className="text-gray-400 hover:text-white transition-all duration-300 text-[14px] font-medium flex items-center group whitespace-nowrap"
+                        >
+                          <span className="w-0 group-hover:w-3 h-[1.5px] bg-[#0088ff] mr-0 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-3">
-                    <p className="text-white/50 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Services</p>
-                    {USEFUL_LINKS_COL2.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        className="text-gray-300 hover:text-[#0088ff] transition-colors text-[14px] font-medium"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <p className="text-white/50 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">&nbsp;</p>
-                    {USEFUL_LINKS_COL3.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        className="text-gray-300 hover:text-[#0088ff] transition-colors text-[14px] font-medium"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
+                  
+                  <div className="flex flex-col items-center sm:items-start gap-4">
+                    <h4 className="text-white text-[14px] font-bold tracking-[0.1em] uppercase mb-2 flex items-center justify-center sm:justify-start gap-2">
+                      Our Services
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 lg:gap-x-12 w-full">
+                      <div className="flex flex-col items-center sm:items-start gap-4">
+                        {USEFUL_LINKS_COL2.map((link) => (
+                          <Link
+                            key={link.label}
+                            href={link.href}
+                            className="text-gray-400 hover:text-white transition-all duration-300 text-[14px] font-medium flex items-center group whitespace-nowrap"
+                          >
+                            <span className="w-0 group-hover:w-3 h-[1.5px] bg-[#0088ff] mr-0 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
+                            {link.label}
+                          </Link>
+                        ))}
+                      </div>
+                      <div className="flex flex-col items-center sm:items-start gap-4">
+                        {USEFUL_LINKS_COL3.map((link) => (
+                          <Link
+                            key={link.label}
+                            href={link.href}
+                            className="text-gray-400 hover:text-white transition-all duration-300 text-[14px] font-medium flex items-center group whitespace-nowrap"
+                          >
+                            <span className="w-0 group-hover:w-3 h-[1.5px] bg-[#0088ff] mr-0 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
+                            {link.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
+
               </div>
 
               {/* Say Hello */}
               <div className="flex flex-col items-center lg:items-start">
-                <h3 className="text-white text-[16px] font-semibold mb-6">
+                <h4 className="text-white text-[18px] font-bold mb-8 relative inline-block">
                   Say Hello
-                </h3>
-                <div className="flex flex-col gap-4 items-center lg:items-start">
-                  <a
-                    href={`mailto:${adminDetails?.email || CONTACT_CONFIG.email}`}
-                    className="text-gray-300 hover:text-white transition-colors text-[14px] underline underline-offset-4 decoration-gray-500 hover:decoration-white"
-                  >
-                    {adminDetails?.email || CONTACT_CONFIG.email}
-                  </a>
-                  <a
-                    href={`tel:${adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp}`}
-                    className="text-white text-[20px] font-semibold tracking-wide hover:text-[#0088ff] transition-colors mt-1"
-                  >
-                    {adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}
-                  </a>
+                  <span className="absolute -bottom-2 left-0 w-8 h-[2.5px] bg-[#0088ff]"></span>
+                </h4>
+                <div className="flex flex-col gap-6 items-center lg:items-start w-full">
+                  <div className="flex flex-col items-center lg:items-start gap-1">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Email Us</span>
+                    <a
+                      href={`mailto:${adminDetails?.email || CONTACT_CONFIG.email}`}
+                      className="text-gray-300 hover:text-[#0088ff] transition-all duration-300 text-[15px] font-medium border-b border-white/10 hover:border-[#0088ff]/50 pb-1"
+                    >
+                      {adminDetails?.email || CONTACT_CONFIG.email}
+                    </a>
+                  </div>
+                  
+                  <div className="flex flex-col items-center lg:items-start gap-1">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Call Us</span>
+                    <a
+                      href={`tel:${adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp}`}
+                      className="text-white text-[24px] font-bold tracking-tight hover:text-[#0088ff] transition-all duration-300"
+                    >
+                      {adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}
+                    </a>
+                  </div>
                 </div>
               </div>
+
             </div>
+
           </div>
         </div>
       </div>

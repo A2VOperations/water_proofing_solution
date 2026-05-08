@@ -129,7 +129,7 @@ export default function BlogSection() {
   return (
     <main
       ref={containerRef}
-      className="min-h-screen bg-gray-50 font-sans pt-2 pb-2"
+      className="bg-gray-50 font-sans py-24"
     >
       {/* ── HEADER & NAVIGATION ── */}
       <section
