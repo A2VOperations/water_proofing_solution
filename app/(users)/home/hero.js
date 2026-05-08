@@ -60,6 +60,7 @@ const SERVICE_CARDS = [
 ];
 
 const HERO_IMAGES = [
+  "/home/hero-image4.png",
   "/home/hero-image.png",
   "/home/hero-image2.png",
   "/home/hero-image3.png",
@@ -204,7 +205,7 @@ export default function Hero() {
             modules={[Autoplay, EffectFade]}
             effect="fade"
             autoplay={{
-              delay: 2000,
+              delay: 3000,
               disableOnInteraction: false,
             }}
             loop={true}
