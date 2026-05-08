@@ -37,4 +37,20 @@ nav, button, label,
       transform: translateX(-50%);
     }
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #0088ff;
+    border-radius: 10px;
+    border: 2px solid #f8fafc;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #0073e6;
+  }
 }
