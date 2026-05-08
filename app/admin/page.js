@@ -35,11 +35,16 @@ export default function AdminLogin() {
         <div className="bg-[#111] p-10 text-center relative overflow-hidden">
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#0088ff] rounded-full opacity-20 blur-2xl"></div>
           <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#0088ff] rounded-full opacity-20 blur-2xl"></div>
-          
-          <h1 className="text-3xl font-black uppercase tracking-tight text-white mb-2 relative z-10">RWPC Ras Care</h1>
-          <p className="text-[#0088ff] font-bold tracking-[0.2em] uppercase text-xs relative z-10">Admin Portal</p>
+
+          <h1 className="text-3xl font-black uppercase tracking-tight text-white mb-2 relative z-10">
+            {" "}
+            Ras Care
+          </h1>
+          <p className="text-[#0088ff] font-bold tracking-[0.2em] uppercase text-xs relative z-10">
+            Admin Portal
+          </p>
         </div>
-        
+
         <div className="p-10">
           <form onSubmit={handleLogin} className="flex flex-col gap-6">
             {error && (
@@ -47,11 +52,13 @@ export default function AdminLogin() {
                 {error}
               </div>
             )}
-            
+
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Email Address</label>
-              <input 
-                type="email" 
+              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">
+                Email Address
+              </label>
+              <input
+                type="email"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -60,11 +67,13 @@ export default function AdminLogin() {
                 required
               />
             </div>
-            
+
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Password</label>
-              <input 
-                type="password" 
+              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">
+                Password
+              </label>
+              <input
+                type="password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -73,8 +82,8 @@ export default function AdminLogin() {
                 required
               />
             </div>
-            
-            <button 
+
+            <button
               type="submit"
               disabled={isLoading}
               className="mt-4 w-full bg-[#0088ff] hover:bg-[#0070d6] text-white font-bold py-4 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,136,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,136,255,0.23)] hover:-translate-y-0.5 uppercase tracking-widest text-sm disabled:opacity-50 disabled:hover:translate-y-0 disabled:cursor-not-allowed"

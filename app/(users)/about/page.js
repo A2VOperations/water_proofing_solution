@@ -7,7 +7,7 @@ import { CONTACT_CONFIG } from "@/app/config";
 import TestimonialsSection from "@/app/components/Testimonials";
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade} from "swiper/modules";
+import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
@@ -15,9 +15,9 @@ import "swiper/css/pagination";
 const MILESTONES = [
   {
     year: "2010",
-    title: "Foundation of RWPC RAS CARE",
+    title: "Foundation of   RAS CARE",
     description:
-      "RWPC RAS CARE started its journey in 2010 with a clear vision to provide dependable waterproofing and leakage treatment solutions. The company began by handling residential and small commercial projects with a strong focus on quality workmanship and customer satisfaction.",
+      "  RAS CARE started its journey in 2010 with a clear vision to provide dependable waterproofing and leakage treatment solutions. The company began by handling residential and small commercial projects with a strong focus on quality workmanship and customer satisfaction.",
   },
   {
     year: "2014",
@@ -35,13 +35,13 @@ const MILESTONES = [
     year: "2020",
     title: "Serving Residential & Commercial Projects",
     description:
-      "By 2020, RWPC RAS CARE had successfully worked on a wide range of residential buildings, commercial spaces, offices, and property maintenance projects. Our practical experience helped us understand different site conditions and provide customized solutions for every client.",
+      "By 2020,   RAS CARE had successfully worked on a wide range of residential buildings, commercial spaces, offices, and property maintenance projects. Our practical experience helped us understand different site conditions and provide customized solutions for every client.",
   },
   {
     year: "2024",
     title: "15+ Years of Trusted Experience",
     description:
-      "Today, RWPC RAS CARE stands as a trusted name with over 15 years of experience in the waterproofing industry. We continue to provide reliable, cost-effective, and quality-driven waterproofing solutions designed to protect buildings for the long term.",
+      "Today,   RAS CARE stands as a trusted name with over 15 years of experience in the waterproofing industry. We continue to provide reliable, cost-effective, and quality-driven waterproofing solutions designed to protect buildings for the long term.",
   },
   {
     year: "2026",
@@ -85,7 +85,7 @@ const WORK_STEPS = [
 const TESTIMONIALS = [
   {
     quote:
-      "RWPC RAS CARE's terrace waterproofing saved our home from the heavy Mumbai rains. Their team was professional and the results are flawless!",
+      "  RAS CARE's terrace waterproofing saved our home from the heavy Mumbai rains. Their team was professional and the results are flawless!",
     name: "Rajesh Kumar",
     title: "HOMEOWNER, MUMBAI",
     rating: 5,
@@ -94,7 +94,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "We had persistent seepage issues in our office basement for years. RWPC RAS CARE's PU grouting solution fixed it in just two days.",
+      "We had persistent seepage issues in our office basement for years.   RAS CARE's PU grouting solution fixed it in just two days.",
     name: "Sneha Sharma",
     title: "FACILITY MANAGER, DELHI",
     rating: 5,
@@ -211,7 +211,9 @@ export default function About() {
             SINCE 2010
           </h1>
           <p className="text-gray-300 max-w-2xl text-[17px] font-medium leading-relaxed mb-12">
-            With<span className="text-2xl font-bold"> 15+ years </span> of industry experience, our journey reflects continuous improvement, technical expertise, and a strong commitment to protect structures.
+            With<span className="text-2xl font-bold"> 15+ years </span> of
+            industry experience, our journey reflects continuous improvement,
+            technical expertise, and a strong commitment to protect structures.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button
@@ -395,21 +397,19 @@ export default function About() {
                 }}
                 className="w-full h-[300px] md:h-[500px] aspect-video lg:aspect-4/5"
               >
-                {[
-                  "/about/office1.webp",
-                  "/about/office2.webp",
-        
-                ].map((src, idx) => (
-                  <SwiperSlide key={idx}>
-                    <Image
-                      src={src}
-                      alt={`Milestone phase ${idx + 1}`}
-                      width={1920}
-                      height={1080}
-                      className="w-full h-[300px] md:h-[500px] object-cover"
-                    />
-                  </SwiperSlide>
-                ))}
+                {["/about/office1.webp", "/about/office2.webp"].map(
+                  (src, idx) => (
+                    <SwiperSlide key={idx}>
+                      <Image
+                        src={src}
+                        alt={`Milestone phase ${idx + 1}`}
+                        width={1920}
+                        height={1080}
+                        className="w-full h-[300px] md:h-[500px] object-cover"
+                      />
+                    </SwiperSlide>
+                  ),
+                )}
               </Swiper>
               {/* Decorative overlay */}
               <div className="absolute inset-0 pointer-events-none bg-linear-to-t from-black/20 to-transparent"></div>
@@ -419,7 +419,12 @@ export default function About() {
           {/* Right Scrolling Column */}
           <div className="lg:w-1/2 flex flex-col gap-16 mt-4 lg:mt-0">
             <p className="text-gray-500 text-md md:text-lg font-medium leading-relaxed mb-2">
-              Waterproofing technology has evolved rapidly over the years, and at <strong>RWPC RAS CARE,</strong> we have grown with the same pace of innovation and quality. Since 2010, we have been working in the waterproofing and structural protection industry, delivering reliable, long-lasting, and need-based solutions for residential, commercial, and industrial clients.
+              Waterproofing technology has evolved rapidly over the years, and
+              at <strong> RAS CARE,</strong> we have grown with the same pace of
+              innovation and quality. Since 2010, we have been working in the
+              waterproofing and structural protection industry, delivering
+              reliable, long-lasting, and need-based solutions for residential,
+              commercial, and industrial clients.
             </p>
 
             <div className="flex flex-col gap-14">

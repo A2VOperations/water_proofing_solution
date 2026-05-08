@@ -8,26 +8,52 @@ import { CONTACT_CONFIG } from "@/app/config";
 const USEFUL_LINKS_COL1 = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-   { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/contact" },
   { label: "Work", href: "/work" },
   { label: "Blog", href: "/blog" },
 ];
 
 const USEFUL_LINKS_COL2 = [
-  { label: "Guniting Waterproofing", href: "/services/guniting-waterproofing-service" },
-  { label: "Terrace Waterproofing", href: "/services/terrace-waterproofing-service" },
-  { label: "Flooring Waterproofing", href: "/services/flooring-waterproofing-service" },
-  { label: "Basement Waterproofing", href: "/services/basement-waterproofing-service" },
-  { label: "Exterior Wall Waterproofing", href: "/services/exterior-wall-waterproofing-services" },
+  {
+    label: "Guniting Waterproofing",
+    href: "/services/guniting-waterproofing-service",
+  },
+  {
+    label: "Terrace Waterproofing",
+    href: "/services/terrace-waterproofing-service",
+  },
+  {
+    label: "Flooring Waterproofing",
+    href: "/services/flooring-waterproofing-service",
+  },
+  {
+    label: "Basement Waterproofing",
+    href: "/services/basement-waterproofing-service",
+  },
+  {
+    label: "Exterior Wall Waterproofing",
+    href: "/services/exterior-wall-waterproofing-services",
+  },
 ];
 
 const USEFUL_LINKS_COL3 = [
-  { label: "Chemical Waterproofing", href: "/services/chemical-waterproofing-service" },
-  { label: "Bathroom Sealing", href: "/services/bathroom-waterproofing-services" },
-  { label: "Polymer Waterproofing", href: "/services/polymer-waterproofing-services" },
-  { label: "Cementitious Waterproofing", href: "/services/cementitious-waterproofing-services" },
+  {
+    label: "Chemical Waterproofing",
+    href: "/services/chemical-waterproofing-service",
+  },
+  {
+    label: "Bathroom Sealing",
+    href: "/services/bathroom-waterproofing-services",
+  },
+  {
+    label: "Polymer Waterproofing",
+    href: "/services/polymer-waterproofing-services",
+  },
+  {
+    label: "Cementitious Waterproofing",
+    href: "/services/cementitious-waterproofing-services",
+  },
 ];
-
 
 export default function Footer() {
   const [name, setName] = useState("");
@@ -48,7 +74,9 @@ export default function Footer() {
     if (name.trim()) {
       const number = adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp;
       const cleanNumber = number.replace(/\D/g, "");
-      const message = encodeURIComponent(`Hello! My name is ${name}. I'm interested in your waterproofing services.`);
+      const message = encodeURIComponent(
+        `Hello! My name is ${name}. I'm interested in your waterproofing services.`,
+      );
       window.open(`https://wa.me/${cleanNumber}?text=${message}`, "_blank");
       setName("");
     }
@@ -128,7 +156,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <span className="text-white text-[28px] font-bold tracking-wide">
-                  RWPC RAS CARE
+                  RAS CARE
                 </span>
               </Link>
             </div>
@@ -214,7 +242,6 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-
           </div>
 
           {/* ── RIGHT COLUMN ── */}
@@ -243,9 +270,7 @@ export default function Footer() {
                     type="submit"
                     className="absolute right-[4px] top-[4px] bottom-[4px] bg-[#25D366] text-white rounded-full px-4 sm:px-6 font-bold flex items-center gap-2 hover:bg-[#1ebd5b] transition-colors whitespace-nowrap text-xs sm:text-sm shadow-lg"
                   >
-                    <span className="hidden sm:inline">
-                      WhatsApp Me
-                    </span>
+                    <span className="hidden sm:inline">WhatsApp Me</span>
                     <svg
                       width="18"
                       height="18"
@@ -281,7 +306,7 @@ export default function Footer() {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col items-center sm:items-start gap-4">
                     <h4 className="text-white text-[14px] font-bold tracking-[0.1em] uppercase mb-2 flex items-center justify-center sm:justify-start gap-2">
                       Our Services
@@ -314,7 +339,6 @@ export default function Footer() {
                     </div>
                   </div>
                 </div>
-
               </div>
 
               {/* Say Hello */}
@@ -325,7 +349,9 @@ export default function Footer() {
                 </h4>
                 <div className="flex flex-col gap-6 items-center lg:items-start w-full">
                   <div className="flex flex-col items-center lg:items-start gap-1">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Email Us</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">
+                      Email Us
+                    </span>
                     <a
                       href={`mailto:${adminDetails?.email || CONTACT_CONFIG.email}`}
                       className="text-gray-300 hover:text-[#0088ff] transition-all duration-300 text-[15px] font-medium border-b border-white/10 hover:border-[#0088ff]/50 pb-1"
@@ -333,9 +359,11 @@ export default function Footer() {
                       {adminDetails?.email || CONTACT_CONFIG.email}
                     </a>
                   </div>
-                  
+
                   <div className="flex flex-col items-center lg:items-start gap-1">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Call Us</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">
+                      Call Us
+                    </span>
                     <a
                       href={`tel:${adminDetails?.numbers?.[0] || CONTACT_CONFIG.whatsapp}`}
                       className="text-white text-[24px] font-bold tracking-tight hover:text-[#0088ff] transition-all duration-300"
@@ -345,9 +373,7 @@ export default function Footer() {
                   </div>
                 </div>
               </div>
-
             </div>
-
           </div>
         </div>
       </div>

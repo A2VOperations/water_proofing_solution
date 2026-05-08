@@ -249,7 +249,7 @@ export default function Hero() {
             ref={heroTextRef}
             className="mt-6 text-lg text-white/75 max-w-2xl leading-relaxed"
           >
-            From the roof over your head to the foundation below, RWPC RAS CARE
+            From the roof over your head to the foundation below, RAS CARE
             provides end-to-end waterproofing for every Indian home
           </p>
         </div>
