@@ -129,7 +129,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-16">
           {/* ── LEFT COLUMN ── */}
           <div className="lg:w-[25%] flex flex-col justify-between h-full min-h-[250px] items-center lg:items-start text-center lg:text-left">
-            <div className="mb-12 lg:mb-0 pt-2">
+            <div className="mb-16 lg:mb-12">
               <Link
                 href="/"
                 className="flex items-center gap-3 decoration-transparent"
@@ -222,6 +222,15 @@ export default function Footer() {
                   {icon}
                 </a>
               ))}
+            </div>
+
+            <div className="flex flex-col w-full text-center lg:text-left gap-3 mt-8 lg:mt-6 text-[13px] text-gray-400 font-medium">
+              <Link href="/terms" className="hover:text-white transition-colors">
+                Terms and conditions
+              </Link>
+              <Link href="/privacy" className="hover:text-white transition-colors">
+                Privacy policy
+              </Link>
             </div>
           </div>
 
@@ -361,22 +370,10 @@ export default function Footer() {
 
       {/* ── BOTTOM BAR ── */}
       <div className="w-full px-4 sm:px-8 relative z-10 pb-0">
-        <div className="max-w-7xl mx-auto bg-white rounded-t-[24px] px-8 py-5 flex flex-col sm:flex-row justify-between items-center text-[13px] text-gray-500 shadow-lg">
-          <Link
-            href="/terms"
-            className="hover:text-gray-900 transition-colors mb-2 sm:mb-0"
-          >
-            Terms and conditions
-          </Link>
-          <p className="m-0 mb-2 sm:mb-0">
+        <div className="max-w-7xl mx-auto bg-white rounded-t-[24px] px-8 py-5 flex justify-center items-center text-[13px] text-gray-500 shadow-lg">
+          <p className="m-0 font-medium">
             © 2026 {adminDetails?.companyTitle || CONTACT_CONFIG.companyTitle}
           </p>
-          <Link
-            href="/privacy"
-            className="hover:text-gray-900 transition-colors"
-          >
-            Privacy policy
-          </Link>
         </div>
       </div>
     </footer>
