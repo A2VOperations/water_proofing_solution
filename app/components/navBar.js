@@ -276,20 +276,16 @@ export default function Navbar() {
         >
           <div className="px-2 flex items-center justify-between h-18">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 shrink-0">
-              <span
-                className="text-2xl pl-5 font-black tracking-tighter transition-colors duration-300"
-                style={{
-                  color:
-                    scrolled || isServicesActive || !isTransparentPage
-                      ? "#0088ff"
-                      : "#ffffff",
-                  fontFamily: "Georgia, serif",
-                  letterSpacing: "-0.03em",
-                }}
-              >
-                Rooflêt
-              </span>
+            <Link href="/" className="flex items-center gap-2 shrink-0 pl-3 md:pl-5">
+              <img
+                src={
+                  scrolled || isServicesActive || !isTransparentPage
+                    ? "/logo.png"
+                    : "/logo2.png"
+                }
+                alt="Logo"
+                className="h-[35px] md:h-[65px] w-auto object-contain transition-all duration-300"
+              />
             </Link>
 
             {/* Desktop Nav */}
