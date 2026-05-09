@@ -284,7 +284,11 @@ export default function Navbar() {
                     : "/logo2.png"
                 }
                 alt="Logo"
-                className="h-[35px] md:h-[65px] w-auto object-contain transition-all duration-300"
+                className={`w-auto object-contain transition-all duration-300 ${
+                  scrolled || isServicesActive || !isTransparentPage
+                    ? "h-[65px] md:h-[65px]"
+                    : "h-[95px] md:h-[95px]"
+                }`}
               />
             </Link>
 
