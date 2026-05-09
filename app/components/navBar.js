@@ -7,6 +7,7 @@ import {
   getAllServicesAction,
   getAdminDetailsAction,
 } from "@/app/actions/admin";
+import { CONTACT_CONFIG } from "@/app/config";
 
 const NAV_LINKS = [
   { label: "HOME", href: "/" },
@@ -521,7 +522,7 @@ export default function Navbar() {
                   }}
                 >
                   <a
-                    href={`tel:${adminDetails?.numbers?.[0] || "+1800000000"}`}
+                    href={`tel:${adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}`}
                     className=" flex items-center gap-1.5 font-bold"
                     style={{ fontSize: "12px", color: "#0088ff" }}
                   >
@@ -534,7 +535,7 @@ export default function Navbar() {
                     >
                       <path d="M2 3a1 1 0 0 1 1-1h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a1 1 0 0 1-1 1C8 18 2 12 2 3z" />
                     </svg>
-                    {adminDetails?.numbers?.[0] || "+1 800 000 0000"}
+                    {adminDetails?.numbers?.[0] || CONTACT_CONFIG.phone}
                   </a>
                 </div>
               </div>
