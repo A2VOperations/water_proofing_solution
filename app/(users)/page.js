@@ -13,6 +13,7 @@ import InfiniteMarquee from "../components/InfiniteMarquee";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import TechnicalProof from "../components/TechnicalProof";
 import TrustBadges from "../components/TrustBadges";
+import Youtube from "../components/Youtube";
 
 export default function Home() {
   return (
@@ -37,8 +38,9 @@ export default function Home() {
 
       <Section7 />
       <Section3 />
-
+      
       <BlogSection />
+      <Youtube />
     </>
   );
 }

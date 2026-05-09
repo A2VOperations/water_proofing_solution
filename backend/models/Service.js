@@ -34,6 +34,10 @@ const ServiceSchema = new mongoose.Schema({
   faq: {
     type: [FaqSchema],
     default: [],
+  },
+  youtubeLinks: {
+    type: [String],
+    default: [],
   }
 }, { timestamps: true });
 
