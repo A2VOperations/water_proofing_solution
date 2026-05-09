@@ -14,7 +14,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import Youtube from "@/app/components/Youtube";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -207,7 +207,7 @@ export default function Work() {
 
 
   return (
-    <main className="bg-white font-sans text-gray-900 pt-24 sm:pt-32 pb-5 sm:pb-24 overflow-x-hidden">
+    <main className="bg-white font-sans text-gray-900 pt-24 sm:pt-32 overflow-x-hidden">
       {/* ── HEADER ── */}
       <section className="max-w-5xl mx-auto px-6 text-center  mt-4 sm:mt-10 font-display">
         <div className="inline-block border border-gray-200 rounded-full px-4 py-1.5 text-[9px] sm:text-[10px] font-black tracking-[0.2em] text-[#0088ff] mb-4 sm:mb-6 uppercase bg-gray-50/50">
@@ -515,6 +515,7 @@ export default function Work() {
           </div>
         </div>
       </section>
+      <Youtube/>
     </main>
   );
 }
@@ -592,6 +593,7 @@ function BentoItem({ work, className, placeholder, featured = false }) {
           </p>
         )}
       </div>
+      
     </div>
   );
 }

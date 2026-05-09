@@ -282,8 +282,8 @@ export default function ServiceDetail() {
                                 </div>
                             </section>
 
-                            {/* Service Gallery - Show All Images */}
-                            {service.photos?.length > 0 && (
+                            {/* Combined Service Gallery - Videos and Photos */}
+                            {(service.photos?.length > 0 || (service.youtubeLinks && service.youtubeLinks.some(l => l.trim()))) && (
                                 <section>
                                     <div className="flex items-center gap-4 mb-10">
                                         <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500">
@@ -292,9 +292,29 @@ export default function ServiceDetail() {
                                         <h2 className="text-xs font-black uppercase tracking-[0.3em] text-gray-400">Project Gallery</h2>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                        {service.photos.map((photo, i) => (
+                                        {/* Videos First */}
+                                        {service.youtubeLinks?.filter(l => l.trim()).map((link, i) => {
+                                            const match = link.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+                                            const videoId = match ? match[1] : null;
+                                            if (!videoId) return null;
+                                            return (
+                                                <div key={`video-${i}`} className="relative aspect-[4/3] rounded-[32px] overflow-hidden shadow-lg bg-black group border border-gray-100">
+                                                    <iframe
+                                                        className="absolute top-0 left-0 w-full h-full"
+                                                        src={`https://www.youtube.com/embed/${videoId}?rel=0`}
+                                                        title={`YouTube video player ${i}`}
+                                                        frameBorder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    ></iframe>
+                                                </div>
+                                            );
+                                        })}
+
+                                        {/* Photos Second */}
+                                        {service.photos?.map((photo, i) => (
                                             <div 
-                                                key={i} 
+                                                key={`photo-${i}`} 
                                                 onClick={() => setSelectedIndex(i)}
                                                 className="relative aspect-[4/3] rounded-[32px] overflow-hidden group shadow-lg cursor-zoom-in"
                                             >
@@ -465,6 +485,9 @@ export default function ServiceDetail() {
 
             {/* Custom Global Styles for the parsed content */}
             <style jsx global>{`
+                .custom-video-swiper .swiper-pagination-bullet-active {
+                    background: #0088ff !important;
+                }
                 .service-content h3 {
                     line-height: 1.1;
                     letter-spacing: -0.02em;

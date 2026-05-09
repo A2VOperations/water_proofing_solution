@@ -453,3 +453,83 @@ export async function updateWorkAction(workId, workData) {
         return { error: "Failed to update work entry" };
     }
 }
+
+
+async function getFallbackVideos() {
+    try {
+        await dbConnect();
+        const services = await Service.find({ "youtubeLinks.0": { $exists: true } });
+        const works = await Work.find({ "youtubeLinks.0": { $exists: true } });
+        let allLinks = [];
+        
+        services.forEach(s => {
+            if (s.youtubeLinks && Array.isArray(s.youtubeLinks)) {
+                allLinks = allLinks.concat(s.youtubeLinks);
+            }
+        });
+        works.forEach(w => {
+            if (w.youtubeLinks && Array.isArray(w.youtubeLinks)) {
+                allLinks = allLinks.concat(w.youtubeLinks);
+            }
+        });
+        
+        const extractId = (url) => {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        };
+
+        const ids = allLinks.map(extractId).filter(Boolean);
+        
+        if (ids.length === 0) {
+            return { error: "No videos found and no fallback videos available" };
+        }
+        
+        return { success: true, ids, isFallback: true };
+    } catch (err) {
+        console.error("Fallback video fetch error:", err);
+        return { error: "Failed to fetch fallback videos" };
+    }
+}
+
+export async function getYoutubeShortsAction() {
+    try {
+        const API_KEY    = process.env.YOUTUBE_API_KEY || "AIzaSyBy8AzD0AfG02YkVzK5_6aMSsAm17D01rI";
+        const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || "UCCxU8GpGP4vxifLqs0TC3OQ";
+
+        if (!API_KEY || !CHANNEL_ID) {
+            console.error("YouTube API key or Channel ID not configured, using fallback.");
+            return await getFallbackVideos();
+        }
+
+        const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&type=video&maxResults=15&order=date&videoDuration=short`;
+
+        console.log("Fetching YouTube URL:", url);
+
+        const res = await fetch(url, { cache: "no-store" });
+
+        const data = await res.json();
+
+        console.log("YouTube API raw response:", JSON.stringify(data, null, 2));
+
+        if (data.error || !res.ok) {
+            console.error("YouTube API error details or not ok, using fallback:", data.error || res.status);
+            return await getFallbackVideos();
+        }
+
+        const ids = data.items?.map((item) => item.id?.videoId).filter(Boolean) ?? [];
+
+        console.log("Extracted video IDs:", ids);
+
+        if (!ids.length) {
+             console.log("No shorts found via API, using fallback.");
+             return await getFallbackVideos();
+        }
+
+        return { success: true, ids };
+    } catch (error) {
+        console.error("Get YouTube Shorts Error, using fallback:", error);
+        return await getFallbackVideos();
+    }
+}

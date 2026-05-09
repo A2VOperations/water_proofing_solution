@@ -12,6 +12,7 @@ export default function AddServices() {
     description: "",
     isHeroProduct: "no",
     photos: [""],
+    youtubeLinks: [""],
     faq: [{ question: "", answer: "" }],
   });
 
@@ -28,6 +29,17 @@ export default function AddServices() {
   const handleRemovePhoto = (index) => {
     const newPhotos = formData.photos.filter((_, i) => i !== index);
     setFormData({ ...formData, photos: newPhotos });
+  };
+
+  const handleAddYoutubeLink = () => setFormData({ ...formData, youtubeLinks: [...formData.youtubeLinks, ""] });
+  const handleYoutubeLinkChange = (index, value) => {
+    const newLinks = [...formData.youtubeLinks];
+    newLinks[index] = value;
+    setFormData({ ...formData, youtubeLinks: newLinks });
+  };
+  const handleRemoveYoutubeLink = (index) => {
+    const newLinks = formData.youtubeLinks.filter((_, i) => i !== index);
+    setFormData({ ...formData, youtubeLinks: newLinks });
   };
 
   const handleAddFaq = () => setFormData({ ...formData, faq: [...formData.faq, { question: "", answer: "" }] });
@@ -66,9 +78,12 @@ export default function AddServices() {
       return;
     }
 
+    const validYoutubeLinks = formData.youtubeLinks.filter(link => link && link.trim() !== "");
+
     const submissionData = {
       ...formData,
       photos: validPhotos,
+      youtubeLinks: validYoutubeLinks,
       faq: validFaq
     };
 
@@ -78,7 +93,7 @@ export default function AddServices() {
       setError(result.error);
     } else {
       setIsSaved(true);
-      setFormData({ title: "", category: "Residential Solutions", description: "", photos: [""], faq: [{ question: "", answer: "" }] });
+      setFormData({ title: "", category: "Residential Solutions", description: "", photos: [""], youtubeLinks: [""], faq: [{ question: "", answer: "" }] });
       setTimeout(() => router.push('/admin/services'), 1000);
     }
     setIsLoading(false);
@@ -193,6 +208,43 @@ export default function AddServices() {
               >
                 <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
                 <span className="text-xs font-bold mt-2 uppercase tracking-widest">Add Another Slot</span>
+              </button>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-[#0088ff] text-xs font-black tracking-widest uppercase mb-6 pb-4 border-b border-gray-100 flex items-center gap-2">
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+              YouTube Video Links
+            </h2>
+            <div className="flex flex-col gap-4">
+              {formData.youtubeLinks.map((link, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <input 
+                    type="url" 
+                    value={link}
+                    onChange={(e) => handleYoutubeLinkChange(i, e.target.value)}
+                    className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 outline-none focus:border-[#0088ff] focus:bg-white focus:ring-4 focus:ring-[#0088ff]/10 transition-all font-medium text-gray-900"
+                    placeholder="https://youtube.com/watch?v=..."
+                  />
+                  {formData.youtubeLinks.length > 1 && (
+                    <button 
+                      type="button" 
+                      onClick={() => handleRemoveYoutubeLink(i)}
+                      className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all shrink-0"
+                    >
+                      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button 
+                type="button"
+                onClick={handleAddYoutubeLink}
+                className="self-start flex items-center gap-2 text-sm font-bold text-[#0088ff] hover:bg-[#0088ff] hover:text-white transition-colors bg-[#0088ff]/5 px-6 py-3.5 rounded-xl border border-[#0088ff]/20 mt-2"
+              >
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
+                Add Another Video
               </button>
             </div>
           </section>
