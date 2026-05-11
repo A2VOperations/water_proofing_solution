@@ -274,7 +274,7 @@ export default function Navbar() {
               : "bg-transparent border-transparent"
           }`}
         >
-          <div className="px-2 flex items-center justify-between h-18">
+          <div className="px-2 flex items-center justify-between h-22">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 shrink-0 pl-3 md:pl-5">
               <img
@@ -286,8 +286,8 @@ export default function Navbar() {
                 alt="Logo"
                 className={`w-auto object-contain transition-all duration-300 ${
                   scrolled || isServicesActive || !isTransparentPage
-                    ? "h-[65px] md:h-[65px]"
-                    : "h-[95px] md:h-[95px]"
+                    ? "h-[70px] md:h-[70px]"
+                    : "h-[75px] md:h-[95px]"
                 }`}
               />
             </Link>
