@@ -43,13 +43,13 @@ export default function VideoCarousel() {
   // ── Fetch latest videos from channel ────────────────────
   useEffect(() => {
     getYoutubeShortsAction().then((data) => {
-      if (data.ids?.length) {
-        setReelIds(data.ids);
-        setError(null);
-      } else {
-        setReelIds(FALLBACK_IDS);
-        setError(data.error || "No videos found");
-      }
+      const ids = data.ids?.length ? data.ids : FALLBACK_IDS;
+      setReelIds(ids);
+      if (!data.ids?.length) setError(data.error || "No videos found");
+      else setError(null);
+      
+      const middle = Math.floor(ids.length / 2);
+      setActiveIndex(middle);
       setLoading(false);
     });
   }, []);
@@ -75,7 +75,7 @@ export default function VideoCarousel() {
       playerRefs.current[i] = new window.YT.Player(`yt-player-${i}`, {
         videoId: id,
         playerVars: {
-          autoplay:       i === 0 ? 1 : 0,
+          autoplay:       i === Math.floor(reelIds.length / 2) ? 1 : 0,
           mute:           1,
           controls:       0,
           modestbranding: 1,
@@ -98,6 +98,15 @@ export default function VideoCarousel() {
     });
   }, [reelIds]);
 
+  const scrollToIndex = useCallback((index) => {
+    const track = trackRef.current;
+    const card  = cardRefs.current[index];
+    if (!track || !card) return;
+    const offset =
+      card.offsetLeft - track.scrollLeft - track.clientWidth / 2 + card.offsetWidth / 2;
+    track.scrollBy({ left: offset, behavior: "smooth" });
+  }, []);
+
   useEffect(() => {
     scrollToIndex(activeIndex);
     playerRefs.current.forEach((player, i) => {
@@ -113,18 +122,13 @@ export default function VideoCarousel() {
   }, [activeIndex]);
 
   useEffect(() => {
-    const t = setTimeout(() => scrollToIndex(0), 150);
+    if (reelIds.length === 0) return;
+    const middle = Math.floor(reelIds.length / 2);
+    const t = setTimeout(() => scrollToIndex(middle), 150);
     return () => clearTimeout(t);
-  }, [reelIds]);
+  }, [reelIds, scrollToIndex]);
 
-  const scrollToIndex = useCallback((index) => {
-    const track = trackRef.current;
-    const card  = cardRefs.current[index];
-    if (!track || !card) return;
-    const offset =
-      card.offsetLeft - track.scrollLeft - track.clientWidth / 2 + card.offsetWidth / 2;
-    track.scrollBy({ left: offset, behavior: "smooth" });
-  }, []);
+
 
   const goPrev = useCallback(() => {
     setActiveIndex((i) => (i > 0 ? i - 1 : reelIds.length - 1));
