@@ -276,7 +276,7 @@ export default function Navbar() {
         >
           <div className="px-2 flex items-center justify-between h-22">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 shrink-0 pl-3 md:pl-5">
+            <Link href="/" className="flex items-center gap-2 shrink-0 pl-3 lg:pl-5">
               <img
                 src={
                   scrolled || isServicesActive || !isTransparentPage
@@ -286,14 +286,14 @@ export default function Navbar() {
                 alt="Logo"
                 className={`w-auto object-contain transition-all duration-300 ${
                   scrolled || isServicesActive || !isTransparentPage
-                    ? "h-[70px] md:h-[70px]"
-                    : "h-[75px] md:h-[95px]"
+                    ? "h-[70px] lg:h-[70px]"
+                    : "h-[75px] lg:h-[95px]"
                 }`}
               />
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1">
               {NAV_LINKS.map((link) =>
                 link.hasMega ? (
                   <button
@@ -386,7 +386,7 @@ export default function Navbar() {
             {/* CTA */}
             <Link
               href="/contact"
-              className="hidden md:flex items-center gap-2 transition-all text-white font-bold tracking-widest px-5 py-5 uppercase rounded-lg"
+              className="hidden lg:flex items-center gap-2 transition-all text-white font-bold tracking-widest px-5 py-5 uppercase rounded-lg"
               style={{
                 fontSize: "14px",
                 backgroundColor: "#0088ff",
@@ -404,7 +404,7 @@ export default function Navbar() {
 
             {/* Mobile Hamburger */}
             <button
-              className="md:hidden flex flex-col gap-1.5 p-2 ml-auto"
+              className="lg:hidden flex flex-col gap-1.5 p-2 ml-auto"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -423,7 +423,7 @@ export default function Navbar() {
 
         {/* ── DESKTOP MEGA MENU ── */}
         <div
-          className={`absolute left-0 right-0 top-full hidden md:block transition-all duration-300 ease-out ${
+          className={`absolute left-0 right-0 top-full hidden lg:block transition-all duration-300 ease-out ${
             megaOpen
               ? "opacity-100 translate-y-0 pointer-events-auto"
               : "opacity-0 -translate-y-2 pointer-events-none"
@@ -700,7 +700,7 @@ export default function Navbar() {
 
         {/* ── MOBILE MENU ── */}
         <div
-          className={`md:hidden overflow-y-auto transition-all duration-300 ease-in-out ${
+          className={`lg:hidden overflow-y-auto transition-all duration-300 ease-in-out ${
             menuOpen ? "max-h-[85vh] opacity-100" : "max-h-0 opacity-0"
           }`}
         >

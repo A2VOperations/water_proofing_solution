@@ -65,8 +65,7 @@ const Testimonials = () => {
           */}
           <div
             ref={containerRef}
-            className="elfsight-app-ebeacab4-832b-4bc2-9dcd-6eeefd1a5511"
-            // Remove data-elfsight-app-lazy so it loads eagerly, not on scroll/visibility
+            // className="elfsight-app-ebeacab4-832b-4bc2-9dcd-6eeefd1a5511"
             style={
               elfsightReady
                 ? { position: "static" }
